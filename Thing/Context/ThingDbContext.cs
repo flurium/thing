@@ -10,5 +10,17 @@ namespace Thing.Context
         {
             Database.EnsureCreated();
         }
+
+        protected void OnOrderCreating(ModelBuilder builder)
+        {
+            builder.Entity<Order>().HasKey(o => new { o.UserId, o.ProductId });
+            builder.Entity<Order>().HasOne<Product>(o => o.Product).WithMany(p => p.Orders).HasForeignKey(o => o.ProductId);
+        }
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            OnOrderCreating(builder);
+        }
     }
 }
