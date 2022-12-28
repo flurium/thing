@@ -10,10 +10,12 @@ namespace Thing.Context
         {
             Database.EnsureCreated();
         }
+
+        // DbSets
+        public DbSet<Category> Categories { get; set; }
         
         public DbSet<Comment> Comments { get; set; }
 
-        // DbSets
         public DbSet<Order> Orders { get; set; }
 
         // Models Creating
@@ -22,6 +24,8 @@ namespace Thing.Context
             base.OnModelCreating(builder);
             OnOrderCreating(builder);
             OnCommentCreating(builder);
+            
+            modelBuilder.Entity<Category>().HasMany<ProductCategory>(x => x.Category);
         }
         
         private void OnCommentCreating(ModelBuilder modelBuilder)
