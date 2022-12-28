@@ -10,5 +10,12 @@ namespace Thing.Context
         {
             Database.EnsureCreated();
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Category>().HasMany<ProductCategory>(x => x.Category);
+        }
+
+        public DbSet<Category> Categories { get; set; }
     }
 }

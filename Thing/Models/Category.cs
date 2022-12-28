@@ -1,6 +1,6 @@
 ﻿using System.Net.Http.Headers;
 
-namespace CarsCore.Models
+namespace Thing.Models
 {
     public class Category
     {
