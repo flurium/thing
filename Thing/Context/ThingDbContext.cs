@@ -18,22 +18,24 @@ namespace Thing.Context
 
         public DbSet<Order> Orders { get; set; }
 
+
         // Models Creating
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
             OnOrderCreating(builder);
             OnCommentCreating(builder);
-            
-            modelBuilder.Entity<Category>().HasMany<ProductCategory>(x => x.Category);
+
+            builder.Entity<ProductCategory>().HasOne<Category>(x => x.Category).WithMany(x => x.ProductCategories).HasForeignKey(x => x.CategoryId);
+            builder.Entity<ProductCategory>().HasOne<Product>(x => x.Product).WithMany(x => x.ProductCategories).HasForeignKey(x => x.ProductId);
         }
         
-        private void OnCommentCreating(ModelBuilder modelBuilder)
+        private void OnCommentCreating(ModelBuilder builder)
         {
-            modelBuilder.Entity<Comment>().HasOne<Product>(x => x.Product).WithMany(x => x.Comments).HasForeignKey(x => x.ProductId);
-            modelBuilder.Entity<Comment>().HasOne<User>(x => x.User).WithMany(x => x.Comments).HasForeignKey(x => x.UserId);
-            modelBuilder.Entity<Comment>().Property(p => p.Summary).HasColumnType("nchar(300)");
-            modelBuilder.Entity<Comment>().Property(p => p.CommentDate).HasColumnType("date").HasDefaultValue(DateTime.Now); ;
+            builder.Entity<Comment>().HasOne<Product>(x => x.Product).WithMany(x => x.Comments).HasForeignKey(x => x.ProductId);
+            builder.Entity<Comment>().HasOne<User>(x => x.User).WithMany(x => x.Comments).HasForeignKey(x => x.UserId);
+            builder.Entity<Comment>().Property(p => p.Summary).HasColumnType("nchar(300)");
+            builder.Entity<Comment>().Property(p => p.CommentDate).HasColumnType("date").HasDefaultValue(DateTime.Now); ;
         }
 
         protected void OnOrderCreating(ModelBuilder builder)

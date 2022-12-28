@@ -1,4 +1,5 @@
-﻿using Thing.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using Thing.Context;
 using Thing.Models;
 using Thing.Repository.Interfaces;
 
@@ -11,9 +12,11 @@ namespace Thing.Repository
 
         }
 
-        public Task Delete(int Id)
+        public async Task Delete(int Id)
         {
-            throw new NotImplementedException();
+            var category = await Entities.FirstOrDefaultAsync(c => c.Id == Id).ConfigureAwait(false);
+            if (category != null) Entities.Remove(category);
+            _db.SaveChanges();
         }
     }
 }

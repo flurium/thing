@@ -23,6 +23,5 @@ namespace Thing.Repository
             _db.SaveChanges();
         }
 
-
     }
 }
