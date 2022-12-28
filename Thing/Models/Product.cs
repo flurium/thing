@@ -9,5 +9,8 @@
         public string Status { get;  set; }
 
         public List<ProductCategory> ProductCategories { get; set; }
+
+        public ICollection<Order> Orders{ get; set;}
+
     }
 }
