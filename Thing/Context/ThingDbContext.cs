@@ -11,6 +11,19 @@ namespace Thing.Context
             Database.EnsureCreated();
         }
 
+        public DbSet<Product> Products { get; set; }
+
+
+        private void Productfunc()
+        {
+           /*
+            modelBuilder.Entity<ProductCategory>().HasKey(x => new { x.ProductId, x.CategoryId });
+            modelBuilder.Entity<Product>().HasMany<ProductCategory>(x => x.ProductCategories);
+            modelBuilder.Entity<Product>().Property(p => p.Description).HasColumnType("nchar(300)");
+            modelBuilder.Entity<Product>().Property(p => p.Price).HasColumnType("money");
+           */
+        }
+        
         // DbSets
         public DbSet<Category> Categories { get; set; }
         
