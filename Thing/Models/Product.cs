@@ -2,5 +2,6 @@
 {
     public class Product
     {
+        public ICollection<Order> Orders{ get; set;}
     }
 }
