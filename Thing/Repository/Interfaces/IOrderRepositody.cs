@@ -2,7 +2,7 @@
 
 namespace Thing.Repository.Interfaces
 {
-    public interface IOrderRepositody: IRepository<Order>
+    public interface IOrderRepositody : IRepository<Order>
     {
         Task DeleteAsync(string userId, int productId);
     }

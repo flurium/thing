@@ -10,6 +10,7 @@
 
         // "INCART", "PAID"
         public string State { get; set; }
+
         public int Count { get; set; }
     }
 }

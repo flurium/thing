@@ -9,7 +9,6 @@ namespace Thing.Repository
     {
         public CategoryRepository(ThingDbContext context) : base(context)
         {
-
         }
 
         public async Task Delete(int Id)

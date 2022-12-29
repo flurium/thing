@@ -1,7 +1,5 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Thing.Context;
-using Thing.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
