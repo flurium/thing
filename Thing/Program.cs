@@ -1,7 +1,20 @@
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Thing.Context;
+using Thing.Models;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// DB
+var connectionString = builder.Configuration.GetConnectionString("Local");
+builder.Services.AddDbContext<ThingDbContext>(options => options.UseSqlServer(connectionString));
+
+// AUTH
+// builder.Services.AddIdentity<User, IdentityRole>(options => options.SignIn.RequireConfirmedEmail = true)
+//    .AddEntityFrameworkStores<ThingDbContext>();
 
 var app = builder.Build();
 
@@ -18,6 +31,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+//app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
