@@ -24,7 +24,6 @@ namespace Thing.Context
         public DbSet<CommentImage> CommentImages { get; set; }
 
         public DbSet<ProductImage> ProductImages { get; set; }
-        public DbSet<ProductCategory> ProductCategories { get; set; }
         public DbSet<Answer> Answers { get; set; }
         public DbSet<Favorite> Favorites { get; set; }
         public DbSet<CategoryProperty> CategoryProperties { get; set; }
