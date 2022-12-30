@@ -1,4 +1,4 @@
-namespace Thing.Models.View
+namespace Thing.Models
 {
     public class ErrorViewModel
     {
