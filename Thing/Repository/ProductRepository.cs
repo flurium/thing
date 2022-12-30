@@ -5,8 +5,7 @@ using Thing.Repository.Interfaces;
 
 namespace Thing.Repository
 {
-    // MADE BY MARIA
-    public class ProductRepository : BaseRepository<Product>, IPtoductRepository
+    public class ProductRepository : BaseRepository<Product>, IProductRepository
     {
         public ProductRepository(ThingDbContext context) : base(context)
         {
