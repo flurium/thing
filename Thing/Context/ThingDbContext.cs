@@ -20,6 +20,8 @@ namespace Thing.Context
 
         public DbSet<Order> Orders { get; set; }
 
+        public DbSet<CommentImage> CommentImages { get; set; }
+
         // Models Creating
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -51,15 +53,15 @@ namespace Thing.Context
             // Comment
             builder.Entity<Comment>().HasKey(c => c.Id);
             builder.Entity<Comment>().HasOne(c => c.Product).WithMany(p => p.Comments).HasForeignKey(c => c.ProductId);
-            builder.Entity<Comment>().HasOne(c => c.User).WithMany(u => u.Comments).OnDelete(DeleteBehavior.NoAction).HasForeignKey(c => c.UserId);
+            builder.Entity<Comment>().HasOne(c => c.User).WithMany(u => u.Comments).OnDelete(DeleteBehavior.NoAction).HasForeignKey(c => c.UserId).IsRequired(false);
             builder.Entity<Comment>().Property(c => c.Content).HasColumnType("nchar(300)");
             builder.Entity<Comment>().Property(c => c.Date).HasColumnType("date").HasDefaultValue(DateTime.Now); ;
 
             // Answer
             builder.Entity<Answer>().HasKey(a => a.Id);
-            builder.Entity<Answer>().HasOne(a => a.User).WithMany(u => u.Answers).HasForeignKey(a => a.UserId);
+            builder.Entity<Answer>().HasOne(a => a.User).WithMany(u => u.Answers).HasForeignKey(a => a.UserId).IsRequired(false);
             builder.Entity<Answer>().HasOne(a => a.Comment).WithMany(c => c.Answers).HasForeignKey(a => a.CommentId);
-
+           
             // Favorite
             builder.Entity<Favorite>().HasKey(f => new { f.UserId, f.ProductId });
             builder.Entity<Favorite>().HasOne(f => f.User).WithMany(u => u.Favorites).HasForeignKey(f => f.UserId);
@@ -77,6 +79,10 @@ namespace Thing.Context
             builder.Entity<PropertyValue>().HasKey(pv => pv.Id);
             builder.Entity<PropertyValue>().HasOne(pv => pv.Property).WithMany(p => p.PropertyValues).HasForeignKey(pv => pv.PropertyId);
             builder.Entity<PropertyValue>().HasOne(pv => pv.Product).WithMany(p => p.PropertyValues).HasForeignKey(pv => pv.ProductId);
+
+            // CommentImage
+            builder.Entity<CommentImage>().HasKey(ci => ci.Id);
+            builder.Entity<CommentImage>().HasOne(ci => ci.Comment).WithMany(c => c.CommentImages).HasForeignKey(ci => ci.CommentId);
         }
     }
 }
