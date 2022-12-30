@@ -20,5 +20,6 @@
         public Product Product { get; set; }
 
         public ICollection<Answer> Answers { get; set; }
+        public ICollection<CommentImage> CommentImages { get; set; }
     }
 }
