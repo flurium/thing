@@ -9,10 +9,10 @@
         public string Status { get; set; }
 
         public string SellerId { get; set; }
-        public User Seller { get; set; }
+        public Seller Seller { get; set; }
 
-        public ICollection<ProductCategory> ProductCategories { get; set; }
         public ICollection<Order> Orders { get; set; }
+        public ICollection<ProductCategory> ProductCategories { get; set; }
         public ICollection<Comment> Comments { get; set; }
         public ICollection<Favorite> Favorites { get; set; }
         public ICollection<ProductImage> Images { get; set; }
