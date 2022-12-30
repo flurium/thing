@@ -14,11 +14,20 @@ namespace Thing.Context
         // DbSets
         public DbSet<Product> Products { get; set; }
 
+        public DbSet<Seller> Sellers { get; set; }
+
         public DbSet<Category> Categories { get; set; }
-
         public DbSet<Comment> Comments { get; set; }
-
         public DbSet<Order> Orders { get; set; }
+
+        public DbSet<ProductImage> ProductImages { get; set; }
+        public DbSet<ProductCategory> ProductCategories { get; set; }
+        public DbSet<Answer> Answers { get; set; }
+        public DbSet<Favorite> Favorites { get; set; }
+        public DbSet<CategoryProperty> CategoryProperties { get; set; }
+
+        public DbSet<Property> Properties { get; set; }
+        public DbSet<PropertyValue> PropertyValues { get; set; }
 
         // Models Creating
         protected override void OnModelCreating(ModelBuilder builder)
@@ -30,9 +39,14 @@ namespace Thing.Context
             builder.Entity<Order>().HasOne(o => o.Product).WithMany(p => p.Orders).HasForeignKey(o => o.ProductId);
             builder.Entity<Order>().HasOne(o => o.User).WithMany(u => u.Orders).HasForeignKey(o => o.UserId);
 
-            // Product
+            // Seller
+            builder.Entity<Seller>().HasKey(s => s.Id);
+            /// super important IsRequired for EF Core
+            builder.Entity<Seller>().HasOne(s => s.User).WithOne(u => u.Seller).IsRequired(false).HasForeignKey<Seller>(s => s.Id);
+
+            ////// Product
             builder.Entity<Product>().HasKey(p => p.Id);
-            builder.Entity<Product>().HasOne(p => p.Seller).WithMany(s => s.SellProducts).HasForeignKey(p => p.SellerId);
+            builder.Entity<Product>().HasOne(p => p.Seller).WithMany(s => s.Products).HasForeignKey(p => p.SellerId);
             builder.Entity<Product>().Property(p => p.Description).HasColumnType("nchar(300)");
             builder.Entity<Product>().Property(p => p.Price).HasColumnType("money");
 
@@ -51,9 +65,9 @@ namespace Thing.Context
             // Comment
             builder.Entity<Comment>().HasKey(c => c.Id);
             builder.Entity<Comment>().HasOne(c => c.Product).WithMany(p => p.Comments).HasForeignKey(c => c.ProductId);
-            builder.Entity<Comment>().HasOne(c => c.User).WithMany(u => u.Comments).OnDelete(DeleteBehavior.NoAction).HasForeignKey(c => c.UserId);
+            builder.Entity<Comment>().HasOne(c => c.User).WithMany(u => u.Comments).HasForeignKey(c => c.UserId);
             builder.Entity<Comment>().Property(c => c.Content).HasColumnType("nchar(300)");
-            builder.Entity<Comment>().Property(c => c.Date).HasColumnType("date").HasDefaultValue(DateTime.Now); ;
+            builder.Entity<Comment>().Property(c => c.Date).HasColumnType("date").HasDefaultValue(DateTime.Now);
 
             // Answer
             builder.Entity<Answer>().HasKey(a => a.Id);

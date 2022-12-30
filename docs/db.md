@@ -46,8 +46,8 @@ classDiagram
     Product Product 
   }
 
-  Product <|-- ProductCategory
-  Category <|-- ProductCategory
+  Product "1" -- "*" ProductCategory
+  Category "1" -- "*" ProductCategory
   class ProductCategory {
     int ProductId
     Product Product
