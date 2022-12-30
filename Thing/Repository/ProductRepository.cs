@@ -13,14 +13,12 @@ namespace Thing.Repository
 
         public async Task Delete(int id)
         {
-            if (id != null && _db.Products != null)
-            {
-               var product= await _db.Products.FirstOrDefaultAsync(x => x.Id == id);
+             var product= await _db.Products.FirstOrDefaultAsync(x => x.Id == id);
                 if(product != null)
                 {
                     _db.Remove(product);
                 }
-            }
+            
         }
 
         public async Task Edit(Product product)

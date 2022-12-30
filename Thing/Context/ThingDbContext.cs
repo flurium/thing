@@ -12,6 +12,7 @@ namespace Thing.Context
         }
 
         public DbSet<Product> Products { get; set; }
+        public DbSet<ProductCategory> ProductCategories { get; set; }
 
 
         private void Productfunc()

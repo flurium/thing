@@ -1,6 +1,9 @@
-﻿namespace Thing.Repository.Interfaces
+﻿using Thing.Models;
+
+namespace Thing.Repository.Interfaces
 {
-    public interface IProductCategoryRepository
+    public interface IProductCategoryRepository: IRepository<ProductCategory>
     {
+        Task Delete(int productId, int categoryId);
     }
 }
