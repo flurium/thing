@@ -3,6 +3,9 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+# Secrets (moved to specific private repo)
+Thing/appsettings.json
+
 # User-specific files
 *.rsuser
 *.suo

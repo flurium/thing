@@ -9,11 +9,13 @@ namespace Thing.Repository.Interfaces
         private DbSet<TEntity> _entities;
 
         protected ThingDbContext _db;
+
         protected BaseRepository(ThingDbContext context)
         {
             _db = context;
         }
-        protected DbSet<TEntity> Entities => this._entities ??= _db.Set<TEntity>();
+
+        protected DbSet<TEntity> Entities => _entities ??= _db.Set<TEntity>();
 
         public virtual async Task CreateAsync(TEntity entity)
             => await Entities.AddAsync(entity).ConfigureAwait(false);

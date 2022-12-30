@@ -13,8 +13,14 @@ var connectionString = builder.Configuration.GetConnectionString("Local");
 builder.Services.AddDbContext<ThingDbContext>(options => options.UseSqlServer(connectionString));
 
 // AUTH
-// builder.Services.AddIdentity<User, IdentityRole>(options => options.SignIn.RequireConfirmedEmail = true)
-//    .AddEntityFrameworkStores<ThingDbContext>();
+builder.Services.AddIdentity<User, IdentityRole>(options => options.SignIn.RequireConfirmedEmail = true)
+   .AddEntityFrameworkStores<ThingDbContext>();
+
+//builder.Services.Configure<EmailConfirmationProviderOptions>(options => options.TokenLifespan = TimeSpan.FromDays(1));
+
+//// SEND GRID
+//builder.Services.Configure<SendGridOptions>(options => builder.Configuration.GetSection("SendGridOptions").Bind(options));
+//builder.Services.AddTransient<IEmailSender, EmailSenderService>();
 
 var app = builder.Build();
 
