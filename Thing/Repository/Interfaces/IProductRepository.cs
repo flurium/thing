@@ -2,7 +2,7 @@
 
 namespace Thing.Repository.Interfaces
 {
-    public interface IProductRepository:IRepository<Product>
+    public interface IProductRepository : IRepository<Product>
     {
         Task Delete(int id);
 

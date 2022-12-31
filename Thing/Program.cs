@@ -1,5 +1,5 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Thing.Context;
 using Thing.Infrastructure;
@@ -13,6 +13,7 @@ builder.Services.AddControllersWithViews();
 
 // DB
 var connectionString = builder.Configuration.GetConnectionString("Local");
+//var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION_STR") ?? "";
 builder.Services.AddDbContext<ThingDbContext>(options => options.UseSqlServer(connectionString));
 
 // AUTH
@@ -40,7 +41,6 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
