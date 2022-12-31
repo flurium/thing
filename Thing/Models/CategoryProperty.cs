@@ -1,11 +1,11 @@
 ﻿namespace Thing.Models
 {
-    public class ProductCategory
+    public class CategoryProperty
     {
-        public int ProductId { get; set; }
-        public Product Product { get; set; }
-
         public int CategoryId { get; set; }
         public Category Category { get; set; }
+
+        public int PropertyId { get; set; }
+        public Property Property { get; set; }
     }
 }

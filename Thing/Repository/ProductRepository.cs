@@ -5,8 +5,7 @@ using Thing.Repository.Interfaces;
 
 namespace Thing.Repository
 {
-    // MADE BY MARIA
-    public class ProductRepository : BaseRepository<Product>, IPtoductRepository
+    public class ProductRepository : BaseRepository<Product>, IProductRepository
     {
         public ProductRepository(ThingDbContext context) : base(context)
         {
@@ -14,8 +13,8 @@ namespace Thing.Repository
 
         public async Task Delete(int id)
         {
-            var product= await Entities.FirstOrDefaultAsync(x => x.Id == id);
-            if(product != null) Entities.Remove(product);
+            var product = await Entities.FirstOrDefaultAsync(x => x.Id == id);
+            if (product != null) Entities.Remove(product);
         }
 
         public async Task Edit(Product product)

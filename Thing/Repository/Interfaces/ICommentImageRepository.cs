@@ -2,7 +2,7 @@
 
 namespace Thing.Repository.Interfaces
 {
-    public interface ICategoryRepository : IRepository<Category>
+    public interface ICommentImageRepository : IRepository<CommentImage>
     {
         Task Delete(int Id);
     }

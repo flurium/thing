@@ -1,7 +1,10 @@
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Thing.Context;
+using Thing.Infrastructure;
 using Thing.Models;
+using Thing.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,11 +13,18 @@ builder.Services.AddControllersWithViews();
 
 // DB
 var connectionString = builder.Configuration.GetConnectionString("Local");
+//var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION_STR") ?? "";
 builder.Services.AddDbContext<ThingDbContext>(options => options.UseSqlServer(connectionString));
 
 // AUTH
-// builder.Services.AddIdentity<User, IdentityRole>(options => options.SignIn.RequireConfirmedEmail = true)
-//    .AddEntityFrameworkStores<ThingDbContext>();
+builder.Services.AddIdentity<User, IdentityRole>(options => options.SignIn.RequireConfirmedEmail = true)
+   .AddEntityFrameworkStores<ThingDbContext>();
+
+builder.Services.Configure<EmailConfirmationProviderOptions>(options => options.TokenLifespan = TimeSpan.FromDays(1));
+
+//// SEND GRID
+builder.Services.Configure<SendGridOptions>(options => builder.Configuration.GetSection("SendGridOptions").Bind(options));
+builder.Services.AddTransient<IEmailSender, EmailSenderService>();
 
 var app = builder.Build();
 
@@ -31,7 +41,6 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-//app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

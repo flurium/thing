@@ -1,28 +1,41 @@
-﻿{
-  "iisSettings": {
-    "windowsAuthentication": false,
-    "anonymousAuthentication": true,
-    "iisExpress": {
-      "applicationUrl": "http://localhost:28476",
-      "sslPort": 44389
-    }
-  },
-  "profiles": {
-    "Thing": {
-      "commandName": "Project",
-      "dotnetRunMessages": true,
-      "launchBrowser": true,
-      "applicationUrl": "https://localhost:7254;http://localhost:5178",
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+{
+    "profiles": {
+        "Thing": {
+            "commandName": "Project",
+            "launchBrowser": true,
+            "environmentVariables": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "DB_CONNECTION_STR": "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Thing;"
+            },
+            "dotnetRunMessages": true,
+            "applicationUrl": "https://localhost:7272;http://localhost:5294"
+        },
+        "IIS Express": {
+            "commandName": "IISExpress",
+            "launchBrowser": true,
+            "environmentVariables": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "DB_CONNECTION_STR": "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Thing;"
+            }
+        },
+        "Docker": {
+            "commandName": "Docker",
+            "launchBrowser": true,
+            "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+            "publishAllPorts": true,
+            "useSSL": true,
+            "environmentVariables": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "DB_CONNECTION_STR": "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Thing;"
+            }
+        }
     },
-    "IIS Express": {
-      "commandName": "IISExpress",
-      "launchBrowser": true,
-      "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
-      }
+    "iisSettings": {
+        "windowsAuthentication": false,
+        "anonymousAuthentication": true,
+        "iisExpress": {
+            "applicationUrl": "http://localhost:50461",
+            "sslPort": 44370
+        }
     }
-  }
 }
