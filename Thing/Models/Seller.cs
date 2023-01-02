@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
-
-namespace Thing.Models
+﻿namespace Thing.Models
 {
     public class Seller
     {

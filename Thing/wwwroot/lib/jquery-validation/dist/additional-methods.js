@@ -15,8 +15,11 @@
 		factory( jQuery );
 	}
 }(function( $ ) {
+
 ( function() {
+
 	function stripHtml( value ) {
+
 		// Remove html tags and space chars
 		return value.replace( /<.[^<>]*?>/g, " " ).replace( /&nbsp;|&#160;/gi, " " )
 
@@ -37,10 +40,12 @@
 			regex = /\b\w+\b/g;
 		return this.optional( element ) || valueStripped.match( regex ).length >= params[ 0 ] && valueStripped.match( regex ).length <= params[ 1 ];
 	}, $.validator.format( "Please enter between {0} and {1} words." ) );
+
 }() );
 
 // Accept a value from a file input based on a required mimetype
 $.validator.addMethod( "accept", function( value, element, param ) {
+
 	// Split mime on commas in case we have multiple types we can accept
 	var typeParam = typeof param === "string" ? param.replace( /\s/g, "" ) : "image/*",
 		optionalValue = this.optional( element ),
@@ -52,6 +57,7 @@ $.validator.addMethod( "accept", function( value, element, param ) {
 	}
 
 	if ( $( element ).attr( "type" ) === "file" ) {
+
 		// Escape string to be used in the regex
 		// see: https://stackoverflow.com/questions/3446170/escape-string-for-use-in-javascript-regex
 		// Escape also "/*" as "/.*" as a wildcard
@@ -217,6 +223,7 @@ $.validator.addMethod( "cifES", function( value, element ) {
 
 		// Odd positions
 		if ( isOdd( i ) ) {
+
 			// Odd positions are multiplied first.
 			n *= 2;
 
@@ -246,6 +253,7 @@ $.validator.addMethod( "cifES", function( value, element ) {
 
 	// Can be either
 	return control === control_digit || control === control_letter;
+
 }, "Please specify a valid CIF number." );
 
 /*
@@ -253,6 +261,7 @@ $.validator.addMethod( "cifES", function( value, element ) {
  * CPF numbers have 11 digits in total: 9 numbers followed by 2 check numbers that are being used for validation.
  */
 $.validator.addMethod( "cpfBR", function( value ) {
+
 	// Removing special characters from value
 	value = value.replace( /([~!@#$%^&*()_+=`{}\[\]\-|\\:;'<>,.\/? ])+/g, "" );
 
@@ -305,6 +314,7 @@ $.validator.addMethod( "cpfBR", function( value ) {
 		return checkResult( sum, secondCN );
 	}
 	return false;
+
 }, "Please specify a valid CPF number" );
 
 // https://jqueryvalidation.org/creditcard-method/
@@ -457,6 +467,7 @@ $.validator.addMethod( "currency", function( value, element, param ) {
     regex = "^[" + symbol + "([1-9]{1}[0-9]{0,2}(\\,[0-9]{3})*(\\.[0-9]{0,2})?|[1-9]{1}[0-9]{0,}(\\.[0-9]{0,2})?|0(\\.[0-9]{0,2})?|(\\.[0-9]{1,2})?)$";
     regex = new RegExp( regex );
     return this.optional( element ) || regex.test( value );
+
 }, "Please specify a valid currency" );
 
 $.validator.addMethod( "dateFA", function( value, element ) {
@@ -527,6 +538,7 @@ $.validator.addMethod( "giroaccountNL", function( value, element ) {
  * Validation is case-insensitive. Please make sure to normalize input yourself.
  */
 $.validator.addMethod( "iban", function( value, element ) {
+
 	// Some quick simple tests to prevent needless work
 	if ( this.optional( element ) ) {
 		return true;
@@ -735,6 +747,7 @@ $.validator.addMethod( "nieES", function( value, element ) {
 	number = value.length === 9 ? value.substr( 0, 8 ) : value.substr( 0, 9 );
 
 	return validChars.charAt( parseInt( number, 10 ) % 23 ) === letter;
+
 }, "Please specify a valid NIE number." );
 
 /*
@@ -765,6 +778,7 @@ $.validator.addMethod( "nifES", function( value, element ) {
 	}
 
 	return false;
+
 }, "Please specify a valid NIF number." );
 
 /*

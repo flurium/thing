@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SendGrid.Helpers.Mail;
 using Thing.Context;
 using Thing.Models;
 using Thing.Repository.Interfaces;
@@ -22,11 +21,12 @@ namespace Thing.Repository
         public async Task Edit(int Id, string Content)
         {
             var answer = await Entities.FirstOrDefaultAsync(o => o.Id == Id).ConfigureAwait(false);
-            if (answer != null) {
+            if (answer != null)
+            {
                 answer.Content = Content;
                 _db.Entry(answer).State = EntityState.Modified;
                 _db.SaveChanges();
-            }  
+            }
         }
     }
 }

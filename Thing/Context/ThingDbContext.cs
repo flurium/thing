@@ -13,6 +13,7 @@ namespace Thing.Context
 
         // DbSets
         public DbSet<Product> Products { get; set; }
+
         public DbSet<ProductCategory> ProductCategories { get; set; }
 
         public DbSet<Seller> Sellers { get; set; }
@@ -83,7 +84,7 @@ namespace Thing.Context
             builder.Entity<Answer>().HasOne(a => a.User).WithMany(u => u.Answers).IsRequired(false).HasForeignKey(a => a.UserId);
 
             builder.Entity<Answer>().HasOne(a => a.Comment).WithMany(c => c.Answers).HasForeignKey(a => a.CommentId);
-           
+
             // Favorite
             builder.Entity<Favorite>().HasKey(f => new { f.UserId, f.ProductId });
             builder.Entity<Favorite>().HasOne(f => f.User).WithMany(u => u.Favorites).HasForeignKey(f => f.UserId);

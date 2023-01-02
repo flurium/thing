@@ -11,7 +11,7 @@ namespace Thing.Repository
         {
         }
 
-        public async Task Delete(string UserId,int ProductId)
+        public async Task Delete(string UserId, int ProductId)
         {
             var favorite = await Entities.FirstOrDefaultAsync(o => o.UserId == UserId && o.ProductId == ProductId).ConfigureAwait(false);
             if (favorite != null) Entities.Remove(favorite);
