@@ -14,10 +14,7 @@ namespace Thing.Repository
         public async Task Delete(int productId, int categoryId)
         {
             var productCategory = await _db.ProductCategories.FirstOrDefaultAsync(x => (x.ProductId == productId) && (x.CategoryId == categoryId));
-            if (productCategory != null)
-            {
-                _db.Remove(productCategory);
-            }
+            if (productCategory != null)  _db.Remove(productCategory);
         }
     }
 }
