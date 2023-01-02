@@ -41,10 +41,16 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllerRoute(
+    name: "emailConfirmation",
+    pattern: "confirmation/",
+    defaults: new { controller = "EmailConfirm", action = "Confirm" });
 
 app.Run();
