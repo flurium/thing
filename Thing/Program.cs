@@ -11,9 +11,30 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+var aspEnv = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
+string connectionString;
+
+if (aspEnv == "Development")
+{
+    connectionString = builder.Configuration.GetConnectionString("Local");
+    builder.Services.Configure<SendGridOptions>(options => builder.Configuration.GetSection("SendGridOptions").Bind(options));
+}
+else
+{
+    /* Should be tested!
+     * We will use enviroment variables, because:
+     * It's free (not as Azure Secrets)
+     * Secure (not showed in repo)
+     */
+    connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION_STR") ?? "";
+    builder.Services.Configure<SendGridOptions>(options =>
+    {
+        options.UserMail = Environment.GetEnvironmentVariable("SG_USER_MAIL") ?? "";
+        options.SendGridKey = Environment.GetEnvironmentVariable("SG_API_KEY") ?? "";
+    });
+}
+
 // DB
-var connectionString = builder.Configuration.GetConnectionString("Local");
-//var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION_STR") ?? "";
 builder.Services.AddDbContext<ThingDbContext>(options => options.UseSqlServer(connectionString));
 
 // AUTH
@@ -22,8 +43,7 @@ builder.Services.AddIdentity<User, IdentityRole>(options => options.SignIn.Requi
 
 builder.Services.Configure<EmailConfirmationProviderOptions>(options => options.TokenLifespan = TimeSpan.FromDays(1));
 
-//// SEND GRID
-builder.Services.Configure<SendGridOptions>(options => builder.Configuration.GetSection("SendGridOptions").Bind(options));
+// SEND GRID
 builder.Services.AddTransient<IEmailSender, EmailSenderService>();
 
 var app = builder.Build();

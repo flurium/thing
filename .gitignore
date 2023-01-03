@@ -5,6 +5,7 @@
 
 # Secrets (moved to specific private repo)
 Thing/appsettings.json
+Thing/appsettings.Development.json
 
 # User-specific files
 *.rsuser
