@@ -17,5 +17,12 @@ namespace Thing.Repository
             if (comment != null) Entities.Remove(comment);
             _db.SaveChanges();
         }
+
+        public async Task<Comment?> DeleteAndReturn(int id)
+        {
+            var comment = await Entities.Include(c => c.Product).FirstOrDefaultAsync(x => x.Id == id);
+            if (comment != null) Entities.Remove(comment);
+            return comment;
+        }
     }
 }
