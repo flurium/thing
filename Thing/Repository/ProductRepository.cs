@@ -17,6 +17,13 @@ namespace Thing.Repository
             if (product != null) Entities.Remove(product);
         }
 
+        public async Task<Product?> DeleteAndReturn(int id)
+        {
+            var product = await Entities.FirstOrDefaultAsync(x => x.Id == id);
+            if (product != null) Entities.Remove(product);
+            return product;
+        }
+
         public async Task Edit(Product product)
         {
             _db.Update(product);

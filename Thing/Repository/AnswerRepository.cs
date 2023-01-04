@@ -15,7 +15,7 @@ namespace Thing.Repository
         {
             var answer = await Entities.FirstOrDefaultAsync(o => o.Id == Id).ConfigureAwait(false);
             if (answer != null) Entities.Remove(answer);
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
         }
 
         public async Task Edit(int Id, string Content)
@@ -24,8 +24,7 @@ namespace Thing.Repository
             if (answer != null)
             {
                 answer.Content = Content;
-                _db.Entry(answer).State = EntityState.Modified;
-                _db.SaveChanges();
+                await _db.SaveChangesAsync();
             }
         }
     }

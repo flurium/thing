@@ -4,5 +4,6 @@
     {
         public const string Admin = "Admin";
         public const string Seller = "Seller";
+        public const string Banned = "Banned";
     }
 }
