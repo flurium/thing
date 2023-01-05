@@ -23,6 +23,8 @@ namespace Thing.Controllers
             return View();
         }
 
+        
+
         public async Task<IActionResult> Buyer(string uid, string redirect)
         {
             await _banService.BuyerAsync(uid);
@@ -41,5 +43,6 @@ namespace Thing.Controllers
         public async Task<IActionResult> Product()
         {
         }
+        
     }
 }
