@@ -1,5 +1,4 @@
 ﻿using Thing.Models;
-using Thing.Repository;
 
 namespace Thing.Services.Interfaces
 {

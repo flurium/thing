@@ -6,7 +6,6 @@ using Thing.Infrastructure;
 using Thing.Models;
 using Thing.Repository;
 using Thing.Services;
-using Thing.Services.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
