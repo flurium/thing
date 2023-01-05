@@ -67,7 +67,7 @@ namespace Thing.Controllers
 
                     await _userManager.AddToRoleAsync(user, Roles.Seller);
                 }
-                
+
                 var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                 var confirmationLink = Url.Action("", "confirmation", new { guid = token, userEmail = user.Email }, Request.Scheme, Request.Host.Value);
                 await _emailSender.SendEmailAsync(user.Email, "ConfirmationLink", $"Link-> {confirmationLink}");

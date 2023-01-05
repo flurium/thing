@@ -40,7 +40,7 @@ builder.Services.AddDbContext<ThingDbContext>(options => options.UseSqlServer(co
 
 // AUTH
 builder.Services.AddIdentity<User, IdentityRole>(options => options.SignIn.RequireConfirmedEmail = true)
-   .AddEntityFrameworkStores<ThingDbContext>();
+   .AddEntityFrameworkStores<ThingDbContext>().AddDefaultTokenProviders().AddTokenProvider<EmailConfirmationTokenProvider<User>>("emailConfirmationProvider");
 
 builder.Services.Configure<EmailConfirmationProviderOptions>(options => options.TokenLifespan = TimeSpan.FromDays(1));
 
