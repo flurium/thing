@@ -6,6 +6,7 @@ using Thing.Infrastructure;
 using Thing.Models;
 using Thing.Repository;
 using Thing.Services;
+using Thing.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -50,6 +51,13 @@ builder.Services.AddTransient<IEmailSender, EmailSenderService>();
 // Logic services
 builder.Services.AddScoped<CategoryRepository>();
 builder.Services.AddTransient<CategoryService>();
+
+//Logic Services
+builder.Services.AddScoped<ProductRepository>();
+builder.Services.AddTransient<ProductService>();
+builder.Services.AddScoped<SellerRepository>();
+builder.Services.AddTransient<SellerService>();
+
 
 var app = builder.Build();
 
