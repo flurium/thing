@@ -70,7 +70,7 @@ namespace Thing.Controllers
 
                 var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                 var confirmationLink = Url.Action("", "confirmation", new { guid = token, userEmail = user.Email }, Request.Scheme, Request.Host.Value);
-                await _emailSender.SendEmailAsync(user.Email, "ConfirmationLink", $"Link-> {confirmationLink}");
+                await _emailSender.SendEmailAsync(user.Email, "ConfirmationLink", $"Link-> <a href={confirmationLink}>Confirmation Link</a>");
                 ViewBag.Email = user.Email;
                 return View("Confirmation");
             }
