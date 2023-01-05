@@ -13,7 +13,7 @@ namespace Thing.Repository
 
         public async Task Delete(int id)
         {
-            var img= await Entities.FirstOrDefaultAsync(x => x.Id == id);
+            var img = await Entities.FirstOrDefaultAsync(x => x.Id == id);
             if (img != null) Entities.Remove(img);
         }
     }

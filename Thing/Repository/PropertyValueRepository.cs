@@ -15,7 +15,6 @@ namespace Thing.Repository
         {
             var propertyValue = await Entities.FirstOrDefaultAsync(x => x.Id == id);
             if (propertyValue != null) Entities.Remove(propertyValue);
-           
         }
     }
 }
