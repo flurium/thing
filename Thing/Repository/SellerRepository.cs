@@ -15,5 +15,17 @@ namespace Thing.Repository
         {
             throw new NotImplementedException();
         }
+
+        public async Task Delete(string id)
+        {
+            var seller = await Entities.FirstOrDefaultAsync(x => x.Id == id);
+            if (seller != null) Entities.Remove(seller);
+        }
+
+        public async Task Edit(Seller seller)
+        {
+            Entities.Update(seller);
+            await _db.SaveChangesAsync();
+        }
     }
 }

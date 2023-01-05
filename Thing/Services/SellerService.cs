@@ -11,26 +11,26 @@ namespace Thing.Services
     public class SellerService
     {
         private readonly SellerRepository _sellerRepository;
-        private readonly ProductRepository _productRepository;
+   
 
-        public SellerService(SellerRepository sellerRepository, ProductRepository productRepository)
+        public SellerService(SellerRepository sellerRepository)
         {
             _sellerRepository= sellerRepository;
-            _productRepository= productRepository;
         }
 
         public async Task CreateAsync(Seller entity) => await _sellerRepository.CreateAsync(entity);
 
-        public async  Task<IReadOnlyCollection<Product>> FindByConditionAsync(Expression<Func<Product, bool>> conditon)
+        public async Task Delete(string id)
         {
-            return await _productRepository.FindByConditionAsync(conditon);
+            await _sellerRepository.Delete(id);
         }
-        
-        /*
-        public async Task<IReadOnlyCollection<Product>> GetAllProducts()
+
+        public async Task Edit(Seller seller)
         {
-            return await _productRepository.FindByConditionAsync(x => x.Seller == User.FindFirst(ClaimTypes.NameIdentifier).Value);
+           await _sellerRepository.Edit(seller);
         }
-        */
+
+      
+       
     }
 }
