@@ -50,6 +50,7 @@ builder.Services.AddTransient<IEmailSender, EmailSenderService>();
 
 //Logic Services
 builder.Services.AddScoped<ProductRepository>();
+builder.Services.AddTransient<ProductService>();
 builder.Services.AddScoped<SellerRepository>();
 builder.Services.AddTransient<SellerService>();
 
