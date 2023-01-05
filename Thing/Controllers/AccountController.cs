@@ -11,12 +11,14 @@ namespace Thing.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IEmailSender _emailSender;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public AccountController(SignInManager<User> signInManager, UserManager<User> userManager, IEmailSender emailSender)
+        public AccountController(SignInManager<User> signInManager, UserManager<User> userManager, IEmailSender emailSender, RoleManager<IdentityRole> roleManager)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _emailSender = emailSender;
+            _roleManager = roleManager;
         }
 
         [HttpGet]
@@ -54,6 +56,18 @@ namespace Thing.Controllers
             var res = await _userManager.CreateAsync(user, registerViewModel.Password);
             if (res.Succeeded)
             {
+                if (registerViewModel.IsSeller)
+                {
+                    var roleExists = await _roleManager.RoleExistsAsync(Roles.Seller);
+
+                    if (!roleExists)
+                    {
+                        await _roleManager.CreateAsync(new IdentityRole(Roles.Seller));
+                    }
+
+                    await _userManager.AddToRoleAsync(user, Roles.Seller);
+                }
+                
                 var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                 var confirmationLink = Url.Action("", "confirmation", new { guid = token, userEmail = user.Email }, Request.Scheme, Request.Host.Value);
                 await _emailSender.SendEmailAsync(user.Email, "ConfirmationLink", $"Link-> {confirmationLink}");
