@@ -11,11 +11,18 @@ namespace Thing.Repository
         {
         }
 
-        public async Task Delete(int Id)
+        public async Task Delete(int id)
         {
-            var category = await Entities.FirstOrDefaultAsync(c => c.Id == Id).ConfigureAwait(false);
+            var category = await Entities.FirstOrDefaultAsync(c => c.Id == id).ConfigureAwait(false);
             if (category != null) Entities.Remove(category);
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
+        }
+
+        public async Task Update(int id, string name)
+        {
+            var category = await Entities.FirstOrDefaultAsync(c => c.Id == id).ConfigureAwait(false);
+            if (category != null) category.Name = name;
+            await _db.SaveChangesAsync();
         }
     }
 }

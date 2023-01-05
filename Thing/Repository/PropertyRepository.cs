@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
 using Thing.Context;
 using Thing.Models;
 using Thing.Repository.Interfaces;
@@ -17,7 +16,5 @@ namespace Thing.Repository
             var property = await Entities.FirstOrDefaultAsync(x => x.Id == id);
             if (property != null) Entities.Remove(property);
         }
-
-       
     }
 }

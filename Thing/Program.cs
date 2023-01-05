@@ -1,9 +1,10 @@
-using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using Thing.Context;
 using Thing.Infrastructure;
 using Thing.Models;
+using Thing.Repository;
 using Thing.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -45,6 +46,10 @@ builder.Services.Configure<EmailConfirmationProviderOptions>(options => options.
 
 // SEND GRID
 builder.Services.AddTransient<IEmailSender, EmailSenderService>();
+
+// Logic services
+builder.Services.AddScoped<CategoryRepository>();
+builder.Services.AddTransient<CategoryService>();
 
 var app = builder.Build();
 
