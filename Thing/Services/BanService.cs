@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Thing.Models;
 using Thing.Repository;
-using Thing.Repository.Interfaces;
 
 namespace Thing.Services
 {

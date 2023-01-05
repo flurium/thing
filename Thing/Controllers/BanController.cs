@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 using Thing.Models;
 using Thing.Services;
 
@@ -25,21 +24,21 @@ namespace Thing.Controllers
 
         public async Task<IActionResult> Buyer(string uid, string redirect)
         {
-            await _banService.BuyerAsync(uid);
-            await _banService.SellerAsync(uid);
+            //await _banService.BuyerAsync(uid);
+            //await _banService.SellerAsync(uid);
             return Redirect(redirect);
         }
 
         public async Task<IActionResult> Seller(string uid, string redirect)
         {
-            await _banService.SellerAsync(uid);
+            //await _banService.SellerAsync(uid);
             return Redirect(redirect);
         }
 
         // delete product
         // want add ban counter to seller to ban seller if counter ~= 10
-        public async Task<IActionResult> Product()
-        {
-        }
+        //public async Task<IActionResult> Product()
+        //{
+        //}
     }
 }

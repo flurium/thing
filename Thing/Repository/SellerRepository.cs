@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Thing.Context;
+﻿using Thing.Context;
 using Thing.Models;
 using Thing.Repository.Interfaces;
 
