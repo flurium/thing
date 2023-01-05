@@ -5,6 +5,7 @@ using Thing.Context;
 using Thing.Infrastructure;
 using Thing.Models;
 using Thing.Services;
+using Thing.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -45,6 +46,13 @@ builder.Services.Configure<EmailConfirmationProviderOptions>(options => options.
 
 // SEND GRID
 builder.Services.AddTransient<IEmailSender, EmailSenderService>();
+
+
+//Logic Services
+builder.Services.AddScoped<ProductRepository>();
+builder.Services.AddScoped<SellerRepository>();
+builder.Services.AddTransient<SellerService>();
+
 
 var app = builder.Build();
 

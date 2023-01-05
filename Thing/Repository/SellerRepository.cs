@@ -10,5 +10,10 @@ namespace Thing.Repository
         public SellerRepository(ThingDbContext context) : base(context)
         {
         }
+
+        public Task Edit(string id, bool isBanned)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
