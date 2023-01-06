@@ -1,0 +1,22 @@
+﻿@using Thing.Models.ViewModels;
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Manage</h1>
+<div class="row row-cols-1 row-cols-md-2 g-4">
+    <div class="col">
+        @await Html.PartialAsync("_Card", new CardViewModel { Title = "Categories", Text= "Create, delete, edit categories of products."})
+    </div>
+    <div class="col">
+        @await Html.PartialAsync("_Card", new CardViewModel { Title = "Users", Text= "Create, delete, edit categories of products."})
+    </div>
+    <div class="col">
+        @await Html.PartialAsync("_Card", new  { Title = "Categories", Text= "Create, delete, edit categories of products."})
+    </div>
+    <div class="col">
+        @await Html.PartialAsync("_Card", new  { Title = "Categories", Text= "Create, delete, edit categories of products."})
+    </div>
+</div>
+

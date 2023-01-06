@@ -26,7 +26,7 @@ namespace Thing.Services
                 HtmlContent = htmlMessage
             };
             message.AddTo(email);
-            var res = await _sendGridClient.SendEmailAsync(message);
+            await _sendGridClient.SendEmailAsync(message);
         }
 
         public async Task SendEmailAsync(string email, string subject, string htmlMessage)
