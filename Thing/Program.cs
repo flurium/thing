@@ -6,7 +6,6 @@ using Thing.Infrastructure;
 using Thing.Models;
 using Thing.Repository;
 using Thing.Services;
-using Thing.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,7 +17,7 @@ string connectionString;
 
 if (aspEnv == "Development")
 {
-    connectionString = builder.Configuration.GetConnectionString("Local");
+    connectionString = builder.Configuration.GetConnectionString("SupabasePostgres");
     builder.Services.Configure<SendGridOptions>(options => builder.Configuration.GetSection("SendGridOptions").Bind(options));
 }
 else
@@ -37,7 +36,7 @@ else
 }
 
 // DB
-builder.Services.AddDbContext<ThingDbContext>(options => options.UseSqlServer(connectionString));
+builder.Services.AddDbContext<ThingDbContext>(options => options.UseNpgsql(connectionString)); // (connectionString, new MySqlServerVersion(new Version(8, 0, 31))));
 
 // AUTH
 builder.Services.AddIdentity<User, IdentityRole>(options => options.SignIn.RequireConfirmedEmail = true)
@@ -57,7 +56,6 @@ builder.Services.AddScoped<ProductRepository>();
 builder.Services.AddTransient<ProductService>();
 builder.Services.AddScoped<SellerRepository>();
 builder.Services.AddTransient<SellerService>();
-
 
 var app = builder.Build();
 
