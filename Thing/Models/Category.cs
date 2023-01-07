@@ -5,7 +5,7 @@ namespace Thing.Models
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public ICollection<ProductCategory> ProductCategories { get; set; }
-        public ICollection<CategoryProperty> CategoryProperties { get; set; }
+        public ICollection<Product> Products { get; set; }
+        public ICollection<RequiredProperty> RequiredProperties { get; set; }
     }
 }

@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
-using Thing.Models.ViewModels;
 using Thing.Models;
+using Thing.Models.ViewModels;
+using Thing.Services;
 
 namespace Thing.Controllers
 {
@@ -11,12 +12,16 @@ namespace Thing.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IEmailSender _emailSender;
+        private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly SellerService _sellerService;
 
-        public AccountController(SignInManager<User> signInManager, UserManager<User> userManager, IEmailSender emailSender)
+        public AccountController(SignInManager<User> signInManager, UserManager<User> userManager, IEmailSender emailSender, RoleManager<IdentityRole> roleManager, SellerService sellerService)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _emailSender = emailSender;
+            _roleManager = roleManager;
+            _sellerService = sellerService;
         }
 
         [HttpGet]
@@ -54,9 +59,29 @@ namespace Thing.Controllers
             var res = await _userManager.CreateAsync(user, registerViewModel.Password);
             if (res.Succeeded)
             {
+                if (registerViewModel.IsSeller)
+                {
+                    var roleExists = await _roleManager.RoleExistsAsync(Roles.Seller);
+
+                    if (!roleExists)
+                    {
+                        await _roleManager.CreateAsync(new IdentityRole(Roles.Seller));
+                    }
+
+                    await _userManager.AddToRoleAsync(user, Roles.Seller);
+                    await _sellerService.CreateAsync(
+                        new Seller
+                        {
+                            Id = user.Id,
+                            About = "about",
+                            //User = user
+                        }
+                        );
+                }
+
                 var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                 var confirmationLink = Url.Action("", "confirmation", new { guid = token, userEmail = user.Email }, Request.Scheme, Request.Host.Value);
-                await _emailSender.SendEmailAsync(user.Email, "ConfirmationLink", $"Link-> {confirmationLink}");
+                await _emailSender.SendEmailAsync(user.Email, "ConfirmationLink", $"Link-> <a href={confirmationLink}>Confirmation Link</a>");
                 ViewBag.Email = user.Email;
                 return View("Confirmation");
             }

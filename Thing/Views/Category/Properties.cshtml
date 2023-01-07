@@ -1,0 +1,41 @@
+﻿@using Thing.Models.ViewModels;
+@model Thing.Models.Category
+
+@{
+    ViewData["Title"] = "Category properties";
+}
+
+<h1 class="mb-5 mt-4">Required properties for @Model.Name</h1>
+
+<form asp-action="CreateProperty" class="row my-4">
+    <input hidden name="categoryId" value="@Model.Id"/>
+    <div class="col">
+        <input id="propertyName" name="propertyName" class="form-control" placeholder="Name" />
+    </div>
+    <div class="col-auto">
+        <input type="submit" value="Create property" class="btn btn-success" />
+    </div>
+</form>
+
+
+<ul class="list-group list-group-flush">
+
+    @foreach (var item in Model.RequiredProperties)
+    {
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            @Html.DisplayFor(modelItem => item.Name)
+            <button type="button" class="btn btn-sm btn-dark" data-bs-toggle="modal"
+                data-bs-target="#editModal" data-bs-id="@item.Id" data-bs-name="@item.Name" data-bs-category="@Model.Id">
+                Edit
+            </button>
+            <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
+                data-bs-target="#deleteConfirm" data-bs-id="@item.Id" data-bs-name="@item.Name" data-bs-category="@Model.Id">
+                Delete
+            </button>
+        </li>
+    }
+</ul>
+
+
+@await Html.PartialAsync("_EditPropertyModal")
+@await Html.PartialAsync("_DeletePropertyModal")

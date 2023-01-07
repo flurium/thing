@@ -1,0 +1,47 @@
+﻿<!-- Modal for edit category -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <form asp-action="EditProperty" class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Edit property</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="property-id" name="Id"/>
+                <input type="hidden" id="category-id" name="categoryId" />
+                <input type="text" class="form-control" id="propertyName" name="Name" placeholder="Name" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Back</button>
+                <input type="submit" value="Confirm" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    var editModal = document.getElementById('editModal')
+    editModal.addEventListener('show.bs.modal', function (event) {
+        var button = event.relatedTarget
+        
+        var id = button.getAttribute('data-bs-id')
+        var name = button.getAttribute('data-bs-name')
+        var category = button.getAttribute('data-bs-category')
+
+        console.log(id, name, category)
+
+        var nameInput = editModal.querySelector('#propertyName')
+        console.log(nameInput)
+        console.log(editModal)
+        nameInput.value = name
+
+        var idInput = editModal.querySelector('#property-id')
+        idInput.value = id
+
+        var categoryIdInput = editModal.querySelector('#category-id')
+        categoryIdInput.value = category
+
+
+        console.log(nameInput, idInput, categoryIdInput)
+    })
+</script>

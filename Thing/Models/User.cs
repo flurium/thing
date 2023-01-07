@@ -1,5 +1,4 @@
-﻿using EllipticCurve.Utils;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 
 namespace Thing.Models
 {

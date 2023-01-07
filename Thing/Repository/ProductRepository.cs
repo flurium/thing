@@ -26,7 +26,7 @@ namespace Thing.Repository
 
         public async Task Edit(Product product)
         {
-            _db.Update(product);
+            Entities.Update(product);
             await _db.SaveChangesAsync();
         }
         public async Task<Product> GetByIdAsync(int id)

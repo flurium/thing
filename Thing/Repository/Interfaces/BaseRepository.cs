@@ -17,9 +17,10 @@ namespace Thing.Repository.Interfaces
 
         protected DbSet<TEntity> Entities => _entities ??= _db.Set<TEntity>();
 
-        public virtual async Task CreateAsync(TEntity entity) {
+        public virtual async Task CreateAsync(TEntity entity)
+        {
             await Entities.AddAsync(entity).ConfigureAwait(false);
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
         }
 
         public virtual async Task<IReadOnlyCollection<TEntity>> FindByConditionAsync(Expression<Func<TEntity, bool>> conditon)

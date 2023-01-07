@@ -5,7 +5,7 @@ using Thing.Repository.Interfaces;
 
 namespace Thing.Repository
 {
-    public class PropertyValueRepository : BaseRepository<PropertyValue>, IPropertyValueRepository
+    public class PropertyValueRepository : BaseRepository<RequiredPropertyValue>, IPropertyValueRepository
     {
         public PropertyValueRepository(ThingDbContext context) : base(context)
         {
@@ -15,7 +15,6 @@ namespace Thing.Repository
         {
             var propertyValue = await Entities.FirstOrDefaultAsync(x => x.Id == id);
             if (propertyValue != null) Entities.Remove(propertyValue);
-           
         }
     }
 }
