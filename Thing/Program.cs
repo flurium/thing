@@ -6,6 +6,7 @@ using Thing.Infrastructure;
 using Thing.Models;
 using Thing.Repository;
 using Thing.Services;
+using Thing.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +14,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 var aspEnv = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
-string connectionString;
 
 if (aspEnv == "Development")
 {
