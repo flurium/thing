@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Thing.Models;
 using Thing.Services;
@@ -8,7 +9,7 @@ namespace Thing.Controllers
     public class CatalogController : Controller
     {
         private CatalogService _catalogService;
-         public CatalogController(CatalogService catalogService)
+        public CatalogController(CatalogService catalogService)
         {
             _catalogService = catalogService;
         }
@@ -37,6 +38,7 @@ namespace Thing.Controllers
             ViewBag.Images = await _catalogService.GetAllCommentsImagesAsync();
             return View(await _catalogService.GetProductCommentsByIdAsync(Id));
         }
+        [Authorize]
         public async Task<IActionResult> WriteCommentAsync(Comment comment)
         {
             comment.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -44,6 +46,7 @@ namespace Thing.Controllers
             return View("Categories", await _catalogService.GetAllCategoriesAsync());
         }
 
+        [Authorize]
         public async Task<IActionResult> ToFavorits(int Id)
         {
             var favorit = new Favorite()
@@ -51,14 +54,16 @@ namespace Thing.Controllers
                 UserId = User.FindFirstValue(ClaimTypes.NameIdentifier),
                 ProductId = Id
             };
+            if (await _catalogService.IsFavoriteExistsAsync(favorit)) return View("Categories", await _catalogService.GetAllCategoriesAsync());
+
             await _catalogService.AddFavoriteAsync(favorit);
             return View("Categories", await _catalogService.GetAllCategoriesAsync());
         }
-        
 
+        [Authorize]
         public IActionResult WriteAnswer(int CommentId)
         {
-           
+
             return View();
         }
         public IActionResult PostAnswer(int CommentId)
