@@ -7,8 +7,6 @@ using Thing.Models;
 using Thing.Repository;
 using Thing.Services;
 
-using Thing.Repository;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.

@@ -5,7 +5,7 @@ using Thing.Models;
 
 namespace Thing.Controllers
 {
-    [Authorize(Roles = Roles.Admin)]
+    [Authorize]
     public class AdminController : Controller
     {
         private readonly RoleManager<IdentityRole> _roleManager;
@@ -17,9 +17,7 @@ namespace Thing.Controllers
             _userManager = userManager;
         }
 
-        // Add admin role to user if there is no admin
-        [Authorize]
-        public async Task<IActionResult> Super()
+        public async Task<IActionResult> Index()
         {
             var roleExists = await _roleManager.RoleExistsAsync(Roles.Admin);
 
@@ -40,12 +38,7 @@ namespace Thing.Controllers
             var user = await _userManager.GetUserAsync(HttpContext.User);
             var res = await _userManager.AddToRoleAsync(user, Roles.Admin);
 
-            return res.Succeeded ? RedirectToAction("Index") : View("Error");
-        }
-
-        public IActionResult Index()
-        {
-            return View();
+            return res.Succeeded ? RedirectToAction(nameof(Index)) : View("Error");
         }
     }
 }

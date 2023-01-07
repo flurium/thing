@@ -27,6 +27,21 @@
                         </li>
                          <li class="nav-item"><a class="nav-link text-dark" href="@Url.Action("Categories", "Catalog")">Catalog</a></li>
                         
+                        @if(User.IsInRole(Roles.Admin))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Category" asp-action="Index">Manage categories</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Ban
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a class="dropdown-item" asp-controller="Ban" asp-action="Users">Users</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Ban" asp-action="Products">Products</a></li>
+                                </ul>
+                            </li>
+                        }
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
