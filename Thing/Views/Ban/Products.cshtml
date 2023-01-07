@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Product>
+
+@{
+    ViewData["Title"] = "Products";
+}
+
+<h1 class="mb-5 mt-4">Manage users</h1>
+
+<form asp-action="Users" method="get" class="my-4">
+    <div class="row">
+        <div class="col input-group">
+            <input name="Id" type="number" class="form-control" placeholder="Id" />
+            <input name="Name" class="form-control" placeholder="Name" />
+            <input name="Price" type="number" class="form-control" placeholder="Price" />
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col input-group">
+            <input name="SellerEmail" class="form-control" placeholder="Seller Email" />
+            <input name="SellerName" class="form-control" placeholder="Seller Name" />
+        </div>
+        <div class="col-auto">
+            <input type="submit" value="Find" class="btn btn-success" />
+        </div>
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Seller name</th>
+            <th scope="col">Seller email</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => product.Id)</td>
+                <td>@Html.DisplayFor(modelItem => product.Name)</td>
+                <td>@Html.DisplayFor(modelItem => product.Price)</td>
+                <td>@Html.DisplayFor(modelItem => product.Seller.User.UserName)</td>
+                <td>@Html.DisplayFor(modelItem => product.Seller.User.Email)</td>
+                <td>
+                    <a asp-action="Product" asp-route-id="@product.Id" asp-route-redirect="@ViewBag.Url" class="btn btn-sm btn-danger">Ban</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

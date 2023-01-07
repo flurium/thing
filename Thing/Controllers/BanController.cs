@@ -12,13 +12,15 @@ namespace Thing.Controllers
 
     public class BanController : Controller
     {
-        private BanService _banService;
+        private readonly BanService _banService;
+        private readonly ProductService _productService;
         private readonly UserManager<User> _userManager;
 
-        public BanController(BanService banService, UserManager<User> userManager)
+        public BanController(BanService banService, UserManager<User> userManager, ProductService productService)
         {
             _banService = banService;
             _userManager = userManager;
+            _productService = productService;
         }
 
         public async Task<IActionResult> Users(UserViewModel filter)
@@ -57,6 +59,12 @@ namespace Thing.Controllers
         {
             await _banService.BanUser(id);
             return Redirect(redirect);
+        }
+
+        public async Task<IActionResult> Products(BanProductFilter filter)
+        {
+            ViewBag.Url = Request.Path + Request.QueryString;
+            return View(await _productService.Filter(filter));
         }
 
         // Will be used from regular views
