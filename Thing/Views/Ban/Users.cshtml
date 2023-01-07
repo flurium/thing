@@ -1,0 +1,25 @@
+﻿@using Thing.Models.ViewModels;
+@model IEnumerable<UserViewModel>
+
+@{
+    ViewData["Title"] = "Users";
+}
+
+<h1 class="mb-5 mt-4">Manage users</h1>
+
+<ul class="list-group list-group-flush">
+    @foreach (var user in Model)
+    {
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            @Html.DisplayFor(modelItem => user.Id)
+            @Html.DisplayFor(modelItem => user.Name)
+            @Html.DisplayFor(modelItem => user.Email)
+            
+            @if(user.IsBanned){
+                <a asp-action="BanUser" asp-route-id="@user.Id" class="btn btn-sm btn-info">Unban</a>
+            } else       {
+                <a asp-action="Properties" asp-route-id="@user.Id" class="btn btn-sm btn-danger">Ban</a>
+            }
+        </li>
+    }
+</ul>

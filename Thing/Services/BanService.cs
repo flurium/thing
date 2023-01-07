@@ -23,7 +23,17 @@ namespace Thing.Services
             _commenttRepository = commenttRepository;
         }
 
-        public async Task UserAsync(string uid)
+        public async Task UnbanUser(string uid)
+        {
+            var user = await _userManager.FindByIdAsync(uid);
+            var res = await _userManager.RemoveFromRoleAsync(user, Roles.Banned);
+            if (res.Succeeded)
+            {
+                await _emailSender.SendEmailAsync(user.Email, "Unbanned in Thing", "You were unbanned in Thing!");
+            }
+        }
+
+        public async Task BanUser(string uid)
         {
             var user = await _userManager.FindByIdAsync(uid);
             var res = await _userManager.AddToRoleAsync(user, Roles.Banned);
@@ -34,7 +44,7 @@ namespace Thing.Services
             }
         }
 
-        public async Task ProductAsync(int id)
+        public async Task BanProduct(int id)
         {
             var product = await _productRepository.DeleteAndReturn(id);
             if (product != null)
@@ -44,7 +54,7 @@ namespace Thing.Services
             }
         }
 
-        public async Task CommentAsync(int id)
+        public async Task BanComment(int id)
         {
             var comment = await _commenttRepository.DeleteAndReturn(id);
             if (comment != null)
@@ -54,10 +64,10 @@ namespace Thing.Services
             }
         }
 
-        public async Task AnswerAsync(int id)
+        public async Task BanAnswer(int id)
         {
-            await _answerRepository.Delete(id);
             // sending email doesn't mean
+            await _answerRepository.Delete(id);
         }
     }
 }

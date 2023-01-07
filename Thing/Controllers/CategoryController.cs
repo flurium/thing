@@ -5,6 +5,7 @@ using Thing.Services;
 namespace Thing.Controllers
 {
     // add only admins filter
+    //[Authorize(Roles = Roles.Admin)]
     public class CategoryController : Controller
     {
         private readonly CategoryService _categoryService;
