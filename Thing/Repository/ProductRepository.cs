@@ -29,5 +29,10 @@ namespace Thing.Repository
             _db.Update(product);
             await _db.SaveChangesAsync();
         }
+        public async Task<Product> GetByIdAsync(int id)
+        {
+            return Entities.FirstOrDefaultAsync(p => p.Id == id).Result;
+        }
+
     }
 }

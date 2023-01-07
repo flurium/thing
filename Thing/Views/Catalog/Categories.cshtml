@@ -1,0 +1,26 @@
+﻿@model IReadOnlyCollection<Category>
+
+<h3 style="text-align:center">Categories of Products</h3>
+
+<section>
+  <div class="container py-5">
+    <div class="row">
+            @foreach (var category in Model)
+            {
+              <div class="col-md-12 col-lg-4 mb-4 mb-lg-0">
+
+              <div class="card-body">
+                <div class="d-flex justify-content-center">
+                  <form action="@Url.Action("CategoryProducts","Catalog", new {Id = @category.Id})"  method="get">
+                               <input type="submit" class="btn btn-link" value="@category.Name" />
+                  </form>
+                </div>
+              </div>
+
+             </div>
+            }
+
+
+    </div>
+  </div>
+</section>
