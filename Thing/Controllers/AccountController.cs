@@ -72,8 +72,9 @@ namespace Thing.Controllers
                     await _sellerService.CreateAsync(
                         new Seller
                         {
+                            Id = user.Id,
                             About = "about",
-                            User = user
+                            //User = user
                         }
                         );
                 }

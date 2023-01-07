@@ -1,0 +1,78 @@
+﻿@model IReadOnlyCollection<Comment>
+
+<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                         <li class="nav-item"><a class="nav-link text-dark" href="@Url.Action("DetailsOfProduct","Catalog", new {Id = ViewBag.Product.Id})">About Product</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark" href="@Url.Action("CommentsOfProduct","Catalog", new {Id = ViewBag.Product.Id})">Comments</a></li>
+                     </ul>
+                </div>
+            </div>
+        </nav>
+
+<section>
+  <div class="container my-5 py-5">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-12 col-lg-10 col-xl-8">
+        <div class="card">
+          <div class="card-body">
+       
+          
+            <div class="d-flex flex-start w-100">
+              <div class="form-outline w-100">
+                 <form action="@Url.Action("WriteComment","Catalog")" method="post">
+                      <input type="hidden" value="@ViewBag.Product.Id" name="ProductId">
+                     <textarea class="form-control" id="textAreaExample" rows="4"
+                          style="background: #fff;" name="Content"></textarea>
+                          <label>Cons</label>
+                          <textarea class="form-control" id="textAreaExample" rows="4"
+                          style="background: #fff;" name="Cons"></textarea>
+                          <label>Pros</label>
+                          <textarea class="form-control" id="textAreaExample" rows="4"
+                          style="background: #fff;" name="Pros"></textarea>
+                      <input type="submit"  class="btn btn-outline-primary btn-sm mt-2" value="Post Comment">
+                 </form>
+                
+              </div>
+            </div>
+       
+        </div>
+      </div>
+    </div>
+  </div>
+   </div>
+</section>
+
+<div class="container">
+    @foreach (var comment in @Model)
+    {
+            <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">Comment</h5>
+                <h6 class="card-subtitle mb-2 text-dark">Pros: @comment.Pros</h6>
+            <h6 class="card-subtitle mb-2 text-dark">Cons: @comment.Cons</h6>
+            <p class="card-text">@comment.Content</p>
+        <a class="card-link" href="@Url.Action("WriteAnswer","Catalog", new {Id = comment.Id})">Write Answer</a>
+      </div>
+    </div>
+          
+         
+        @foreach (var answer in ViewBag.Answers)
+        {
+            @if (@comment.Id == @answer.CommentId)
+            {
+                            <div class="card" style="width: 18rem;">
+                  <div class="card-body">
+                    <h5 class="card-title">Answer</h5>
+                        <p class="card-text">@answer.Content</p>
+                  </div>      
+              </div> 
+            }
+        }
+
+    }
+   
+           
+   
+</div>

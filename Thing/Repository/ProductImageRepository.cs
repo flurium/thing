@@ -16,5 +16,8 @@ namespace Thing.Repository
             var img = await Entities.FirstOrDefaultAsync(x => x.Id == id);
             if (img != null) Entities.Remove(img);
         }
+
+        public IQueryable<ProductImage> GetProductImagesById(int id)=> Entities.Where(x => x.ProductId == id);
+        
     }
 }

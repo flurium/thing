@@ -1,0 +1,84 @@
+﻿@model IReadOnlyCollection<ProductImage>
+
+       <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                         <li class="nav-item"><a class="nav-link text-dark" href="@Url.Action("DetailsOfProduct","Catalog", new {Id = ViewBag.Product.Id})">About Product</a></li>
+                    <li class="nav-item"><a class="nav-link text-dark" href="@Url.Action("CommentsOfProduct","Catalog", new {Id = ViewBag.Product.Id})">Comments</a></li>
+                     </ul>
+                </div>
+            </div>
+        </nav>
+
+
+
+<div class="container">
+  <div class="row" style="max-height:500px">
+    <div class="col">
+
+ <div id="carouselExampleControlsNoTouching" class="carousel slide" data-bs-touch="false">
+  <div class="carousel-inner">
+                    @foreach (var image in Model)
+                    {
+                     <div class="carousel-item active">
+                          <img src="@image.Url" class="d-block w-100">
+                      </div>
+                    }
+                  
+  </div>
+
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon bg-secondary  p-2 bg-opacity-25" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControlsNoTouching" data-bs-slide="next">
+    <span class="carousel-control-next-icon bg-secondary  p-2 bg-opacity-25" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+    </div>
+    <div class="col">
+
+     <section>
+  <div class="container py-5">
+    <div class="row">
+
+          <div class="col">
+                      <div class="card">
+             <div class="card-body">
+                      <div class="d-flex justify-content-between mb-3">
+                      <p class="h5">@ViewBag.Product.Name</p>
+                  <p class="h5">@ViewBag.Product.Price</p>
+                   <p class="h5">@ViewBag.Product.Status</p>
+                   
+                </div>
+
+                       <div class="d-flex justify-content-between align-items-center pb-2 mb-1">
+                            <p class="h6">@ViewBag.Product.Description</p><br />
+                       </div>
+                       <div class="d-flex justify-content-between align-items-center pb-2 mb-1">
+                            <form action="@Url.Action("ToFavorits","Catalog", new {Id = @ViewBag.Product.Id})"  method="get">
+                               <input type="submit" class="btn btn-outline-primary btn-sm mt-2" value="ADD TO FAVORITS" />
+                           </form>
+                        </div>
+                         <div class="d-flex justify-content-between align-items-center pb-2 mb-1">
+                            <form action="@Url.Action("ToCart","Catalog", new {Id = @ViewBag.Product.Id})"  method="get">
+                               <input type="submit" class="btn btn-outline-primary btn-sm mt-2" value="ADD TO CART" />
+                           </form>
+                        </div>
+              </div>
+              </div>
+             </div>
+
+    </div>
+  </div>
+</section>
+
+    </div>
+  </div>
+</div>
+
+
+
+
