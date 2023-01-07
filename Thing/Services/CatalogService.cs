@@ -1,28 +1,30 @@
 ﻿using System.Linq.Expressions;
 using Thing.Models;
 using Thing.Repository;
-
 namespace Thing.Services
 {
     public class CatalogService
     {
         private readonly ProductRepository _productRepository;
         private readonly CategoryRepository _categoryRepository;
-        private readonly ProductCategoryRepository _productCategoryRepository;
+
         private readonly ProductImageRepository _productImageRepository;
         private readonly CommentRepository _commentRepository;
         private readonly AnswerRepository _answerRepository;
         private readonly CommentImageRepository _commentImageRepository;
+        private readonly FavoriteRepository _favoriteRepository;
 
-        public CatalogService(ProductRepository productRepository, CategoryRepository categoryRepository, ProductCategoryRepository productCategoryRepository, ProductImageRepository productImageRepository, CommentRepository commentRepository, AnswerRepository answerRepository, CommentImageRepository commentImageRepository)
+        public CatalogService(ProductRepository productRepository, CategoryRepository categoryRepository,
+            ProductImageRepository productImageRepository, CommentRepository commentRepository,
+            AnswerRepository answerRepository, CommentImageRepository commentImageRepository, FavoriteRepository favoriteRepository)
         {
             _productRepository = productRepository;
             _categoryRepository = categoryRepository;
-            _productCategoryRepository = productCategoryRepository;
             _productImageRepository = productImageRepository;
             _commentRepository = commentRepository;
             _answerRepository = answerRepository;
             _commentImageRepository = commentImageRepository;
+            _favoriteRepository = favoriteRepository;
         }
 
         public virtual async Task<IReadOnlyCollection<Category>> GetAllCategoriesAsync() => await _categoryRepository.GetAllAsync();
@@ -35,17 +37,7 @@ namespace Thing.Services
 
         public virtual async Task<IReadOnlyCollection<CommentImage>> GetAllCommentsImagesAsync() => await _commentImageRepository.GetAllAsync();
 
-        public async Task<ICollection<Product>> FindProductsByCategoryIdAsync(int CategoryId)
-        {
-            var productsCategories = await _productCategoryRepository.FindByConditionAsync(pc => pc.CategoryId == CategoryId);
-            var products = new List<Product>();
-            foreach (var productCategory in productsCategories)
-            {
-                var product = await _productRepository.GetByIdAsync(productCategory.ProductId);
-                products.Add(product);
-            }
-            return products;
-        }
+        public async Task<IReadOnlyCollection<Product>> FindProductsByCategoryIdAsync(int CategoryId) => await _productRepository.FindByConditionAsync(pc => pc.CategoryId == CategoryId);
 
         public virtual async Task AddCommentAsync(Comment comment)
         {
@@ -60,7 +52,9 @@ namespace Thing.Services
 
         public virtual async Task AddFavoriteAsync(Favorite favorit)
         {
-            await _commentRepository.CreateAsync(favorit);
+            await _favoriteRepository.CreateAsync(favorit);
         }
+
+        public virtual async Task<bool> IsFavoriteExistsAsync(Favorite favorite) => await _favoriteRepository.IsFavoriteExistsAsync(favorite);
     }
 }
