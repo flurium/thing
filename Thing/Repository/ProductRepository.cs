@@ -29,7 +29,5 @@ namespace Thing.Repository
             Entities.Update(product);
             await _db.SaveChangesAsync();
         }
-
-       
     }
 }
