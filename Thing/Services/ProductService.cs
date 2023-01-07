@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 using Thing.Models;
 using Thing.Models.ViewModels;
 using Thing.Repository;

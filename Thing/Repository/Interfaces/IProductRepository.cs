@@ -7,6 +7,7 @@ namespace Thing.Repository.Interfaces
         Task Delete(int id);
 
         Task Edit(Product product);
-        Task <Product> GetByIdAsync(int id);
+
+        Task<Product> GetByIdAsync(int id);
     }
 }
