@@ -50,7 +50,6 @@ namespace Thing.Context
             builder.Entity<Product>().HasOne(p => p.Seller).WithMany(s => s.Products).HasForeignKey(p => p.SellerId);
             builder.Entity<Product>().HasOne(p => p.Category).WithMany(c => c.Products).HasForeignKey(p => p.CategoryId);
             builder.Entity<Product>().Property(p => p.Description).HasColumnType("nchar(300)");
-            builder.Entity<Product>().Property(p => p.Price).HasColumnType("money");
 
             // ProductImage
             builder.Entity<ProductImage>().HasKey(pi => pi.Id);

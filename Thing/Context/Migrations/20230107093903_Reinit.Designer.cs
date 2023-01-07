@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Thing.Context;
@@ -11,9 +12,10 @@ using Thing.Context;
 namespace Thing.Migrations
 {
     [DbContext(typeof(ThingDbContext))]
-    partial class ThingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230107093903_Reinit")]
+    partial class Reinit
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
