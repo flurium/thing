@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Thing.Migrations
 {
-    public partial class InitialSupabase : Migration
+    public partial class Fix : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -60,20 +60,6 @@ namespace Thing.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Categories", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Properties",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Name = table.Column<string>(type: "text", nullable: false),
-                    IsRequired = table.Column<bool>(type: "boolean", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Properties", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -200,25 +186,21 @@ namespace Thing.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "CategoryProperties",
+                name: "RequiredProperties",
                 columns: table => new
                 {
-                    CategoryId = table.Column<int>(type: "integer", nullable: false),
-                    PropertyId = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    CategoryId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CategoryProperties", x => new { x.PropertyId, x.CategoryId });
+                    table.PrimaryKey("PK_RequiredProperties", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CategoryProperties_Categories_CategoryId",
+                        name: "FK_RequiredProperties_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CategoryProperties_Properties_PropertyId",
-                        column: x => x.PropertyId,
-                        principalTable: "Properties",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -231,13 +213,20 @@ namespace Thing.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: false),
                     Price = table.Column<double>(type: "double precision", nullable: false),
-                    Description = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "nchar(300)", nullable: false),
                     Status = table.Column<string>(type: "text", nullable: false),
-                    SellerId = table.Column<string>(type: "text", nullable: false)
+                    SellerId = table.Column<string>(type: "text", nullable: false),
+                    CategoryId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Products", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Products_Categories_CategoryId",
+                        column: x => x.CategoryId,
+                        principalTable: "Categories",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Products_Sellers_SellerId",
                         column: x => x.SellerId,
@@ -252,9 +241,9 @@ namespace Thing.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Date = table.Column<DateTime>(type: "date", nullable: false, defaultValue: new DateTime(2023, 1, 6, 11, 9, 27, 771, DateTimeKind.Local).AddTicks(3425)),
+                    Date = table.Column<DateTime>(type: "date", nullable: false, defaultValue: new DateTime(2023, 1, 7, 11, 32, 8, 354, DateTimeKind.Local).AddTicks(5607)),
                     Grade = table.Column<int>(type: "integer", nullable: false),
-                    Content = table.Column<string>(type: "text", nullable: false),
+                    Content = table.Column<string>(type: "nchar(300)", nullable: false),
                     Pros = table.Column<string>(type: "text", nullable: false),
                     Cons = table.Column<string>(type: "text", nullable: false),
                     UserId = table.Column<string>(type: "text", nullable: true),
@@ -270,6 +259,27 @@ namespace Thing.Migrations
                         principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Comments_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CustomProperties",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Value = table.Column<string>(type: "text", nullable: false),
+                    ProductId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CustomProperties", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CustomProperties_Products_ProductId",
                         column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
@@ -327,30 +337,6 @@ namespace Thing.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProductCategories",
-                columns: table => new
-                {
-                    ProductId = table.Column<int>(type: "integer", nullable: false),
-                    CategoryId = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProductCategories", x => new { x.ProductId, x.CategoryId });
-                    table.ForeignKey(
-                        name: "FK_ProductCategories_Categories_CategoryId",
-                        column: x => x.CategoryId,
-                        principalTable: "Categories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ProductCategories_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ProductImages",
                 columns: table => new
                 {
@@ -390,9 +376,9 @@ namespace Thing.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_PropertyValues_Properties_PropertyId",
+                        name: "FK_PropertyValues_RequiredProperties_PropertyId",
                         column: x => x.PropertyId,
-                        principalTable: "Properties",
+                        principalTable: "RequiredProperties",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -491,11 +477,6 @@ namespace Thing.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_CategoryProperties_CategoryId",
-                table: "CategoryProperties",
-                column: "CategoryId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_CommentImages_CommentId",
                 table: "CommentImages",
                 column: "CommentId");
@@ -511,6 +492,11 @@ namespace Thing.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CustomProperties_ProductId",
+                table: "CustomProperties",
+                column: "ProductId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Favorites_ProductId",
                 table: "Favorites",
                 column: "ProductId");
@@ -521,14 +507,14 @@ namespace Thing.Migrations
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductCategories_CategoryId",
-                table: "ProductCategories",
-                column: "CategoryId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_ProductImages_ProductId",
                 table: "ProductImages",
                 column: "ProductId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Products_CategoryId",
+                table: "Products",
+                column: "CategoryId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Products_SellerId",
@@ -544,6 +530,11 @@ namespace Thing.Migrations
                 name: "IX_PropertyValues_PropertyId",
                 table: "PropertyValues",
                 column: "PropertyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RequiredProperties_CategoryId",
+                table: "RequiredProperties",
+                column: "CategoryId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -567,19 +558,16 @@ namespace Thing.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "CategoryProperties");
+                name: "CommentImages");
 
             migrationBuilder.DropTable(
-                name: "CommentImages");
+                name: "CustomProperties");
 
             migrationBuilder.DropTable(
                 name: "Favorites");
 
             migrationBuilder.DropTable(
                 name: "Orders");
-
-            migrationBuilder.DropTable(
-                name: "ProductCategories");
 
             migrationBuilder.DropTable(
                 name: "ProductImages");
@@ -594,13 +582,13 @@ namespace Thing.Migrations
                 name: "Comments");
 
             migrationBuilder.DropTable(
-                name: "Categories");
-
-            migrationBuilder.DropTable(
-                name: "Properties");
+                name: "RequiredProperties");
 
             migrationBuilder.DropTable(
                 name: "Products");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
 
             migrationBuilder.DropTable(
                 name: "Sellers");

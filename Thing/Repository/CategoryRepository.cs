@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 using Thing.Context;
 using Thing.Models;
 using Thing.Repository.Interfaces;
@@ -10,6 +11,9 @@ namespace Thing.Repository
         public CategoryRepository(ThingDbContext context) : base(context)
         {
         }
+
+        public virtual async Task<IReadOnlyCollection<Category>> FindByConditionWithPropertiesAsync(Expression<Func<Category, bool>> conditon)
+            => await Entities.Include(c => c.RequiredProperties).Where(conditon).ToListAsync().ConfigureAwait(false);
 
         public async Task Delete(int id)
         {

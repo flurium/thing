@@ -12,8 +12,8 @@ using Thing.Context;
 namespace Thing.Migrations
 {
     [DbContext(typeof(ThingDbContext))]
-    [Migration("20230106090927_InitialSupabase")]
-    partial class InitialSupabase
+    [Migration("20230107093208_Fix")]
+    partial class Fix
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -200,21 +200,6 @@ namespace Thing.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("Thing.Models.CategoryProperty", b =>
-                {
-                    b.Property<int>("PropertyId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("PropertyId", "CategoryId");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("CategoryProperties");
-                });
-
             modelBuilder.Entity("Thing.Models.Comment", b =>
                 {
                     b.Property<int>("Id")
@@ -229,12 +214,12 @@ namespace Thing.Migrations
 
                     b.Property<string>("Content")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("nchar(300)");
 
                     b.Property<DateTime>("Date")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("date")
-                        .HasDefaultValue(new DateTime(2023, 1, 6, 11, 9, 27, 771, DateTimeKind.Local).AddTicks(3425));
+                        .HasDefaultValue(new DateTime(2023, 1, 7, 11, 32, 8, 354, DateTimeKind.Local).AddTicks(5607));
 
                     b.Property<int>("Grade")
                         .HasColumnType("integer");
@@ -278,6 +263,32 @@ namespace Thing.Migrations
                     b.HasIndex("CommentId");
 
                     b.ToTable("CommentImages");
+                });
+
+            modelBuilder.Entity("Thing.Models.CustomProperty", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Value")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("CustomProperties");
                 });
 
             modelBuilder.Entity("Thing.Models.Favorite", b =>
@@ -325,9 +336,12 @@ namespace Thing.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("nchar(300)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -346,24 +360,11 @@ namespace Thing.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CategoryId");
+
                     b.HasIndex("SellerId");
 
                     b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("Thing.Models.ProductCategory", b =>
-                {
-                    b.Property<int>("ProductId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("CategoryId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("ProductId", "CategoryId");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("ProductCategories");
                 });
 
             modelBuilder.Entity("Thing.Models.ProductImage", b =>
@@ -388,7 +389,7 @@ namespace Thing.Migrations
                     b.ToTable("ProductImages");
                 });
 
-            modelBuilder.Entity("Thing.Models.Property", b =>
+            modelBuilder.Entity("Thing.Models.RequiredProperty", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -396,8 +397,8 @@ namespace Thing.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<bool>("IsRequired")
-                        .HasColumnType("boolean");
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -405,10 +406,12 @@ namespace Thing.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Properties");
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("RequiredProperties");
                 });
 
-            modelBuilder.Entity("Thing.Models.PropertyValue", b =>
+            modelBuilder.Entity("Thing.Models.RequiredPropertyValue", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -581,25 +584,6 @@ namespace Thing.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Thing.Models.CategoryProperty", b =>
-                {
-                    b.HasOne("Thing.Models.Category", "Category")
-                        .WithMany("CategoryProperties")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Thing.Models.Property", "Property")
-                        .WithMany("CategoryProperties")
-                        .HasForeignKey("PropertyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Category");
-
-                    b.Navigation("Property");
-                });
-
             modelBuilder.Entity("Thing.Models.Comment", b =>
                 {
                     b.HasOne("Thing.Models.Product", "Product")
@@ -626,6 +610,17 @@ namespace Thing.Migrations
                         .IsRequired();
 
                     b.Navigation("Comment");
+                });
+
+            modelBuilder.Entity("Thing.Models.CustomProperty", b =>
+                {
+                    b.HasOne("Thing.Models.Product", "Product")
+                        .WithMany("CustomProperties")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Thing.Models.Favorite", b =>
@@ -668,32 +663,21 @@ namespace Thing.Migrations
 
             modelBuilder.Entity("Thing.Models.Product", b =>
                 {
+                    b.HasOne("Thing.Models.Category", "Category")
+                        .WithMany("Products")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Thing.Models.Seller", "Seller")
                         .WithMany("Products")
                         .HasForeignKey("SellerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Seller");
-                });
-
-            modelBuilder.Entity("Thing.Models.ProductCategory", b =>
-                {
-                    b.HasOne("Thing.Models.Category", "Category")
-                        .WithMany("ProductCategories")
-                        .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Thing.Models.Product", "Product")
-                        .WithMany("ProductCategories")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Category");
 
-                    b.Navigation("Product");
+                    b.Navigation("Seller");
                 });
 
             modelBuilder.Entity("Thing.Models.ProductImage", b =>
@@ -707,15 +691,26 @@ namespace Thing.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("Thing.Models.PropertyValue", b =>
+            modelBuilder.Entity("Thing.Models.RequiredProperty", b =>
+                {
+                    b.HasOne("Thing.Models.Category", "Category")
+                        .WithMany("RequiredProperties")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+                });
+
+            modelBuilder.Entity("Thing.Models.RequiredPropertyValue", b =>
                 {
                     b.HasOne("Thing.Models.Product", "Product")
-                        .WithMany("PropertyValues")
+                        .WithMany("RequiredPropertyValues")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Thing.Models.Property", "Property")
+                    b.HasOne("Thing.Models.RequiredProperty", "Property")
                         .WithMany("PropertyValues")
                         .HasForeignKey("PropertyId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -737,9 +732,9 @@ namespace Thing.Migrations
 
             modelBuilder.Entity("Thing.Models.Category", b =>
                 {
-                    b.Navigation("CategoryProperties");
+                    b.Navigation("Products");
 
-                    b.Navigation("ProductCategories");
+                    b.Navigation("RequiredProperties");
                 });
 
             modelBuilder.Entity("Thing.Models.Comment", b =>
@@ -753,21 +748,19 @@ namespace Thing.Migrations
                 {
                     b.Navigation("Comments");
 
+                    b.Navigation("CustomProperties");
+
                     b.Navigation("Favorites");
 
                     b.Navigation("Images");
 
                     b.Navigation("Orders");
 
-                    b.Navigation("ProductCategories");
-
-                    b.Navigation("PropertyValues");
+                    b.Navigation("RequiredPropertyValues");
                 });
 
-            modelBuilder.Entity("Thing.Models.Property", b =>
+            modelBuilder.Entity("Thing.Models.RequiredProperty", b =>
                 {
-                    b.Navigation("CategoryProperties");
-
                     b.Navigation("PropertyValues");
                 });
 

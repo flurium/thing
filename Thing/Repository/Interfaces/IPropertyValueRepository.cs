@@ -2,7 +2,7 @@
 
 namespace Thing.Repository.Interfaces
 {
-    public interface IPropertyValueRepository : IRepository<PropertyValue>
+    public interface IPropertyValueRepository : IRepository<RequiredPropertyValue>
     {
         Task Delete(int Id);
     }

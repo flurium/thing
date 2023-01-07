@@ -35,6 +35,5 @@ namespace Thing.Services
         {
             await _productRepository.Edit(product);
         }
-
     }
 }

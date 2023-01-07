@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Thing.Models;
 using Thing.Models.ViewModels;
+using Thing.Services;
 
 namespace Thing.Controllers
 {
@@ -12,13 +13,15 @@ namespace Thing.Controllers
         private readonly SignInManager<User> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly RoleManager<IdentityRole> _roleManager;
+        private readonly SellerService _sellerService;
 
-        public AccountController(SignInManager<User> signInManager, UserManager<User> userManager, IEmailSender emailSender, RoleManager<IdentityRole> roleManager)
+        public AccountController(SignInManager<User> signInManager, UserManager<User> userManager, IEmailSender emailSender, RoleManager<IdentityRole> roleManager, SellerService sellerService)
         {
             _signInManager = signInManager;
             _userManager = userManager;
             _emailSender = emailSender;
             _roleManager = roleManager;
+            _sellerService = sellerService;
         }
 
         [HttpGet]
@@ -66,6 +69,14 @@ namespace Thing.Controllers
                     }
 
                     await _userManager.AddToRoleAsync(user, Roles.Seller);
+                    await _sellerService.CreateAsync(
+                        new Seller
+                        {
+                            Id = user.Id,
+                            About = "about",
+                            //User = user
+                        }
+                        );
                 }
 
                 var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);

@@ -1,21 +1,15 @@
-﻿
-using IdentityModel;
-using System.Linq.Expressions;
-using System.Security.Claims;
-using Thing.Models;
+﻿using Thing.Models;
 using Thing.Repository;
-
 
 namespace Thing.Services
 {
     public class SellerService
     {
         private readonly SellerRepository _sellerRepository;
-   
 
         public SellerService(SellerRepository sellerRepository)
         {
-            _sellerRepository= sellerRepository;
+            _sellerRepository = sellerRepository;
         }
 
         public async Task CreateAsync(Seller entity) => await _sellerRepository.CreateAsync(entity);
@@ -27,10 +21,7 @@ namespace Thing.Services
 
         public async Task Edit(Seller seller)
         {
-           await _sellerRepository.Edit(seller);
+            await _sellerRepository.Edit(seller);
         }
-
-      
-       
     }
 }

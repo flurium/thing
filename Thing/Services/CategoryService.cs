@@ -1,10 +1,9 @@
 ﻿using Thing.Models;
 using Thing.Repository;
-using Thing.Services.Interfaces;
 
 namespace Thing.Services
 {
-    public class CategoryService : ICategoryService
+    public class CategoryService
     {
         private readonly CategoryRepository _categoryRepository;
 
@@ -19,6 +18,7 @@ namespace Thing.Services
         {
             try
             {
+                category.Name = category.Name.Trim();
                 await _categoryRepository.CreateAsync(category);
                 return true;
             }
@@ -47,6 +47,13 @@ namespace Thing.Services
                 return true;
             }
             catch (Exception) { return false; }
+        }
+
+        public async Task<Category?> PropertiesFor(int id)
+        {
+            var category = (await _categoryRepository.FindByConditionWithPropertiesAsync(c => c.Id == id)).FirstOrDefault();
+            if (category == null) return null;
+            return category;
         }
     }
 }

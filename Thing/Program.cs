@@ -7,13 +7,15 @@ using Thing.Models;
 using Thing.Repository;
 using Thing.Services;
 
+using Thing.Repository;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-var aspEnv = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 string connectionString;
+var aspEnv = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 
 if (aspEnv == "Development")
 {
@@ -47,15 +49,26 @@ builder.Services.Configure<EmailConfirmationProviderOptions>(options => options.
 // SEND GRID
 builder.Services.AddTransient<IEmailSender, EmailSenderService>();
 
-// Logic services
+// Repositories
+builder.Services.AddScoped<AnswerRepository>();
 builder.Services.AddScoped<CategoryRepository>();
-builder.Services.AddTransient<CategoryService>();
-
-//Logic Services
+builder.Services.AddScoped<CommentImageRepository>();
+builder.Services.AddScoped<CommentRepository>();
+builder.Services.AddScoped<FavoriteRepository>();
+builder.Services.AddScoped<OrderRepository>();
+builder.Services.AddScoped<ProductImageRepository>();
 builder.Services.AddScoped<ProductRepository>();
-builder.Services.AddTransient<ProductService>();
+builder.Services.AddScoped<PropertyValueRepository>();
+builder.Services.AddScoped<RequiredPropertyRepository>();
 builder.Services.AddScoped<SellerRepository>();
+
+// Logic services
+builder.Services.AddTransient<CategoryService>();
+builder.Services.AddTransient<BanService>();
+builder.Services.AddTransient<RequiredPropertiesService>();
+builder.Services.AddTransient<ProductService>();
 builder.Services.AddTransient<SellerService>();
+builder.Services.AddTransient<CatalogService>();
 
 var app = builder.Build();
 

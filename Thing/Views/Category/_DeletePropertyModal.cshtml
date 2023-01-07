@@ -7,12 +7,13 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Are you sure you want to delete category?
+                Are you sure you want to delete property?
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-dark" data-bs-dismiss="modal">No</button>
-                <form asp-action="Delete">
-                    <input type="hidden" id="category-id" name="id" />
+                <form asp-action="DeleteProperty">
+                    <input type="hidden" id="category-id" name="categoryId" />
+                    <input type="hidden" id="property-id" name="propertyId" />
                     <input type="submit" value="Yes" class="btn btn-danger" />
                 </form>
             </div>
@@ -25,13 +26,17 @@
     modal.addEventListener('show.bs.modal', function (event) {
         var button = event.relatedTarget
 
+        var category = button.getAttribute('data-bs-category')
         var id = button.getAttribute('data-bs-id')
         var name = button.getAttribute('data-bs-name')
 
         var modalBody = modal.querySelector('.modal-body')
-        modalBody.textContent = `Are you sure you want to delete category: ${name}?`
+        modalBody.textContent = `Are you sure you want to delete property: ${name}?`
 
         var categoryInput = modal.querySelector('#category-id')
+        categoryInput.value = category
+
+        var categoryInput = modal.querySelector('#property-id')
         categoryInput.value = id
     })
 </script>
