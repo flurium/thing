@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Thing.Models;
 using Thing.Services;
 
 namespace Thing.Controllers
 {
     // add only admins filter
-    //[Authorize(Roles = Roles.Admin)]
+    [Authorize(Roles = Roles.Admin)]
     public class CategoryController : Controller
     {
         private readonly CategoryService _categoryService;

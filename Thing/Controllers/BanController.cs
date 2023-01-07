@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 using Thing.Models;
 using Thing.Models.ViewModels;
 using Thing.Services;
@@ -7,7 +9,7 @@ using Thing.Services;
 namespace Thing.Controllers
 {
     // To ban different things
-
+    [Authorize(Roles = Roles.Admin)]
     public class BanController : Controller
     {
         private readonly BanService _banService;
