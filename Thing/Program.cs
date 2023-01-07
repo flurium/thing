@@ -64,6 +64,7 @@ builder.Services.AddScoped<SellerRepository>();
 
 // Logic services
 builder.Services.AddTransient<CategoryService>();
+builder.Services.AddTransient<BanService>();
 builder.Services.AddTransient<RequiredPropertiesService>();
 builder.Services.AddTransient<ProductService>();
 builder.Services.AddTransient<SellerService>();
