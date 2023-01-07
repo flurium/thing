@@ -14,8 +14,6 @@ namespace Thing.Context
         // DbSets
         public DbSet<Product> Products { get; set; }
 
-        public DbSet<ProductCategory> ProductCategories { get; set; }
-
         public DbSet<Seller> Sellers { get; set; }
 
         public DbSet<Category> Categories { get; set; }
@@ -27,10 +25,10 @@ namespace Thing.Context
         public DbSet<ProductImage> ProductImages { get; set; }
         public DbSet<Answer> Answers { get; set; }
         public DbSet<Favorite> Favorites { get; set; }
-        public DbSet<CategoryProperty> CategoryProperties { get; set; }
 
-        public DbSet<Property> Properties { get; set; }
-        public DbSet<PropertyValue> PropertyValues { get; set; }
+        public DbSet<CustomProperty> CustomProperties { get; set; }
+        public DbSet<RequiredProperty> RequiredProperties { get; set; }
+        public DbSet<RequiredPropertyValue> PropertyValues { get; set; }
 
         // Models Creating
         protected override void OnModelCreating(ModelBuilder builder)
@@ -50,15 +48,13 @@ namespace Thing.Context
             ////// Product
             builder.Entity<Product>().HasKey(p => p.Id);
             builder.Entity<Product>().HasOne(p => p.Seller).WithMany(s => s.Products).HasForeignKey(p => p.SellerId);
+            builder.Entity<Product>().HasOne(p => p.Category).WithMany(c => c.Products).HasForeignKey(p => p.CategoryId);
+            builder.Entity<Product>().Property(p => p.Description).HasColumnType("nchar(300)");
+            builder.Entity<Product>().Property(p => p.Price).HasColumnType("money");
 
             // ProductImage
             builder.Entity<ProductImage>().HasKey(pi => pi.Id);
             builder.Entity<ProductImage>().HasOne(pi => pi.Product).WithMany(p => p.Images).HasForeignKey(pi => pi.ProductId);
-
-            // ProductCategory
-            builder.Entity<ProductCategory>().HasKey(pc => new { pc.ProductId, pc.CategoryId });
-            builder.Entity<ProductCategory>().HasOne(pc => pc.Category).WithMany(c => c.ProductCategories).HasForeignKey(x => x.CategoryId);
-            builder.Entity<ProductCategory>().HasOne(pc => pc.Product).WithMany(p => p.ProductCategories).HasForeignKey(x => x.ProductId);
 
             // Category
             builder.Entity<Category>().HasKey(c => c.Id);
@@ -71,7 +67,7 @@ namespace Thing.Context
 
             builder.Entity<Comment>().HasOne(c => c.User).WithMany(u => u.Comments).IsRequired(false).HasForeignKey(c => c.UserId);
 
-            //builder.Entity<Comment>().Property(c => c.Content).HasColumnType("nchar(300)");
+            builder.Entity<Comment>().Property(c => c.Content).HasColumnType("nchar(300)");
             builder.Entity<Comment>().Property(c => c.Date).HasColumnType("date").HasDefaultValue(DateTime.Now);
 
             // Answer
@@ -88,18 +84,18 @@ namespace Thing.Context
             builder.Entity<Favorite>().HasOne(f => f.User).WithMany(u => u.Favorites).HasForeignKey(f => f.UserId);
             builder.Entity<Favorite>().HasOne(f => f.Product).WithMany(p => p.Favorites).HasForeignKey(f => f.ProductId);
 
-            // CategoryProperty
-            builder.Entity<CategoryProperty>().HasKey(cp => new { cp.PropertyId, cp.CategoryId });
-            builder.Entity<CategoryProperty>().HasOne(cp => cp.Category).WithMany(c => c.CategoryProperties).HasForeignKey(cp => cp.CategoryId);
-            builder.Entity<CategoryProperty>().HasOne(cp => cp.Property).WithMany(p => p.CategoryProperties).HasForeignKey(cp => cp.PropertyId);
+            // Custom Property
+            builder.Entity<CustomProperty>().HasKey(cp => cp.Id);
+            builder.Entity<CustomProperty>().HasOne(cp => cp.Product).WithMany(p => p.CustomProperties).HasForeignKey(cp => cp.ProductId);
 
-            // Property
-            builder.Entity<Property>().HasKey(p => p.Id);
+            // Required Property
+            builder.Entity<RequiredProperty>().HasKey(rp => rp.Id);
+            builder.Entity<RequiredProperty>().HasOne(rp => rp.Category).WithMany(c => c.RequiredProperties).HasForeignKey(rp => rp.CategoryId);
 
             // PropertyValue
-            builder.Entity<PropertyValue>().HasKey(pv => pv.Id);
-            builder.Entity<PropertyValue>().HasOne(pv => pv.Property).WithMany(p => p.PropertyValues).HasForeignKey(pv => pv.PropertyId);
-            builder.Entity<PropertyValue>().HasOne(pv => pv.Product).WithMany(p => p.PropertyValues).HasForeignKey(pv => pv.ProductId);
+            builder.Entity<RequiredPropertyValue>().HasKey(pv => pv.Id);
+            builder.Entity<RequiredPropertyValue>().HasOne(pv => pv.Property).WithMany(p => p.PropertyValues).HasForeignKey(pv => pv.PropertyId);
+            builder.Entity<RequiredPropertyValue>().HasOne(pv => pv.Product).WithMany(p => p.RequiredPropertyValues).HasForeignKey(pv => pv.ProductId);
 
             // CommentImage
             builder.Entity<CommentImage>().HasKey(ci => ci.Id);

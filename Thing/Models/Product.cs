@@ -11,11 +11,14 @@
         public string SellerId { get; set; }
         public Seller Seller { get; set; }
 
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
+
         public ICollection<Order> Orders { get; set; }
-        public ICollection<ProductCategory> ProductCategories { get; set; }
         public ICollection<Comment> Comments { get; set; }
         public ICollection<Favorite> Favorites { get; set; }
         public ICollection<ProductImage> Images { get; set; }
-        public ICollection<PropertyValue> PropertyValues { get; set; }
+        public ICollection<RequiredPropertyValue> RequiredPropertyValues { get; set; }
+        public ICollection<CustomProperty> CustomProperties { get; set; }
     }
 }

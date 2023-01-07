@@ -26,7 +26,7 @@
                 data-bs-target="#editModal" data-bs-id="@item.Id" data-bs-name="@item.Name">
                 Edit
             </button>
-            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-dark">Details</a>
+            <a asp-action="Properties" asp-route-id="@item.Id" class="btn btn-sm btn-info">Manage properties</a>
             <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
                 data-bs-target="#deleteConfirm" data-bs-id="@item.Id" data-bs-name="@item.Name">
                 Delete

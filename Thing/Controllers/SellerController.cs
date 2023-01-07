@@ -8,6 +8,7 @@ namespace Thing.Controllers
     {
         private readonly SellerService _sellerService;
         private readonly ProductService _productService;
+
         public SellerController(SellerService sellerService, ProductService productService)
         {
             _sellerService = sellerService;
@@ -17,8 +18,8 @@ namespace Thing.Controllers
         public IActionResult Index()
         {
             return View(new List<Product> { new Product { Name = "temp", Description = "sssssssssssssssssssssssssssssssssssss", Price = 3500, Status = "New" }, new Product { Name = "temp", Description = "sssssssssssssssssssssssssssssssssssss", Price = 3500, Status = "New" } });
-            
-           // return View(_productService.FindByConditionAsync(x=>x.Seller==User.Identity));
+
+            // return View(_productService.FindByConditionAsync(x=>x.Seller==User.Identity));
         }
     }
 }
