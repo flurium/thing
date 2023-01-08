@@ -1,20 +1,17 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Hosting.Internal;
-using System.IO;
 using System.Security.Claims;
 using Thing.Models;
-using Thing.Models.ViewModels;
 using Thing.Services;
-using Thing.Filters;
+
 namespace Thing.Controllers
 {
     public class CatalogController : Controller
     {
         private CatalogService _catalogService;
         private ImageService _imageService;
-        IWebHostEnvironment _appEnvironment;
-        
+        private IWebHostEnvironment _appEnvironment;
+
         public CatalogController(CatalogService catalogService, ImageService imageService, IWebHostEnvironment appEnvironment)
         {
             _catalogService = catalogService;
@@ -37,18 +34,17 @@ namespace Thing.Controllers
             ViewBag.Category = await _catalogService.GetCategoryByIdAsync(Id);
             return View(await _catalogService.GetProductsCardsAsync(Id));
         }
-        
+
         public async Task<IActionResult> DetailsOfProductAsync(int ProductId, int CategoryId)
         {
-            
             ViewBag.Product = await _catalogService.GetProductByIdAsync(ProductId);
             ViewBag.CustomProperties = await _catalogService.GetCustomPropertiesByProductIdAsync(ProductId);
             ViewBag.PropertyValues = await _catalogService.GetPropertyValuesOfProductByProductIdAndCategoryIdAsync(ProductId, CategoryId);
             ViewBag.Category = await _catalogService.GetCategoryByIdAsync(CategoryId);
             return View(await _catalogService.GetProductImagesById(ProductId));
         }
-        
-        public async Task<IActionResult> Comments(int ProductId,int  CategoryId)
+
+        public async Task<IActionResult> Comments(int ProductId, int CategoryId)
         {
             ViewBag.Product = await _catalogService.GetProductByIdAsync(ProductId);
             ViewBag.Answers = await _catalogService.GetAnswersCardsByProductIdAsync(ProductId);
@@ -59,7 +55,6 @@ namespace Thing.Controllers
         }
 
         [Authorize]
-        //[NotBannedFilter]
         public async Task<IActionResult> WriteCommentAsync(Comment comment, int ProductId, int CategoryId, IFormFileCollection uploads)
         {
             comment.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -72,7 +67,7 @@ namespace Thing.Controllers
 
             foreach (var image in uploads)
             {
-                if (image.Name != null && image.Name!="")
+                if (image.Name != null && image.Name != "")
                 {
                     string path = "/Images/" + image.FileName;
                     string alpath = _appEnvironment.WebRootPath + path;
@@ -83,9 +78,8 @@ namespace Thing.Controllers
                     CommentImage commentImage = new CommentImage() { ImagePath = path, CommentId = comment.Id };
                     await _imageService.AddCommentImageAsync(commentImage);
                 }
-                
             }
-            
+
             return RedirectToAction("Comments", new { ProductId, CategoryId });
         }
 
@@ -97,23 +91,23 @@ namespace Thing.Controllers
                 UserId = User.FindFirstValue(ClaimTypes.NameIdentifier),
                 ProductId = ProductId
             };
-            if (await _catalogService.IsFavoriteExistsAsync(favorit)) return RedirectToAction("DetailsOfProduct", new { ProductId, CategoryId }); 
+            if (await _catalogService.IsFavoriteExistsAsync(favorit)) return RedirectToAction("DetailsOfProduct", new { ProductId, CategoryId });
 
             await _catalogService.AddFavoriteAsync(favorit);
             return RedirectToAction("CategoryProducts", new { Id = CategoryId });
         }
 
         [Authorize]
-        //[NotBannedFilter]
-        public IActionResult WriteAnswer(int CommentId , int ProductId, int CategoryId)
+        public IActionResult WriteAnswer(int CommentId, int ProductId, int CategoryId)
         {
             ViewBag.CommentId = CommentId;
             ViewBag.ProductId = ProductId;
             ViewBag.CategoryId = CategoryId;
             return View();
         }
+
         [Authorize]
-        public async Task<IActionResult> PostAnswerAsync(Answer Answer , int ProductId, int CategoryId)
+        public async Task<IActionResult> PostAnswerAsync(Answer Answer, int ProductId, int CategoryId)
         {
             Answer.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             await _catalogService.AddAnswerAsync(Answer);
@@ -123,18 +117,18 @@ namespace Thing.Controllers
         [Authorize]
         public async Task<IActionResult> ToCart(int ProductId, int CategoryId)
         {
-            var order = new Order() {
-                Count=1,
-             ProductId = ProductId,
-              State = "INCART",
-               UserId = User.FindFirstValue(ClaimTypes.NameIdentifier)
+            var order = new Order()
+            {
+                Count = 1,
+                ProductId = ProductId,
+                State = "INCART",
+                UserId = User.FindFirstValue(ClaimTypes.NameIdentifier)
             };
             if (await _catalogService.IsOrderExistsAsync(order)) return RedirectToAction("DetailsOfProduct", new { ProductId, CategoryId });
 
             await _catalogService.AddOrderAsync(order);
 
             return RedirectToAction("CategoryProducts", new { Id = CategoryId });
-
         }
     }
 }

@@ -29,8 +29,6 @@ namespace Thing.Repository
             await _db.SaveChangesAsync();
         }
 
-        
         public async Task<Category> GetByIdAsync(int id) => await Entities.FirstOrDefaultAsync(c => c.Id == id);
-        
     }
 }

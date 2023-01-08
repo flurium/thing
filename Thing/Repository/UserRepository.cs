@@ -10,6 +10,6 @@ namespace Thing.Repository
         {
         }
 
-        public async Task<User> GetUserById(string Id) => Entities.FirstOrDefault(u=>u.Id == Id);
+        public async Task<User> GetUserById(string Id) => Entities.FirstOrDefault(u => u.Id == Id);
     }
 }

@@ -18,6 +18,5 @@ namespace Thing.Repository
         }
 
         public async Task<ProductImage> GetImageByProductIdAsync(int Id) => await Entities.FirstOrDefaultAsync(x => x.ProductId == Id);
-
     }
 }

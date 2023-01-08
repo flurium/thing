@@ -53,7 +53,7 @@ namespace Thing.Controllers
             var user = new User()
             {
                 Email = registerViewModel.Email,
-                UserName = registerViewModel.Email,
+                UserName = registerViewModel.Name,
             };
 
             var res = await _userManager.CreateAsync(user, registerViewModel.Password);
@@ -63,20 +63,14 @@ namespace Thing.Controllers
                 {
                     var roleExists = await _roleManager.RoleExistsAsync(Roles.Seller);
 
-                    if (!roleExists)
-                    {
-                        await _roleManager.CreateAsync(new IdentityRole(Roles.Seller));
-                    }
+                    if (!roleExists) await _roleManager.CreateAsync(new IdentityRole(Roles.Seller));
 
                     await _userManager.AddToRoleAsync(user, Roles.Seller);
-                    await _sellerService.CreateAsync(
-                        new Seller
-                        {
-                            Id = user.Id,
-                            About = "about",
-                            //User = user
-                        }
-                        );
+                    await _sellerService.CreateAsync(new Seller
+                    {
+                        Id = user.Id,
+                        About = "about"
+                    });
                 }
 
                 var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
