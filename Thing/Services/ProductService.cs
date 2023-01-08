@@ -14,13 +14,15 @@ namespace Thing.Services
             _productRepository = productRepository;
         }
 
-        public async Task CreateAsync(Product product)
+        public async Task<Product> CreateAsync(Product product)
         {
             if (product != null)
             {
-                await _productRepository.CreateAsync(product);
+                return await _productRepository.CreateAsync(product);
             }
+            return null;
         }
+
 
         public async Task Delete(int id)
         {
@@ -44,6 +46,13 @@ namespace Thing.Services
 
             return await _productRepository.FindByConditionsAsync(predicates);
         }
+
+        public async Task<Product> FirstOfDefult(Expression<Func<Product, bool>> conditon)
+        {
+            return await _productRepository.FirstOfDefult(conditon);
+        }
+
+
 
         public async Task Edit(Product product)
         {
