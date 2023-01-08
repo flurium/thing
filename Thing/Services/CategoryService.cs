@@ -1,10 +1,9 @@
 ﻿using Thing.Models;
 using Thing.Repository;
-using Thing.Services.Interfaces;
 
 namespace Thing.Services
 {
-    public class CategoryService : ICategoryService
+    public class CategoryService
     {
         private readonly CategoryRepository _categoryRepository;
 

@@ -2,6 +2,7 @@
 using Thing.Models;
 using Thing.Models.ViewModels;
 using Thing.Repository;
+
 namespace Thing.Services
 {
     public class CatalogService

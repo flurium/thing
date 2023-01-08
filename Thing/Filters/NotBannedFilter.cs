@@ -8,10 +8,7 @@ namespace Thing.Filters
     {
         public void OnAuthorization(AuthorizationFilterContext context)
         {
-            if (context.HttpContext.User.IsInRole(Roles.Banned))
-            {
-                context.Result = new ViewResult { ViewName = "Banned" };
-            }
+            if (context.HttpContext.User.IsInRole(Roles.Banned)) context.Result = new ViewResult { ViewName = "Banned" };
         }
     }
 }

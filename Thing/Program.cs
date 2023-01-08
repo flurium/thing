@@ -7,8 +7,6 @@ using Thing.Models;
 using Thing.Repository;
 using Thing.Services;
 
-using Thing.Repository;
-
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -65,9 +63,11 @@ builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<CustomPropertyRepository>();
 // Logic services
 builder.Services.AddTransient<CategoryService>();
+builder.Services.AddTransient<BanService>();
 builder.Services.AddTransient<RequiredPropertiesService>();
 builder.Services.AddTransient<ProductService>();
 builder.Services.AddTransient<SellerService>();
+builder.Services.AddTransient<ProductImageService>();
 builder.Services.AddTransient<CatalogService>();
 builder.Services.AddTransient<ImageService>();
 

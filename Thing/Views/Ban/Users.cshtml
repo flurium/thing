@@ -1,0 +1,50 @@
+﻿@using Thing.Models.ViewModels;
+@model IEnumerable<UserViewModel>
+
+@{
+    ViewData["Title"] = "Users";
+}
+
+<h1 class="mb-5 mt-4 text-center">Manage users</h1>
+
+<form asp-action="Users" method="get" class="row my-4">
+    <div class="col input-group">
+        <input name="Id" class="form-control" placeholder="Id" />
+        <input name="Name" class="form-control" placeholder="Name" />
+        <input name="Email" class="form-control" placeholder="Email" />
+    </div>
+    <div class="col-auto">
+        <input type="submit" value="Find" class="btn btn-success" />
+    </div>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => user.Id)</td>
+                <td>@Html.DisplayFor(modelItem => user.Name)</td>
+                <td>@Html.DisplayFor(modelItem => user.Email)</td>
+                <td>
+                    @if (user.IsBanned)
+                    {
+                        <a asp-action="UnbanUser" asp-route-id="@user.Id" asp-route-redirect="@ViewBag.Url" class="btn btn-sm btn-info">Unban</a>
+                    }
+                    else
+                    {
+                        <a asp-action="BanUser" asp-route-id="@user.Id" asp-route-redirect="@ViewBag.Url" class="btn btn-sm btn-danger">Ban</a>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -14,25 +14,30 @@ namespace Thing.Controllers
         private CatalogService _catalogService;
         private ImageService _imageService;
         IWebHostEnvironment _appEnvironment;
+        
         public CatalogController(CatalogService catalogService, ImageService imageService, IWebHostEnvironment appEnvironment)
         {
             _catalogService = catalogService;
             _imageService = imageService;
             _appEnvironment = appEnvironment;
         }
+
         public IActionResult Index()
         {
             return View();
         }
+
         public async Task<IActionResult> CategoriesAsync()
         {
             return View(await _catalogService.GetAllCategoriesAsync());
         }
+
         public async Task<IActionResult> CategoryProductsAsync(int Id)
         {
             ViewBag.Category = await _catalogService.GetCategoryByIdAsync(Id);
             return View(await _catalogService.GetProductsCardsAsync(Id));
         }
+        
         public async Task<IActionResult> DetailsOfProductAsync(int ProductId, int CategoryId)
         {
             
@@ -42,6 +47,7 @@ namespace Thing.Controllers
             ViewBag.Category = await _catalogService.GetCategoryByIdAsync(CategoryId);
             return View(await _catalogService.GetProductImagesById(ProductId));
         }
+        
         public async Task<IActionResult> Comments(int ProductId,int  CategoryId)
         {
             ViewBag.Product = await _catalogService.GetProductByIdAsync(ProductId);
@@ -51,6 +57,7 @@ namespace Thing.Controllers
             var comments = await _catalogService.GetCommentsCardsByProductIdAsync(ProductId);
             return View(comments);
         }
+
         [Authorize]
         //[NotBannedFilter]
         public async Task<IActionResult> WriteCommentAsync(Comment comment, int ProductId, int CategoryId, IFormFileCollection uploads)
@@ -127,6 +134,7 @@ namespace Thing.Controllers
             await _catalogService.AddOrderAsync(order);
 
             return RedirectToAction("CategoryProducts", new { Id = CategoryId });
+
         }
     }
 }
