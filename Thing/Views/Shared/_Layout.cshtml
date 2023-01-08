@@ -7,24 +7,22 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Thing.styles.css" asp-append-version="true" />
+    @await Html.PartialAsync("_Favicons")
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg- border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Thing</a>
+            <div class="container-fluid mx-3">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                     <img src="/img/logo.svg" alt="" width="24" height="24" class="d-inline-block align-text-top me-1">
+                    Thing
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
                          <li class="nav-item"><a class="nav-link text-dark" href="@Url.Action("Categories", "Catalog")">Catalog</a></li>
                         
                         @if(User.IsInRole(Roles.Admin))
@@ -45,7 +43,7 @@
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
-                        @if (User.Identity.Name == null)
+                        @if (User.Identity == null || User.Identity.Name == null)
                         {
                             <li class="nav-item"><a class="nav-link text-dark" href="@Url.Action("Login", "Account")">Login</a></li>
                             <li class="nav-item"><a class="nav-link text-dark" href="@Url.Action("Register", "Account")">Register</a></li>                     
@@ -55,25 +53,21 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark">Hello @User.Identity?.Name!</a>
                             </li>
+                             if(User.IsInRole(Roles.Seller)){
+                             <li class="nav-item"><a class="nav-link text-dark" href="@Url.Action("Profile", "Seller")">Profile</a></li>
+                            }
                             <li class="nav-item"><a class="nav-link text-dark" href="@Url.Action("Logout", "Account")">Logout</a></li>
                         }
-
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container mb-5">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - Thing - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

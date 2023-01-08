@@ -207,17 +207,16 @@ namespace Thing.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Cons")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Content")
                         .IsRequired()
-                        .HasColumnType("nchar(300)");
+                        .HasColumnType("text");
 
                     b.Property<DateTime>("Date")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("date")
-                        .HasDefaultValue(new DateTime(2023, 1, 7, 11, 39, 3, 108, DateTimeKind.Local).AddTicks(8312));
+                        .HasDefaultValue(new DateTime(2023, 1, 8, 10, 40, 31, 269, DateTimeKind.Local).AddTicks(9408));
 
                     b.Property<int>("Grade")
                         .HasColumnType("integer");
@@ -226,7 +225,6 @@ namespace Thing.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("Pros")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("UserId")
@@ -339,7 +337,7 @@ namespace Thing.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nchar(300)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Name")
                         .IsRequired()

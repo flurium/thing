@@ -41,5 +41,7 @@ namespace Thing.Repository
                 await Edit(order);
             }
         }
+        
+        public async Task<bool> IsOrderExistsAsync(Order order) => await Entities.AnyAsync(o => o.UserId == order.UserId && o.ProductId == order.ProductId).ConfigureAwait(false);
     }
 }

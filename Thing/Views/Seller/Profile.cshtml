@@ -1,0 +1,45 @@
+﻿@using Microsoft.Extensions.Hosting.Internal
+
+
+@model List<Thing.Models.Product>
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<a type="button" href="@Url.Action("Create", "Product")" class="btn btn-primary btn-lg">+ Add new product</a>
+
+
+@foreach(var product in @Model){
+    <form asp-action="Delete" asp-controller="Product" method="post">
+
+        <div class="card-deck">
+  <div class="card">
+    @foreach(var img in ViewBag.Images){
+
+       <input type="hidden" name="id" value="@product.Id"/>
+       @if (img.ProductId == @product.Id)
+       {
+           <div>
+          <img src="@img.Url" class="card-img-top"  alt="@product.Name"/>
+          </div>
+          break;
+       }
+
+    }
+    <div class="card-body">
+      <h5 class="card-title">@product.Name</h5>
+      <h8 class="card-text">Status: @product.Status</h8>
+      <h10 class="card-text">Price: @product.Price</h10>
+     <input type="submit" value="Delete" class="btn btn-danger"/>
+    </div>
+  </div>
+
+     
+  </div>
+</form>
+}
+
+

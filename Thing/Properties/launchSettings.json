@@ -4,8 +4,7 @@
             "commandName": "Project",
             "launchBrowser": true,
             "environmentVariables": {
-                "ASPNETCORE_ENVIRONMENT": "Development",
-                "DB_CONNECTION_STR": "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Thing;"
+                "ASPNETCORE_ENVIRONMENT": "Development"
             },
             "dotnetRunMessages": true,
             "applicationUrl": "https://localhost:7272;http://localhost:5294"
@@ -14,8 +13,7 @@
             "commandName": "IISExpress",
             "launchBrowser": true,
             "environmentVariables": {
-                "ASPNETCORE_ENVIRONMENT": "Development",
-                "DB_CONNECTION_STR": "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Thing;"
+                "ASPNETCORE_ENVIRONMENT": "Development"
             }
         },
         "Docker": {
@@ -23,13 +21,7 @@
             "launchBrowser": true,
             "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
             "publishAllPorts": true,
-            "useSSL": true,
-            "environmentVariables": {
-                "ASPNETCORE_ENVIRONMENT": "Development",
-                "DB_CONNECTION_STR": "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=Thing;",
-                "SG_USER_MAIL": "",
-                "SG_API_KEY": ""
-            }
+            "useSSL": true
         }
     },
     "iisSettings": {

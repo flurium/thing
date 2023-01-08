@@ -19,10 +19,9 @@
 
 
 <ul class="list-group list-group-flush">
-
     @foreach (var item in Model.RequiredProperties)
     {
-        <li class="list-group-item d-flex justify-content-between align-items-center">
+        <li class="px-0 list-group-item d-flex justify-content-between align-items-center">
             @Html.DisplayFor(modelItem => item.Name)
             <button type="button" class="btn btn-sm btn-dark" data-bs-toggle="modal"
                 data-bs-target="#editModal" data-bs-id="@item.Id" data-bs-name="@item.Name" data-bs-category="@Model.Id">
