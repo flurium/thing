@@ -66,6 +66,7 @@ builder.Services.AddTransient<BanService>();
 builder.Services.AddTransient<RequiredPropertiesService>();
 builder.Services.AddTransient<ProductService>();
 builder.Services.AddTransient<SellerService>();
+builder.Services.AddTransient<ProductImageService>();
 builder.Services.AddTransient<CatalogService>();
 
 var app = builder.Build();

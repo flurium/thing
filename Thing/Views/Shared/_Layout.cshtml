@@ -53,6 +53,9 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark">Hello @User.Identity?.Name!</a>
                             </li>
+                             if(User.IsInRole(Roles.Seller)){
+                             <li class="nav-item"><a class="nav-link text-dark" href="@Url.Action("Profile", "Seller")">Profile</a></li>
+                            }
                             <li class="nav-item"><a class="nav-link text-dark" href="@Url.Action("Logout", "Account")">Logout</a></li>
                         }
                     </ul>
