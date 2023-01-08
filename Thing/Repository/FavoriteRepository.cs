@@ -17,7 +17,7 @@ namespace Thing.Repository
             if (favorite != null) Entities.Remove(favorite);
             _db.SaveChanges();
         }
-        public async Task<bool> IsFavoriteExistsAsync(Favorite favorite) => await Entities.AnyAsync(f => f.UserId == favorite.UserId && f.ProductId == favorite.ProductId).ConfigureAwait(false);
 
+        public async Task<bool> IsFavoriteExistsAsync(Favorite favorite) => await Entities.AnyAsync(f => f.UserId == favorite.UserId && f.ProductId == favorite.ProductId).ConfigureAwait(false);
     }
 }

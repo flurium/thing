@@ -13,7 +13,7 @@ namespace Thing.Controllers
         private readonly ProductService _productService;
         private readonly CategoryService _categoryService;
         private readonly ProductImageService _productImageService;
-        private IWebHostEnvironment _host;
+        private readonly IWebHostEnvironment _host;
 
         public ProductController(ProductService productService, CategoryService categoryService, ProductImageService productImageService, IWebHostEnvironment webHost)
         {
@@ -33,13 +33,15 @@ namespace Thing.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ProductViewModel productView)
         {
-            Product product = new Product();
-            product.Name = productView.Name;
-            product.Price = productView.Price;
-            product.SellerId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            product.Description = productView.Description;
-            product.Status = productView.Status;
-            product.CategoryId = productView.CategoryId;
+            Product product = new()
+            {
+                Name = productView.Name,
+                Price = productView.Price,
+                SellerId = User.FindFirstValue(ClaimTypes.NameIdentifier),
+                Description = productView.Description,
+                Status = productView.Status,
+                CategoryId = productView.CategoryId
+            };
             var res = await _productService.CreateAsync(product);
 
             string filePath = Path.Combine(_host.WebRootPath, "Images");

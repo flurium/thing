@@ -1,6 +1,5 @@
 ﻿using Thing.Models;
 using Thing.Repository;
-using Thing.Repository.Interfaces;
 
 namespace Thing.Services
 {
@@ -19,12 +18,12 @@ namespace Thing.Services
         {
             await _productImageRepository.CreateAsync(productImage);
         }
+
         public virtual async Task<IReadOnlyCollection<CommentImage>> GetAllCommentImagesAsync() => await _commentImageRepository.GetAllAsync();
 
         public virtual async Task AddCommentImageAsync(CommentImage commentImage)
         {
             await _commentImageRepository.CreateAsync(commentImage);
         }
-
     }
 }

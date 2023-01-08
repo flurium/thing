@@ -59,7 +59,7 @@ builder.Services.AddScoped<ProductRepository>();
 builder.Services.AddScoped<PropertyValueRepository>();
 builder.Services.AddScoped<RequiredPropertyRepository>();
 builder.Services.AddScoped<SellerRepository>();
-builder.Services.AddScoped<UserRepository>(); 
+builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<CustomPropertyRepository>();
 // Logic services
 builder.Services.AddTransient<CategoryService>();

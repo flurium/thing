@@ -10,6 +10,7 @@ namespace Thing.Repository
         public CustomPropertyRepository(ThingDbContext context) : base(context)
         {
         }
+
         public async Task Delete(int Id)
         {
             var customProperty = await Entities.FirstOrDefaultAsync(o => o.Id == Id).ConfigureAwait(false);
