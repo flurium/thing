@@ -59,7 +59,8 @@ builder.Services.AddScoped<ProductRepository>();
 builder.Services.AddScoped<PropertyValueRepository>();
 builder.Services.AddScoped<RequiredPropertyRepository>();
 builder.Services.AddScoped<SellerRepository>();
-
+builder.Services.AddScoped<UserRepository>(); 
+builder.Services.AddScoped<CustomPropertyRepository>();
 // Logic services
 builder.Services.AddTransient<CategoryService>();
 builder.Services.AddTransient<BanService>();
@@ -68,6 +69,7 @@ builder.Services.AddTransient<ProductService>();
 builder.Services.AddTransient<SellerService>();
 builder.Services.AddTransient<ProductImageService>();
 builder.Services.AddTransient<CatalogService>();
+builder.Services.AddTransient<ImageService>();
 
 var app = builder.Build();
 

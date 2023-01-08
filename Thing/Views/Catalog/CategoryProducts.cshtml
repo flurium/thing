@@ -1,4 +1,5 @@
-﻿@model ICollection<Product>
+﻿@using Thing.Models.ViewModels
+@model IReadOnlyCollection<CardProductViewModel>
 
 <h1 class="mb-5 mt-4 text-center">Products</h1>
 
@@ -9,27 +10,22 @@
             {
                   <div class="col-md-12 col-lg-4 mb-4 mb-lg-0">
                       <div class="card">
-                @foreach(var img in ViewBag.Images){
-                        @if (img.ProductId == @product.Id)
-                        {
-                                          <img src="@img.Url" class="card-img-top" width="250" height="280" alt="@product.Name"/>
-                            break;
-                        }
 
-                }
+                      <img src="@product.ImageUrl" class="card-img-top" width="250" height="280" alt="@product.Name"/>
                        
               <div class="card-body">
                       <div class="d-flex justify-content-between mb-3">
                       <h5 class="mb-0">@product.Name</h5>
                   <h5 class="text-dark mb-0">@product.Price</h5>
+
+                      <h5 class="text-dark mb-0">@product.Status</h5>
                 </div>
                        <div class="d-flex justify-content-between align-items-center pb-2 mb-1">
-                   <form action="@Url.Action("DetailsOfProduct","Catalog", new {Id = @product.Id})"  method="get">
+                       <form action="@Url.Action("DetailsOfProduct","Catalog")"  method="get">
+                               <input type="hidden" name="ProductId" value="@product.ProductId"/>
+                               <input type="hidden" name="CategoryId" value="@ViewBag.Category.Id"/>
                        <input type="submit" class="btn btn-primary" value="DETAILS" />
                   </form>
-                            <form action="@Url.Action("ToFavorits","Catalog", new {Id = @product.Id})"  method="get">
-                               <input type="submit" class="btn btn-outline-primary btn-sm mt-2" value="ADD TO FAVORITS" />
-                      </form>
                 </div>
               </div>
               </div>
