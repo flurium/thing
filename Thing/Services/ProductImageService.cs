@@ -20,14 +20,11 @@ namespace Thing.Services
             {
                 await _productImageRepository.CreateAsync(productImage);
             }
-
         }
 
         public async Task Delete(int id)
         {
             await _productImageRepository.Delete(id);
         }
-
     }
 }
-

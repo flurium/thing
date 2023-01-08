@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 using Thing.Models;
 using Thing.Models.ViewModels;
 using Thing.Services;
-using System.Linq;
-using System.Security.Claims;
-
 
 namespace Thing.Controllers
 {
@@ -17,7 +15,7 @@ namespace Thing.Controllers
         private readonly ProductImageService _productImageService;
         private IWebHostEnvironment _host;
 
-        public ProductController(ProductService productService, CategoryService categoryService, ProductImageService productImageService, IWebHostEnvironment webHost )
+        public ProductController(ProductService productService, CategoryService categoryService, ProductImageService productImageService, IWebHostEnvironment webHost)
         {
             _productService = productService;
             _productImageService = productImageService;
@@ -35,7 +33,6 @@ namespace Thing.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ProductViewModel productView)
         {
-
             Product product = new Product();
             product.Name = productView.Name;
             product.Price = productView.Price;
@@ -44,9 +41,6 @@ namespace Thing.Controllers
             product.Status = productView.Status;
             product.CategoryId = productView.CategoryId;
             var res = await _productService.CreateAsync(product);
-
-
-            // var idProduct=_productService.FirstOfDefult(x=>(x.Name == product.Name)&&(x.Category==product.Category)&&(x.Status==x.Status)&&(x.SellerId==product.SellerId));
 
             string filePath = Path.Combine(_host.WebRootPath, "Images");
             if (!Directory.Exists(filePath))
@@ -65,23 +59,18 @@ namespace Thing.Controllers
                     await uploadedFile.CopyToAsync(fileStream);
                 }
 
-                ProductImage img = new ProductImage { ProductId = res.Id, Url = path };
+                ProductImage img = new() { ProductId = res.Id, Url = path };
 
-                _productImageService.CreateAsync(img);
-
+                await _productImageService.CreateAsync(img);
             }
-
 
             return RedirectToAction("Profile", "Seller");
         }
 
         public async Task<IActionResult> Delete(int id)
         {
-          await  _productService.Delete(id);
+            await _productService.Delete(id);
             return RedirectToAction("Profile", "Seller");
         }
     }
-
-    
-
 }

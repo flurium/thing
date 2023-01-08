@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Data;
 using Thing.Models;
 using Thing.Models.ViewModels;
 using Thing.Services;
@@ -61,13 +60,11 @@ namespace Thing.Controllers
             return Redirect(redirect);
         }
 
-        
         public async Task<IActionResult> Products(BanProductFilter filter)
         {
             ViewBag.Url = Request.Path + Request.QueryString;
             return View(await _productService.Filter(filter));
         }
-        
 
         // Will be used from regular views
         public async Task<IActionResult> Product(int id, string redirect)

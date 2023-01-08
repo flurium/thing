@@ -23,7 +23,6 @@ namespace Thing.Services
             return null;
         }
 
-
         public async Task Delete(int id)
         {
             await _productRepository.Delete(id);
@@ -51,8 +50,6 @@ namespace Thing.Services
         {
             return await _productRepository.FirstOfDefult(conditon);
         }
-
-
 
         public async Task Edit(Product product)
         {

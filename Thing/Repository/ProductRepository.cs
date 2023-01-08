@@ -26,7 +26,6 @@ namespace Thing.Repository
             return Entities.FirstOrDefaultAsync(conditon).Result;
         }
 
-
         public async Task Delete(int id)
         {
             var product = await Entities.FirstOrDefaultAsync(x => x.Id == id);

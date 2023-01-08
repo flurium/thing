@@ -20,7 +20,6 @@ namespace Thing.Controllers
             _productImageService = productImage;
         }
 
-
         public async Task<IActionResult> Profile()
         {
             ViewBag.Images = await _productImageService.List();
