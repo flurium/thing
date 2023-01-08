@@ -14,10 +14,11 @@ namespace Thing.Controllers
         private CatalogService _catalogService;
         private ImageService _imageService;
         IWebHostEnvironment _appEnvironment;
-        public CatalogController(CatalogService catalogService, ImageService imageService)
+        public CatalogController(CatalogService catalogService, ImageService imageService, IWebHostEnvironment appEnvironment)
         {
             _catalogService = catalogService;
             _imageService = imageService;
+            _appEnvironment = appEnvironment;
         }
         public IActionResult Index()
         {
@@ -54,6 +55,8 @@ namespace Thing.Controllers
         //[NotBannedFilter]
         public async Task<IActionResult> WriteCommentAsync(Comment comment, int ProductId, int CategoryId, IFormFileCollection uploads)
         {
+            comment.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            await _catalogService.AddCommentAsync(comment);
 
             if (string.IsNullOrWhiteSpace(_appEnvironment.WebRootPath))
             {
@@ -65,7 +68,8 @@ namespace Thing.Controllers
                 if (image.Name != null && image.Name!="")
                 {
                     string path = "/Images/" + image.FileName;
-                    using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                    string alpath = _appEnvironment.WebRootPath + path;
+                    using (var fileStream = new FileStream(alpath, FileMode.Create))
                     {
                         await image.CopyToAsync(fileStream);
                     }
@@ -74,8 +78,7 @@ namespace Thing.Controllers
                 }
                 
             }
-            comment.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            await _catalogService.AddCommentAsync(comment);
+            
             return RedirectToAction("Comments", new { ProductId, CategoryId });
         }
 

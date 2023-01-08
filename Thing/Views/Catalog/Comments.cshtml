@@ -101,9 +101,13 @@
                            }
                            <div class="row"></div>
                            @foreach(var image in ViewBag.Images){
-                                        <div class="col">
-                                              <img style="height: 50px; width:60px" src="@image.ImagePath">
-                                        </div>                    
+                               @if (@comment.CommentId == image.CommentId)
+                               {
+                                     <div>
+                                                      <img src="@image.ImagePath" style="height: 250px;width: 300px">
+                                     </div>      
+                               }
+                                                             
                            }
                         <form action="@Url.Action("WriteAnswer","Catalog")"  method="get">
                                    <input type="hidden" name="ProductId" value="@ViewBag.Product.Id"/>
