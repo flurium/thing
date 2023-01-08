@@ -1,6 +1,6 @@
-﻿using System.Linq.Expressions;
-using Thing.Models;
+﻿using Thing.Models;
 using Thing.Repository;
+
 namespace Thing.Services
 {
     public class CatalogService

@@ -9,28 +9,34 @@ namespace Thing.Controllers
     public class CatalogController : Controller
     {
         private CatalogService _catalogService;
+
         public CatalogController(CatalogService catalogService)
         {
             _catalogService = catalogService;
         }
+
         public IActionResult Index()
         {
             return View();
         }
+
         public async Task<IActionResult> CategoriesAsync()
         {
             return View(await _catalogService.GetAllCategoriesAsync());
         }
+
         public async Task<IActionResult> CategoryProductsAsync(int Id)
         {
             ViewBag.Images = await _catalogService.GetAllImagesAsync();
             return View(await _catalogService.FindProductsByCategoryIdAsync(Id));
         }
+
         public async Task<IActionResult> DetailsOfProductAsync(int Id)
         {
             ViewBag.Product = await _catalogService.GetProductByIdAsync(Id);
             return View(await _catalogService.GetProductImagesById(Id));
         }
+
         public async Task<IActionResult> CommentsOfProductAsync(int Id)
         {
             ViewBag.Product = await _catalogService.GetProductByIdAsync(Id);
@@ -38,6 +44,7 @@ namespace Thing.Controllers
             ViewBag.Images = await _catalogService.GetAllCommentsImagesAsync();
             return View(await _catalogService.GetProductCommentsByIdAsync(Id));
         }
+
         [Authorize]
         public async Task<IActionResult> WriteCommentAsync(Comment comment)
         {
@@ -63,12 +70,11 @@ namespace Thing.Controllers
         [Authorize]
         public IActionResult WriteAnswer(int CommentId)
         {
-
             return View();
         }
+
         public IActionResult PostAnswer(int CommentId)
         {
-
             return View();
         }
     }

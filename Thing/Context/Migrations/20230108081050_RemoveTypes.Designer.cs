@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Thing.Context;
@@ -11,9 +12,10 @@ using Thing.Context;
 namespace Thing.Migrations
 {
     [DbContext(typeof(ThingDbContext))]
-    partial class ThingDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230108081050_RemoveTypes")]
+    partial class RemoveTypes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -207,6 +209,7 @@ namespace Thing.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Cons")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Content")
@@ -216,7 +219,7 @@ namespace Thing.Migrations
                     b.Property<DateTime>("Date")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("date")
-                        .HasDefaultValue(new DateTime(2023, 1, 8, 10, 40, 31, 269, DateTimeKind.Local).AddTicks(9408));
+                        .HasDefaultValue(new DateTime(2023, 1, 8, 10, 10, 49, 958, DateTimeKind.Local).AddTicks(43));
 
                     b.Property<int>("Grade")
                         .HasColumnType("integer");
@@ -225,6 +228,7 @@ namespace Thing.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("Pros")
+                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("UserId")

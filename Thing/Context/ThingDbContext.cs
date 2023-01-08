@@ -49,7 +49,6 @@ namespace Thing.Context
             builder.Entity<Product>().HasKey(p => p.Id);
             builder.Entity<Product>().HasOne(p => p.Seller).WithMany(s => s.Products).HasForeignKey(p => p.SellerId);
             builder.Entity<Product>().HasOne(p => p.Category).WithMany(c => c.Products).HasForeignKey(p => p.CategoryId);
-            builder.Entity<Product>().Property(p => p.Description).HasColumnType("nchar(300)");
 
             // ProductImage
             builder.Entity<ProductImage>().HasKey(pi => pi.Id);
@@ -65,8 +64,6 @@ namespace Thing.Context
             //builder.Entity<Comment>().HasOne(c => c.User).WithMany(u => u.Comments).OnDelete(DeleteBehavior.NoAction).HasForeignKey(c => c.UserId).IsRequired(false);
 
             builder.Entity<Comment>().HasOne(c => c.User).WithMany(u => u.Comments).IsRequired(false).HasForeignKey(c => c.UserId);
-
-            builder.Entity<Comment>().Property(c => c.Content).HasColumnType("nchar(300)");
             builder.Entity<Comment>().Property(c => c.Date).HasColumnType("date").HasDefaultValue(DateTime.Now);
 
             // Answer
