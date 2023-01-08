@@ -15,9 +15,10 @@ namespace Thing.Controllers
         private readonly ProductImageService _productImageService;
         private readonly RequiredPropertiesService _requiredPropertiesService;
         private readonly RequiredPropertyValueService _requiredPropertyValue;
-        private IWebHostEnvironment _host;
+        public readonly CustomPropertyService _customPropertyService;
+        private readonly IWebHostEnvironment _host;
 
-        public ProductController(ProductService productService, CategoryService categoryService, ProductImageService productImageService,  IWebHostEnvironment webHost, RequiredPropertiesService requiredPropertiesService, RequiredPropertyValueService requiredPropertyValue)
+        public ProductController(ProductService productService, CategoryService categoryService, ProductImageService productImageService,  IWebHostEnvironment webHost, RequiredPropertiesService requiredPropertiesService, RequiredPropertyValueService requiredPropertyValue, CustomPropertyService customPropertyService)
         {
             _productService = productService;
             _productImageService = productImageService;
@@ -25,6 +26,7 @@ namespace Thing.Controllers
             _host = webHost;
             _requiredPropertiesService = requiredPropertiesService;
             _requiredPropertyValue = requiredPropertyValue;
+            _customPropertyService = customPropertyService;
         }
 
         [HttpGet]
@@ -88,18 +90,42 @@ namespace Thing.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> RequiredProperty(ListPropertyValueViewModel propList, int ProductId)
+        public async Task<IActionResult> RequiredProperty(ListPropertyValueViewModel propList, int ProductId, bool CheckProp)
         {
             for(var i=0; i<propList.Values.Count; i++)
             {
                 
                RequiredPropertyValue required=new RequiredPropertyValue { ProductId = ProductId, PropertyId = propList.PropertyId[i], Value = propList.Values[i] };
-                _requiredPropertyValue.CreateAsync(required);       
+               await _requiredPropertyValue.CreateAsync(required);       
             }
 
+            if (!CheckProp)
+            {
+                return RedirectToAction("Profile", "Seller");
+            }
+            else
+            {
+                return RedirectToAction("CustomProperties", "Product", new {ProductId=ProductId});
+            }
+        }
+
+        public IActionResult CustomProperties(int ProductId)
+        {
+            ViewBag.ProductId = ProductId;
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CustomProperties(CustomProperty property, bool CheckProp, int ProductId)
+        {
+           CustomProperty customProperty= new CustomProperty { Name=property.Name, Value=property.Value, ProductId=ProductId};
+           await  _customPropertyService.CreateAsync(customProperty);
+            if (CheckProp)
+            {
+                return RedirectToAction("CustomProperties", "Product", new { ProductId = ProductId });
+            }
 
             return RedirectToAction("Profile", "Seller");
         }
-
     }
 }

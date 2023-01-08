@@ -71,6 +71,7 @@ builder.Services.AddTransient<SellerService>();
 builder.Services.AddTransient<ProductImageService>();
 builder.Services.AddTransient<CatalogService>();
 builder.Services.AddTransient<ImageService>();
+builder.Services.AddTransient<CustomPropertyService>();
 
 var app = builder.Build();
 

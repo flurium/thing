@@ -1,0 +1,31 @@
+﻿@model Thing.Models.CustomProperty
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<div class="row">
+    <div class="col-md-4">
+
+         <form asp-action="CustomProperties" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+             <div class="form-group">
+                <label class="control-label">Property Name:</label>
+                <input name="Name" class="form-control" required />
+                 <label class="control-label">Property Value:</label>
+                <input name="Value" class="form-control" required />
+            </div>
+             <div class="form-group">
+                 <label for="CheckProp">Add another property?</label>
+                  @Html.CheckBox("CheckProp", false)
+               <input type="checkbox" name="CheckProp" class="btn-check" id="btn-check" autocomplete="off">
+               <label class="btn btn-info" for="btn-check">+Add another property</label>
+            </div>
+            <div class="form-group">
+                <input type="submit" asp-route-ProductId="@ViewBag.ProductId" value="Next" class="btn btn-primary" />
+            </div>
+         </form>
+    </div>
+</div>

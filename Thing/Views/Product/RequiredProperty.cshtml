@@ -20,6 +20,11 @@
                 <input name="Values" class="form-control" required value="" />
             </div>
               }
+              <div class="form-check">
+                  <label for="CheckProp">Add your PROPERTIES?</label>
+                  @Html.CheckBox("CheckProp", true)
+              </div>
+             
                <div class="form-group">
                 <input type="hidden" name="ProductId" value="@ViewBag.ProductId"/>
                 <input type="submit" value="Next" class="btn btn-primary" />
