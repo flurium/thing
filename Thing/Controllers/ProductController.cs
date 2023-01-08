@@ -13,14 +13,18 @@ namespace Thing.Controllers
         private readonly ProductService _productService;
         private readonly CategoryService _categoryService;
         private readonly ProductImageService _productImageService;
+        private readonly RequiredPropertiesService _requiredPropertiesService;
+        private readonly RequiredPropertyValueService _requiredPropertyValue;
         private IWebHostEnvironment _host;
 
-        public ProductController(ProductService productService, CategoryService categoryService, ProductImageService productImageService, IWebHostEnvironment webHost)
+        public ProductController(ProductService productService, CategoryService categoryService, ProductImageService productImageService,  IWebHostEnvironment webHost, RequiredPropertiesService requiredPropertiesService, RequiredPropertyValueService requiredPropertyValue)
         {
             _productService = productService;
             _productImageService = productImageService;
             _categoryService = categoryService;
             _host = webHost;
+            _requiredPropertiesService = requiredPropertiesService;
+            _requiredPropertyValue = requiredPropertyValue;
         }
 
         [HttpGet]
@@ -64,7 +68,7 @@ namespace Thing.Controllers
                 await _productImageService.CreateAsync(img);
             }
 
-            return RedirectToAction("Profile", "Seller");
+            return RedirectToAction("RequiredProperty", "Product", new {CategoryId=res.CategoryId, ProductId=res.Id });
         }
 
         public async Task<IActionResult> Delete(int id)
@@ -72,5 +76,28 @@ namespace Thing.Controllers
             await _productService.Delete(id);
             return RedirectToAction("Profile", "Seller");
         }
+
+        public async Task<IActionResult> RequiredProperty(int CategoryId, int ProductId)
+        {
+            var property = await _requiredPropertiesService.FindByConditioAsync(x => x.CategoryId == CategoryId);
+            ViewBag.ProductId = ProductId;
+            ViewBag.Prorerty = property;
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RequiredProperty(ListPropertyValueViewModel propList, int ProductId)
+        {
+            for(var i=0; i<propList.Values.Count; i++)
+            {
+                
+               RequiredPropertyValue required=new RequiredPropertyValue { ProductId = ProductId, PropertyId = propList.PropertyId[i], Value = propList.Values[i] };
+                _requiredPropertyValue.CreateAsync(required);       
+            }
+
+
+            return RedirectToAction("Profile", "Seller");
+        }
+
     }
 }
