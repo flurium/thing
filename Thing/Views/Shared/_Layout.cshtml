@@ -45,7 +45,7 @@
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
-                        @if (User.Identity.Name == null)
+                        @if (User.Identity == null || User.Identity.Name == null)
                         {
                             <li class="nav-item"><a class="nav-link text-dark" href="@Url.Action("Login", "Account")">Login</a></li>
                             <li class="nav-item"><a class="nav-link text-dark" href="@Url.Action("Register", "Account")">Register</a></li>                     
@@ -57,23 +57,16 @@
                             </li>
                             <li class="nav-item"><a class="nav-link text-dark" href="@Url.Action("Logout", "Account")">Logout</a></li>
                         }
-
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
-    <div class="container">
+    <div class="container mb-5">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
-
-    <footer class="border-top footer text-muted">
-        <div class="container">
-            &copy; 2022 - Thing - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-        </div>
-    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
