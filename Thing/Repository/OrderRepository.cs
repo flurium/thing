@@ -16,5 +16,7 @@ namespace Thing.Repository
             var order = await Entities.FirstOrDefaultAsync(o => o.UserId == userId && o.ProductId == productId).ConfigureAwait(false);
             if (order != null) Entities.Remove(order);
         }
+
+        public async Task<bool> IsOrderExistsAsync(Order order) => await Entities.AnyAsync(o => o.UserId == order.UserId && o.ProductId == order.ProductId).ConfigureAwait(false);
     }
 }

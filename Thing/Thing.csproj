@@ -38,4 +38,8 @@
     <_ContentIncludedByDefault Remove="Views\Category\_DeleteCategoryModal.cshtml" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Images\" />
+  </ItemGroup>
+
 </Project>

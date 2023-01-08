@@ -1,0 +1,148 @@
+﻿@using Thing.Models.ViewModels;
+@model IReadOnlyCollection<CardCommentViewModel>
+
+<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container-fluid">
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                         <li class="nav-item">
+                               <form action="@Url.Action("DetailsOfProduct","Catalog")"  method="post">
+                               <input type="hidden" name="ProductId" value="@ViewBag.Product.Id"/>
+                               <input type="hidden" name="CategoryId" value="@ViewBag.CategoryId"/>
+                               <input type="submit" class="btn btn-link" value="About" />
+                               </form>
+                             </li>
+                    <li class="nav-item">
+                         <form action="@Url.Action("Comments","Catalog")"  method="post">
+                               <input type="hidden" name="ProductId" value="@ViewBag.Product.Id"/>
+                               <input type="hidden" name="CategoryId" value="@ViewBag.CategoryId"/>
+                               <input type="submit" class="btn btn-link" value="Comments" />
+                         </form>
+                       </li>
+                     </ul>
+                </div>
+            </div>
+        </nav>
+
+<section>
+  <div class="container my-5 py-5">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-12 col-lg-10 col-xl-8">
+        <div class="card">
+          <div class="card-body">
+       
+          
+            <div class="d-flex flex-start w-100">
+              <div class="form-outline w-100">
+                 <form action="@Url.Action("WriteComment","Catalog")" method="post" enctype="multipart/form-data">
+                     <label>Images</label>
+                   <input type="file" class="btn btn-primary" name="uploads" multiple="True" accept="image/*" />
+                    <input type="file" class="btn btn-primary" name="uploads" multiple="True" accept="image/*" />
+                     <input type="file" class="btn btn-primary" name="uploads" multiple="True" accept="image/*" />
+
+                      <input type="hidden" value="@ViewBag.Product.Id" name="ProductId">
+                      <input type="hidden" value="@ViewBag.CategoryId" name="CategoryId">
+                     <textarea class="form-control" id="textAreaExample" rows="4"
+                          style="background: #fff;" name="Content"></textarea>
+                          <label>Cons</label>
+                          <textarea class="form-control" id="textAreaExample" rows="4"
+                          style="background: #fff;" name="Cons"></textarea>
+                          <label>Pros</label>
+                          <textarea class="form-control" id="textAreaExample" rows="4"
+                          style="background: #fff;" name="Pros"></textarea>
+                      <input type="submit"  class="btn btn-outline-primary btn-sm mt-2" value="Post Comment">
+                 </form>
+                
+              </div>
+            </div>
+       
+        </div>
+      </div>
+    </div>
+  </div>
+   </div>
+</section>
+
+
+  <div class="container my-5 py-5">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-12 col-lg-10 col-xl-8">
+        <div class="card">
+          <div class="card-body p-4">
+            <h4 class="text-center mb-4 pb-2">Nested comments section</h4>
+            <div class="row">
+              <div class="col">
+              @foreach (var comment in @Model)
+               {
+                                   <div class="border border-dark me-3 px-2">
+                <div class="d-flex flex-start">
+                  <div class="flex-grow-1 flex-shrink-1">
+                    <div>
+                                @if(@comment.CommentatorName != null){
+                                    <div class="d-flex justify-content-between align-items-center">
+                                     <p class="mb-1">
+                                       @comment.CommentatorName 
+                                      </p>
+                                   </div>
+                                }
+
+                      <label>Comment</label>
+                      <p class="small mb-0">
+                          @comment.Content
+                      </p>
+                          @if(@comment.Pros != null){
+                           <label>Pros</label>
+                           <h6 class="card-subtitle mb-2 text-dark">Pros: @comment.Pros</h6>
+                          }
+                          @if (@comment.Cons != null)
+                           {
+                              <label>Cons</label>
+                           <h6 class="card-subtitle mb-2 text-dark">Cons: @comment.Cons</h6>
+                           }
+                           <div class="row"></div>
+                           @foreach(var image in ViewBag.Images){
+                                        <div class="col">
+                                              <img style="height: 50px; width:60px" src="@image.ImagePath">
+                                        </div>                    
+                           }
+                        <form action="@Url.Action("WriteAnswer","Catalog")"  method="get">
+                                   <input type="hidden" name="ProductId" value="@ViewBag.Product.Id"/>
+                                   <input type="hidden" name="CategoryId" value="@ViewBag.CategoryId"/>
+                                           <input type="hidden" name="CommentId" value="@comment.CommentId"/>
+                                   <input type="submit" class="btn btn-link" value="write answer" />
+                        </form>
+                    </div>
+                  </div>
+                </div>
+
+                     @foreach (var answer in ViewBag.Answers)
+                     {
+                          @if (@comment.CommentId == @answer.CommentId)
+                          {
+                             <div class="d-flex flex-start mt-4">
+                                  <div class="flex-grow-1 flex-shrink-1">
+                                    <div>
+                                      <div class="d-flex justify-content-between align-items-center">
+                                        <p class="mb-1">
+                                          @answer.CommentatorName
+                                        </p>
+                                      </div>
+                                      <p class="small mb-0">
+                                         @answer.Content
+                                      </p>
+                                    </div>
+                                  </div>
+                                </div>
+                          }
+                     }
+
+                  </div>
+             }
+
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
