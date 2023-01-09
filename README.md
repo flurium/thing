@@ -1,4 +1,4 @@
 ![Thing](./docs/logo.png)
 
 ---
-Sell platform for everyone. Made with Asp Net Core.
+Selling platform made with honor in 1 week. Asp Net Core MVC is used.
