@@ -12,10 +12,25 @@ namespace Thing.Repository
         {
         }
 
+        public async Task<Product> CreateAsync(Product entity)
+        {
+            Product res = new Product();
+            await Entities.AddAsync(entity).ConfigureAwait(false);
+            res = entity;
+            await _db.SaveChangesAsync();
+            return res;
+        }
+
+        public async Task<Product> FirstOfDefult(Expression<Func<Product, bool>> conditon)
+        {
+            return Entities.FirstOrDefaultAsync(conditon).Result;
+        }
+
         public async Task Delete(int id)
         {
             var product = await Entities.FirstOrDefaultAsync(x => x.Id == id);
             if (product != null) Entities.Remove(product);
+            await _db.SaveChangesAsync();
         }
 
         public async Task<Product?> DeleteAndReturn(int id)

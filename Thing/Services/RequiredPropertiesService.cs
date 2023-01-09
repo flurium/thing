@@ -1,4 +1,5 @@
-﻿using Thing.Models;
+﻿using System.Linq.Expressions;
+using Thing.Models;
 using Thing.Repository;
 
 namespace Thing.Services
@@ -48,6 +49,11 @@ namespace Thing.Services
                 return true;
             }
             catch (Exception) { return false; }
+        }
+
+        public async Task<IReadOnlyCollection<RequiredProperty>> FindByConditioAsync(Expression<Func<RequiredProperty, bool>> conditon)
+        {
+           return await _propertyRepository.FindByConditionAsync(conditon);
         }
     }
 }
