@@ -1,15 +1,9 @@
-﻿@model Thing.Models.CustomProperty
-
-@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@using Thing.Controllers;
+@model Thing.Models.CustomProperty
 
 <div class="row">
     <div class="col-md-4">
-
-         <form asp-action="CustomProperties" method="post" enctype="multipart/form-data">
+        <form asp-action="@nameof(ProductController.CustomProperties)" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
              <div class="form-group">
                 <label class="control-label">Property Name:</label>

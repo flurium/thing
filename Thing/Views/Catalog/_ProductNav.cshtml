@@ -1,0 +1,15 @@
+﻿@using Thing.Controllers;
+<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+    <div class="container-fluid">
+        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+            <ul class="navbar-nav gap-3 flex-grow-1">
+                <li class="nav-item">
+                    <a class="btn btn-sm btn-dark" asp-action="@nameof(CatalogController.Details)" asp-route-id="@ViewBag.ProductId">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-sm btn-dark" asp-action="@nameof(CatalogController.Comments)" asp-route-id="@ViewBag.ProductId">Comments</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

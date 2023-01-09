@@ -53,7 +53,7 @@ namespace Thing.Services
 
         public async Task<IReadOnlyCollection<RequiredProperty>> FindByConditioAsync(Expression<Func<RequiredProperty, bool>> conditon)
         {
-           return await _propertyRepository.FindByConditionAsync(conditon);
+            return await _propertyRepository.FindByConditionAsync(conditon);
         }
     }
 }

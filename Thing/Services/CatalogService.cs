@@ -131,40 +131,19 @@ namespace Thing.Services
             return cardProducts;
         }
 
-        public async Task<IReadOnlyCollection<CardCommentViewModel>> GetCommentsCardsByProductIdAsync(int ProductId)
+        public async Task<IReadOnlyCollection<Comment>> GetCommentsWithAnswersAsync(int productId)
         {
-            var comments = await this.GetProductCommentsByIdAsync(ProductId);
-            var cardComments = new List<CardCommentViewModel>();
-            foreach (var comment in comments)
-            {
-                CardCommentViewModel cardComment;
-                if (comment.UserId != null)
-                {
-                    cardComment = new CardCommentViewModel()
-                    {
-                        CommentatorName = _userRepository.GetUserById(comment.UserId).Result.UserName,
-                        CommentId = comment.Id,
-                        Cons = comment.Cons,
-                        Content = comment.Content,
-                        Pros = comment.Pros
-                    };
-                }
-                else
-                {
-                    cardComment = new CardCommentViewModel()
-                    {
-                        CommentatorName = null,
-                        CommentId = comment.Id,
-                        Cons = comment.Cons,
-                        Content = comment.Content,
-                        Pros = comment.Pros
-                    };
-                }
+            return await _commentRepository.FindWithAnswersImageUserAsync(c => c.ProductId == productId);
+        }
 
-                cardComments.Add(cardComment);
-            }
+        public async Task<IReadOnlyCollection<Product>> GetProductsForCategoryAsync(int categoryId)
+        {
+            return await _productRepository.FindWithImages(p => p.CategoryId == categoryId);
+        }
 
-            return cardComments;
+        public async Task<Product?> GetProductDetailsAsync(int productId)
+        {
+            return await _productRepository.FindWithImagesProps(productId);
         }
 
         public async Task<IReadOnlyCollection<CardAnswerViewModel>> GetAnswersCardsByCommentIdAsync(int CommentId)

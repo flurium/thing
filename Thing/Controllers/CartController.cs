@@ -1,5 +1,4 @@
-﻿using IdentityModel;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using Thing.Models;
 using Thing.Services;
@@ -19,7 +18,6 @@ namespace Thing.Controllers
 
         public async Task<IActionResult> AddToCart(int productId)
         {
-
             var order = await _orderService.Get(User.FindFirstValue(ClaimTypes.NameIdentifier), productId);
 
             if (order == null)
@@ -29,7 +27,7 @@ namespace Thing.Controllers
                     {
                         ProductId = productId,
                         UserId = User.FindFirstValue(ClaimTypes.NameIdentifier),
-                        Count = 1                
+                        Count = 1
                     });
             }
             else
@@ -38,7 +36,6 @@ namespace Thing.Controllers
             }
 
             return RedirectToAction("Index");
-
         }
 
         public async Task<IActionResult> DeleteFromCart(int productId)
