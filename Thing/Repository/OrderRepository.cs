@@ -16,6 +16,7 @@ namespace Thing.Repository
         {
             var order = await Entities.FirstOrDefaultAsync(o => o.UserId == userId && o.ProductId == productId).ConfigureAwait(false);
             if (order != null) Entities.Remove(order);
+            await _db.SaveChangesAsync();
         }
 
         public virtual async Task<IReadOnlyCollection<Order>> FindIncludeProductsAsync(Expression<Func<Order, bool>> conditon)
