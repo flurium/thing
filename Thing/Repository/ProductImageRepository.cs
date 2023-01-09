@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 using Thing.Context;
 using Thing.Models;
 using Thing.Repository.Interfaces;
@@ -18,5 +19,11 @@ namespace Thing.Repository
         }
 
         public async Task<ProductImage> GetImageByProductIdAsync(int Id) => await Entities.FirstOrDefaultAsync(x => x.ProductId == Id);
+
+        public async Task<IReadOnlyCollection<ProductImage>> FindByConditionAsync(Expression<Func<ProductImage, bool>> conditon)
+           => await Entities.Where(conditon).ToListAsync().ConfigureAwait(false);
+
+      
+
     }
 }
