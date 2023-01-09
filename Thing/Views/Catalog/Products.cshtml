@@ -12,7 +12,7 @@
                 <div class="card-body">
                     @if (product.Images.Count != 0)
                     {
-                        <img src="@product.Images.ElementAt(0).Url" class="card-img-top" width="250" height="280" alt="@product.Name" />
+                        <img src="@product.Images.ElementAt(0).Url" class="card-img-top mb-3" width="250" height="280" alt="@product.Name" />
                     }
                     <div class="mb-3">
                         <h5 class="mb-3">@product.Name</h5>
@@ -33,7 +33,7 @@
                                 <input type="submit" class="btn btn-outline-primary btn-sm" value="Add to cart" />
                             </form>
                         }
-                        <a class="btn btn-sm btn-outline-primary" asp-action="@nameof(CatalogController.Details)" asp-route-id="@product.CategoryId">Details</a>
+                        <a class="btn btn-sm btn-outline-primary" asp-action="@nameof(CatalogController.Details)" asp-route-id="@product.Id">Details</a>
                     </div>
                 </div>
             </div>

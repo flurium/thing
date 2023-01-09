@@ -33,11 +33,14 @@ namespace Thing.Controllers
         public async Task<IActionResult> Details(int id)
         {
             ViewBag.ProductId = id;
-            return View(await _catalogService.GetProductDetailsAsync(id));
+            var product = await _catalogService.GetProductDetailsAsync(id);
+            if (product == null) return View("Error");
+            return View(product);
         }
 
         public async Task<IActionResult> Comments(int id)
         {
+            ViewBag.Url = Request.Path + Request.QueryString;
             ViewBag.ProductId = id;
             var comments = await _catalogService.GetCommentsWithAnswersAsync(id);
             return View(comments);

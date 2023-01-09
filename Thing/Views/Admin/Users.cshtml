@@ -8,7 +8,7 @@
 
 <h1 class="mb-5 mt-4 text-center">Manage users</h1>
 
-<form asp-action="@nameof(BanController.Users)" method="get" class="row my-4">
+<form asp-action="@nameof(AdminController.Users)" asp-controller="Admin" method="get" class="row my-4">
     <div class="col input-group">
         <input name="Id" class="form-control" placeholder="Id" />
         <input name="Name" class="form-control" placeholder="Name" />
@@ -38,11 +38,19 @@
                 <td>
                     @if (user.IsBanned)
                     {
-                        <a asp-action="@nameof(BanController.UnbanUser)" asp-route-id="@user.Id" asp-route-redirect="@ViewBag.Url" class="btn btn-sm btn-info">Unban</a>
+                        <a asp-action="@nameof(AdminController.UnbanUser)" asp-controller="Admin" asp-route-id="@user.Id" asp-route-redirect="@ViewBag.Url" class="btn btn-sm btn-info">Unban</a>
                     }
                     else
                     {
-                        <a asp-action="@nameof(BanController.BanUser)" asp-route-id="@user.Id" asp-route-redirect="@ViewBag.Url" class="btn btn-sm btn-danger">Ban</a>
+                        <a asp-action="@nameof(AdminController.BanUser)" asp-controller="Admin" asp-route-id="@user.Id" asp-route-redirect="@ViewBag.Url" class="btn btn-sm btn-danger">Ban</a>
+                    }
+                    @if (user.IsAdmin)
+                    {
+                        <a asp-action="@nameof(AdminController.UnmakeAdmin)" asp-controller="Admin" asp-route-id="@user.Id" class="btn btn-sm btn-light">Unmake admin</a>
+                    }
+                    else
+                    {
+                        <a asp-action="@nameof(AdminController.MakeAdmin)" asp-controller="Admin" asp-route-id="@user.Id" class="btn btn-sm btn-dark">Make admin</a>
                     }
                 </td>
             </tr>
