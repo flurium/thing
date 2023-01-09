@@ -16,7 +16,7 @@ namespace Thing.Repository
         {
             var comment = await Entities.FirstOrDefaultAsync(o => o.Id == Id).ConfigureAwait(false);
             if (comment != null) Entities.Remove(comment);
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
         }
 
         public virtual async Task<IReadOnlyCollection<Comment>> FindWithAnswersImageUserAsync(Expression<Func<Comment, bool>> conditon)
@@ -26,6 +26,7 @@ namespace Thing.Repository
         {
             var comment = await Entities.Include(c => c.Product).FirstOrDefaultAsync(x => x.Id == id);
             if (comment != null) Entities.Remove(comment);
+            await _db.SaveChangesAsync();
             return comment;
         }
     }
