@@ -33,7 +33,8 @@ namespace Thing.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel loginViewModel)
         {
-            var res = await _signInManager.PasswordSignInAsync(loginViewModel.Email, loginViewModel.Password, true, false);
+            var user = await _userManager.FindByEmailAsync(loginViewModel.Email);
+            var res = await _signInManager.PasswordSignInAsync(user, loginViewModel.Password, true, false);
             if (res.Succeeded)
             {
                 return RedirectToAction(nameof(HomeController.Index), "Home");
