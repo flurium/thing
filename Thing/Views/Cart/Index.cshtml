@@ -3,6 +3,11 @@
 
 @{
     ViewBag.Title = "Cart";
+    ViewBag.Cost = 0;
+    @foreach (var order in Model)
+    {
+        ViewBag.Cost += order.Count * order.Product.Price;
+    }
 }
 
 <h2>Cart</h2>
@@ -29,6 +34,21 @@
                 </td>
             </tr>
         }
+
+        <tr>
+            <td>Total:</td>
+            <td>
+                @{
+                    ViewBag.Cost = 0;
+                    foreach (var order in Model)
+                    {
+                        ViewBag.Cost += order.Count * order.Product.Price;
+                    }
+                    @ViewBag.Cost
+                }
+            </td>
+            <td></td>
+        </tr>
     </tbody>
 </table>
 

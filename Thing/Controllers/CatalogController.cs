@@ -102,21 +102,6 @@ namespace Thing.Controllers
             return RedirectToAction(nameof(Comments), new { id = ProductId });
         }
 
-        [Authorize]
-        public async Task<IActionResult> ToCart(int ProductId, int CategoryId)
-        {
-            var order = new Order()
-            {
-                Count = 1,
-                ProductId = ProductId,
-                State = "INCART",
-                UserId = User.FindFirstValue(ClaimTypes.NameIdentifier)
-            };
-            if (await _catalogService.IsOrderExistsAsync(order)) return RedirectToAction(nameof(Details), new { id = ProductId });
-
-            await _catalogService.AddOrderAsync(order);
-
-            return RedirectToAction(nameof(Products), new { id = CategoryId });
-        }
+        
     }
 }

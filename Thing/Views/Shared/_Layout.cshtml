@@ -27,6 +27,9 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-controller="Catalog" asp-action="@nameof(CatalogController.Index)">Catalog</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Cart" asp-action="@nameof(CartController.Index)">Cart</a>
+                        </li>
                         
                         @if(User.IsInRole(Roles.Admin))
                         {
