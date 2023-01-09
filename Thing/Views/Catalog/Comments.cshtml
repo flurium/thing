@@ -74,6 +74,11 @@
                     </div>
                 }
                 <a class="btn btn-sm btn-outline-dark" asp-controller="Catalog" asp-action="@nameof(CatalogController.WriteAnswer)" asp-route-ProductId="@ViewBag.ProductId" asp-route-CommentId="@comment.Id">Answer</a>
+            
+                @if(User.IsInRole(Roles.Admin))
+                {
+                    <a class="btn btn-sm btn-outline-danger" asp-controller="Ban" asp-action="@nameof(BanController.Comment)" asp-route-id="@comment.Id" asp-route-redirect="@ViewBag.Url">Ban</a>
+                }
             </div>
         </div>
 
@@ -92,6 +97,11 @@
                             <h5 class="card-title">User</h5>
                         }
                         <p class="card-text"> @answer.Content</p>
+                        
+                        @if(User.IsInRole(Roles.Admin))
+                        {
+                            <a class="btn btn-sm btn-outline-danger" asp-controller="Ban" asp-action="@nameof(BanController.Answer)" asp-route-id="@answer.Id" asp-route-redirect="@ViewBag.Url">Ban</a>
+                        }
                     </div>
                 </div>
             }
