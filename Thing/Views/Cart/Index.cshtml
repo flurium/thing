@@ -37,15 +37,8 @@
 
         <tr>
             <td>Total:</td>
-            <td>
-                @{
-                    ViewBag.Cost = 0;
-                    foreach (var order in Model)
-                    {
-                        ViewBag.Cost += order.Count * order.Product.Price;
-                    }
-                    @ViewBag.Cost
-                }
+            <td>              
+               @ViewBag.Cost
             </td>
             <td></td>
         </tr>
