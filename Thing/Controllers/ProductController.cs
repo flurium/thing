@@ -79,6 +79,7 @@ namespace Thing.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
+            await _productImageService.DeleteFromServer(id);
             await _productService.Delete(id);
             return RedirectToAction("Profile", "Seller");
         }

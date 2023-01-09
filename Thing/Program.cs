@@ -63,6 +63,7 @@ builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<CustomPropertyRepository>();
 // Logic services
 builder.Services.AddTransient<CategoryService>();
+builder.Services.AddTransient<OrderService>();
 builder.Services.AddTransient<BanService>();
 builder.Services.AddTransient<RequiredPropertiesService>();
 builder.Services.AddTransient<RequiredPropertyValueService>();

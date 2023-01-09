@@ -51,8 +51,8 @@
                         <input type="hidden" name="CategoryId" value="@Model.CategoryId" />
                         <input type="submit" class="btn btn-outline-primary btn-sm" value="Add to favorites" />
                     </form>
-                    <form asp-controller="Catalog" asp-action="@nameof(CatalogController.ToCart)" method="post">
-                      <input type="hidden" name="ProductId" value="@Model.Id" />
+                    <form asp-controller="Cart" asp-action="@nameof(CartController.AddToCart)" method="post">
+                      <input type="hidden" name="productId" value="@Model.Id" />
                       <input type="hidden" name="CategoryId" value="@Model.CategoryId" />
                       <input type="submit" class="btn btn-outline-primary btn-sm" value="Add to cart" />
                     </form>
