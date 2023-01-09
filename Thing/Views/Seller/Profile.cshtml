@@ -26,7 +26,7 @@
                     <h8 class="card-text">Status: @product.Status</h8>
                     <h10 class="card-text">Price: @product.Price</h10>
                     <input type="submit" value="Delete" class="btn btn-danger"/>
-                    <a asp-action="@nameof(CatalogController.Details)" , asp-controller="Catalog" asp-route-ProductId="@product.Id" class="btn btn-primary">Details</a>
+                    <a asp-action="@nameof(CatalogController.Details)" asp-controller="Catalog" asp-route-id="@product.Id" class="btn btn-primary">Details</a>
                 </div>
             </div>
         </div>
