@@ -61,5 +61,22 @@ namespace Thing.Repository
         {
             return await Entities.FirstOrDefaultAsync(p => p.Id == id);
         }
+
+        public async Task<Product?> FindWithImagesProps(int id)
+        {
+            return await Entities
+                .Include(p => p.Images)
+                .Include(p => p.CustomProperties)
+                .Include(p => p.RequiredPropertyValues).ThenInclude(rpv => rpv.Property)
+                .FirstOrDefaultAsync(p => p.Id == id);
+        }
+
+        public async Task<IReadOnlyCollection<Product>> FindWithImages(Expression<Func<Product, bool>> condition)
+        {
+            return await Entities
+                .Include(p => p.Images)
+                .Where(condition)
+                .ToListAsync();
+        }
     }
 }

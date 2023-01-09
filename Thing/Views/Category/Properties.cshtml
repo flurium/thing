@@ -1,4 +1,5 @@
-﻿@using Thing.Models.ViewModels;
+﻿@using Thing.Controllers;
+@using Thing.Models.ViewModels;
 @model Thing.Models.Category
 
 @{
@@ -7,7 +8,7 @@
 
 <h1 class="mb-5 mt-4 text-center">Required properties for @Model.Name</h1>
 
-<form asp-action="CreateProperty" class="row my-4">
+<form asp-action="@nameof(CategoryController.CreateProperty)" class="row my-4">
     <input hidden name="categoryId" value="@Model.Id"/>
     <div class="col">
         <input id="propertyName" name="propertyName" class="form-control" placeholder="Name" />

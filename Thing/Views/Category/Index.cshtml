@@ -1,4 +1,5 @@
-﻿@model IEnumerable<Thing.Models.Category>
+﻿@using Thing.Controllers;
+@model IEnumerable<Thing.Models.Category>
 
 @{
     ViewData["Title"] = "Categories";
@@ -6,7 +7,7 @@
 
 <h1 class="mb-5 mt-4 text-center">Manage categories</h1>
 
-<form asp-action="Create" class="row my-4">
+<form asp-action="@nameof(CategoryController.Create)" class="row my-4">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     <div class="col">
         <input id="Name" name="Name" class="form-control" placeholder="Name" />
@@ -26,7 +27,7 @@
                 data-bs-target="#editModal" data-bs-id="@item.Id" data-bs-name="@item.Name">
                 Edit
             </button>
-            <a asp-action="Properties" asp-route-id="@item.Id" class="btn btn-sm btn-info">Manage properties</a>
+            <a asp-action="@nameof(CategoryController.Properties)" asp-route-id="@item.Id" class="btn btn-sm btn-info">Manage properties</a>
             <button type="button" class="btn btn-sm btn-danger" data-bs-toggle="modal"
                 data-bs-target="#deleteConfirm" data-bs-id="@item.Id" data-bs-name="@item.Name">
                 Delete

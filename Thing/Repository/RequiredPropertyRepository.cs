@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
 using Thing.Context;
 using Thing.Models;
 using Thing.Repository.Interfaces;
@@ -18,8 +17,6 @@ namespace Thing.Repository
             await _db.SaveChangesAsync();
             return prop.Entity;
         }
-
-
 
         public async Task Update(int id, string name)
         {

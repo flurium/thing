@@ -1,0 +1,13 @@
+﻿@using Thing.Controllers;
+@model IReadOnlyCollection<Category>
+
+<h1 class="mb-5 mt-4 text-center">Categories of Products</h1>
+
+<div class="row">
+    @foreach (var category in Model)
+    {
+        <div class="col-md-12 col-lg-4 mb-4 mb-lg-0">
+            <a asp-controller="Catalog" asp-action="@nameof(CatalogController.Products)" asp-route-id="@category.Id" class="btn btn-dark">@category.Name</a>
+        </div>
+    }
+</div>

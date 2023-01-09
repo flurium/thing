@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 using Thing.Context;
 using Thing.Models;
 using Thing.Repository.Interfaces;
@@ -17,6 +18,9 @@ namespace Thing.Repository
             if (comment != null) Entities.Remove(comment);
             _db.SaveChanges();
         }
+
+        public virtual async Task<IReadOnlyCollection<Comment>> FindWithAnswersImageUserAsync(Expression<Func<Comment, bool>> conditon)
+            => await Entities.Include(c => c.User).Include(c => c.CommentImages).Include(c => c.Answers).ThenInclude(a => a.User).Where(conditon).ToListAsync().ConfigureAwait(false);
 
         public async Task<Comment?> DeleteAndReturn(int id)
         {

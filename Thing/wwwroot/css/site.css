@@ -17,6 +17,10 @@ body {
     margin-bottom: 60px;
 }
 
+p {
+    white-space: pre-wrap;
+}
+
 @keyframes fadeIn {
     0% {
         opacity: 0;

@@ -29,10 +29,10 @@ namespace Thing.Repository
 
         public async Task<Order?> GetByIdAsync(string userId, int productId)
         {
-            return await Entities.FirstOrDefaultAsync(o => o.UserId == userId && o.ProductId == productId );
+            return await Entities.FirstOrDefaultAsync(o => o.UserId == userId && o.ProductId == productId);
         }
 
-        public async Task Increase (string userId, int productId)
+        public async Task Increase(string userId, int productId)
         {
             var order = await Entities.FirstOrDefaultAsync(o => o.UserId == userId && o.ProductId == productId).ConfigureAwait(false);
             if (order != null)
@@ -41,7 +41,7 @@ namespace Thing.Repository
                 await Edit(order);
             }
         }
-        
+
         public async Task<bool> IsOrderExistsAsync(Order order) => await Entities.AnyAsync(o => o.UserId == order.UserId && o.ProductId == order.ProductId).ConfigureAwait(false);
     }
 }
