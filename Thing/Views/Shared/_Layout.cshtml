@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Thing.Controllers;
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -13,7 +14,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg- border-bottom box-shadow mb-3">
             <div class="container-fluid mx-3">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                <a class="navbar-brand"  asp-controller="Home" asp-action="@nameof(HomeController.Index)">
                      <img src="/img/logo.svg" alt="" width="24" height="24" class="d-inline-block align-text-top me-1">
                     Thing
                 </a>
@@ -23,20 +24,20 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                         <li class="nav-item"><a class="nav-link text-dark" href="@Url.Action("Categories", "Catalog")">Catalog</a></li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-controller="Catalog" asp-action="@nameof(CatalogController.Index)">Catalog</a>
+                        </li>
                         
                         @if(User.IsInRole(Roles.Admin))
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Category" asp-action="Index">Manage categories</a>
-                            </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Ban
+                                    Admin
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" asp-controller="Ban" asp-action="Users">Users</a></li>
-                                    <li><a class="dropdown-item" asp-controller="Ban" asp-action="Products">Products</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Category" asp-action="@nameof(CategoryController.Index)">Categories</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Admin" asp-action="@nameof(AdminController.Users)">Users</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Admin" asp-action="@nameof(AdminController.Products)">Products</a></li>
                                 </ul>
                             </li>
                         }
@@ -45,18 +46,27 @@
                     <ul class="nav navbar-nav navbar-right">
                         @if (User.Identity == null || User.Identity.Name == null)
                         {
-                            <li class="nav-item"><a class="nav-link text-dark" href="@Url.Action("Login", "Account")">Login</a></li>
-                            <li class="nav-item"><a class="nav-link text-dark" href="@Url.Action("Register", "Account")">Register</a></li>                     
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="@nameof(AccountController.Login)">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="@nameof(AccountController.Register)">Register</a>
+                            </li>                     
                         }
                         else
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark">Hello @User.Identity?.Name!</a>
                             </li>
-                             if(User.IsInRole(Roles.Seller)){
-                             <li class="nav-item"><a class="nav-link text-dark" href="@Url.Action("Profile", "Seller")">Profile</a></li>
+                            @if(User.IsInRole(Roles.Seller))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-controller="Seller" asp-action="@nameof(SellerController.Profile)">Sell profile</a>
+                                </li>
                             }
-                            <li class="nav-item"><a class="nav-link text-dark" href="@Url.Action("Logout", "Account")">Logout</a></li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-controller="Account" asp-action="@nameof(AccountController.Logout)">Logout</a>
+                            </li>
                         }
                     </ul>
                 </div>

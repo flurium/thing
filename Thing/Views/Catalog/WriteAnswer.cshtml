@@ -1,11 +1,9 @@
-﻿
- <div class="card">
-          <div class="card-body">
-
-
-            <div class="d-flex flex-start w-100">
-              <div class="form-outline w-100">
-                 <form action="@Url.Action("PostAnswer","Catalog")" method="post">
+﻿@using Thing.Controllers;
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex flex-start w-100">
+            <div class="form-outline w-100">
+                <form asp-action="@nameof(CatalogController.PostAnswer)" method="post">
                       <input type="hidden" value="@ViewBag.ProductId" name="ProductId">
                       <input type="hidden" value="@ViewBag.CategoryId" name="CategoryId">
                       <input type="hidden" value="@ViewBag.CommentId" name="CommentId">
@@ -13,10 +11,8 @@
                           style="background: #fff;" name="Content"></textarea>
                       <input type="submit"  class="btn btn-outline-primary btn-sm mt-2" value="Post Comment">
                  </form>
-
-              </div>
             </div>
-
         </div>
-      </div>
+    </div>
+</div>
 

@@ -1,8 +1,6 @@
-﻿using Microsoft.CodeAnalysis;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 using Thing.Models;
 using Thing.Repository;
-using Thing.Repository.Interfaces;
 
 namespace Thing.Services
 {
@@ -48,7 +46,7 @@ namespace Thing.Services
             return await _orderRepository.GetByIdAsync(uId, pId);
         }
 
-        public async Task Increase (string uId, int pId)
+        public async Task Increase(string uId, int pId)
         {
             await _orderRepository.Increase(uId, pId);
         }

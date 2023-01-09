@@ -8,6 +8,8 @@ Thing/appsettings.json
 Thing/appsettings.Development.json
 ./Thing/appsettings.json
 ./Thing/appsettings.Development.json
+*/appsettings.json
+*/appsettings.Development.json
 
 # User-specific files
 *.rsuser

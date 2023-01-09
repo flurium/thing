@@ -10,14 +10,14 @@ namespace Thing.Services
 
         public RequiredPropertyValueService(PropertyValueRepository propertyRepository)
         {
-            _propertyValueRepository= propertyRepository;
+            _propertyValueRepository = propertyRepository;
         }
 
         public async Task CreateAsync(RequiredPropertyValue property)
         {
             if (property != null)
             {
-                 await _propertyValueRepository.CreateAsync(property);
+                await _propertyValueRepository.CreateAsync(property);
             }
         }
 
