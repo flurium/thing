@@ -30,16 +30,14 @@
                         
                         @if(User.IsInRole(Roles.Admin))
                         {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-controller="Category" asp-action="Index">Manage categories</a>
-                            </li>
                             <li class="nav-item dropdown">
                                 <a class="nav-link text-dark dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Ban
+                                    Admin
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li><a class="dropdown-item" asp-controller="Ban" asp-action="@nameof(BanController.Users)">Users</a></li>
-                                    <li><a class="dropdown-item" asp-controller="Ban" asp-action="@nameof(BanController.Products)">Products</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Category" asp-action="@nameof(CategoryController.Index)">Categories</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Admin" asp-action="@nameof(AdminController.Users)">Users</a></li>
+                                    <li><a class="dropdown-item" asp-controller="Admin" asp-action="@nameof(AdminController.Products)">Products</a></li>
                                 </ul>
                             </li>
                         }

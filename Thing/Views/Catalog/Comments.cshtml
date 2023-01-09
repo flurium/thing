@@ -77,7 +77,7 @@
             
                 @if(User.IsInRole(Roles.Admin))
                 {
-                    <a class="btn btn-sm btn-outline-danger" asp-controller="Ban" asp-action="@nameof(BanController.Comment)" asp-route-id="@comment.Id" asp-route-redirect="@ViewBag.Url">Ban</a>
+                    <a class="btn btn-sm btn-outline-danger" asp-controller="Admin" asp-action="@nameof(AdminController.Comment)" asp-route-id="@comment.Id" asp-route-redirect="@ViewBag.Url">Ban</a>
                 }
             </div>
         </div>
@@ -100,7 +100,7 @@
                         
                         @if(User.IsInRole(Roles.Admin))
                         {
-                            <a class="btn btn-sm btn-outline-danger" asp-controller="Ban" asp-action="@nameof(BanController.Answer)" asp-route-id="@answer.Id" asp-route-redirect="@ViewBag.Url">Ban</a>
+                            <a class="btn btn-sm btn-outline-danger" asp-controller="Admin" asp-action="@nameof(AdminController.Answer)" asp-route-id="@answer.Id" asp-route-redirect="@ViewBag.Url">Ban</a>
                         }
                     </div>
                 </div>

@@ -7,7 +7,7 @@
 
 <h1 class="mb-5 mt-4 text-center">Manage products</h1>
 
-<form asp-action="@nameof(BanController.Products)" class="my-4">
+<form asp-action="@nameof(AdminController.Products)" asp-controller="Admin" class="my-4">
     <div class="row">
         <div class="col input-group">
             <input name="Id" type="number" class="form-control" placeholder="Id" />
@@ -47,7 +47,7 @@
                 <td>@Html.DisplayFor(modelItem => product.Seller.User.UserName)</td>
                 <td>@Html.DisplayFor(modelItem => product.Seller.User.Email)</td>
                 <td>
-                    <a asp-action="@nameof(BanController.Product)" asp-route-id="@product.Id" asp-route-redirect="@ViewBag.Url" class="btn btn-sm btn-danger">Ban</a>
+                    <a asp-action="@nameof(AdminController.Product)" asp-controller="Admin" asp-route-id="@product.Id" asp-route-redirect="@ViewBag.Url" class="btn btn-sm btn-danger">Ban</a>
                 </td>
             </tr>
         }
