@@ -4,10 +4,12 @@ using System.Security.Claims;
 using Thing.Models;
 using Thing.Models.ViewModels;
 using Thing.Services;
+using Thing.Filters;
 
 namespace Thing.Controllers
 {
     [Authorize(Roles = Roles.Seller)]
+    [NotBannedFilter]
     public class ProductController : Controller
     {
         private readonly ProductService _productService;

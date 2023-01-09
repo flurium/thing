@@ -1,14 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using Thing.Models;
 
 namespace Thing.Filters
 {
-    public class NotBannedFilter : IAuthorizationFilter
+    public class NotBannedFilter : AuthorizeAttribute, IAuthorizationFilter
     {
         public void OnAuthorization(AuthorizationFilterContext context)
         {
-            if (context.HttpContext.User.IsInRole(Roles.Banned)) context.Result = new ViewResult { ViewName = "Banned" };
+            if (context.HttpContext.User.IsInRole(Models.Roles.Banned)) context.Result = new ViewResult { ViewName = "Banned" };
         }
     }
 }

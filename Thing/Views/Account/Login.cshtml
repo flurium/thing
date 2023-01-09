@@ -9,7 +9,7 @@
 
 <div class="row justify-content-center align-items-center h-100">
     <div class="col col-sm-6 col-md-6 col-lg-4 col-xl-3">
-        <form asp-action="@nameof(AccountController.Login)">
+        <form asp-action="@nameof(AccountController.Login)" asp-controller="Account">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Email" class="control-label"></label>
