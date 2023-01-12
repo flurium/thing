@@ -1,6 +1,6 @@
-﻿using Thing.Models;
+﻿using Dal.Models;
 
-namespace Thing.Repository.Interfaces
+namespace Dal.Repository.Interfaces
 {
     public interface ICustomPropertyRepository : IRepository<CustomProperty>
     {

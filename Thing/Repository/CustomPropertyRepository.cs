@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Thing.Context;
-using Thing.Models;
-using Thing.Repository.Interfaces;
+using Dal.Context;
+using Dal.Models;
+using Dal.Repository.Interfaces;
 
-namespace Thing.Repository
+namespace Dal.Repository
 {
     public class CustomPropertyRepository : BaseRepository<CustomProperty>, ICustomPropertyRepository
     {

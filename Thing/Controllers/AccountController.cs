@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Domain.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
-using Thing.Models;
-using Thing.Models.ViewModels;
-using Thing.Services;
+using Dal.Models;
+using Dal.Services;
 
-namespace Thing.Controllers
+namespace Dal.Controllers
 {
     public class AccountController : Controller
     {

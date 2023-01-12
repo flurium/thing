@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Domain.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Thing.Models;
+using Dal.Models;
 
-namespace Thing.Controllers
+namespace Dal.Controllers
 {
     public class EmailConfirmController : Controller
     {

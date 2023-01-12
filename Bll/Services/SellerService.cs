@@ -1,0 +1,27 @@
+﻿using Dal.Models;
+using Dal.Repository;
+
+namespace Dal.Services
+{
+    public class SellerService
+    {
+        private readonly SellerRepository _sellerRepository;
+
+        public SellerService(SellerRepository sellerRepository)
+        {
+            _sellerRepository = sellerRepository;
+        }
+
+        public async Task CreateAsync(Seller entity) => await _sellerRepository.CreateAsync(entity);
+
+        public async Task Delete(string id)
+        {
+            await _sellerRepository.Delete(id);
+        }
+
+        public async Task Edit(Seller seller)
+        {
+            await _sellerRepository.Edit(seller);
+        }
+    }
+}

@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Thing.Models;
-using Thing.Models.ViewModels;
-using Thing.Services;
+using Dal.Models;
+using Dal.Services;
 
-namespace Thing.Controllers
+namespace Dal.Controllers
 {
     [Authorize(Roles = Roles.Admin)]
     public class AdminController : Controller

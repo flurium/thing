@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using Thing.Models;
+using Dal.Models;
 
-namespace Thing.Controllers
+namespace Dal.Controllers
 {
     public class HomeController : Controller
     {

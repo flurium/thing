@@ -1,11 +1,11 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
-using Thing.Context;
-using Thing.Infrastructure;
-using Thing.Models;
-using Thing.Repository;
-using Thing.Services;
+using Dal.Context;
+using Dal.Infrastructure;
+using Dal.Models;
+using Dal.Repository;
+using Dal.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
