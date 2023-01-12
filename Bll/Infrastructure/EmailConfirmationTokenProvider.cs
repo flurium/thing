@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Dal.Models;
+using Domain.Models;
+using Microsoft.Extensions.Logging;
 
 namespace Dal.Infrastructure
 {

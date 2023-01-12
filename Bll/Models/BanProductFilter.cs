@@ -1,4 +1,4 @@
-﻿namespace Dal.Models
+﻿namespace Bll.Models
 {
     public class BanProductFilter
     {

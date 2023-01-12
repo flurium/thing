@@ -6,6 +6,8 @@ using Dal.Infrastructure;
 using Dal.Models;
 using Dal.Repository;
 using Dal.Services;
+using Domain.Models;
+using Bll.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -44,35 +46,7 @@ builder.Services.AddIdentity<User, IdentityRole>(options => options.SignIn.Requi
 
 builder.Services.Configure<EmailConfirmationProviderOptions>(options => options.TokenLifespan = TimeSpan.FromDays(1));
 
-// SEND GRID
-builder.Services.AddTransient<IEmailSender, EmailSenderService>();
-
-// Repositories
-builder.Services.AddScoped<AnswerRepository>();
-builder.Services.AddScoped<CategoryRepository>();
-builder.Services.AddScoped<CommentImageRepository>();
-builder.Services.AddScoped<CommentRepository>();
-builder.Services.AddScoped<FavoriteRepository>();
-builder.Services.AddScoped<OrderRepository>();
-builder.Services.AddScoped<ProductImageRepository>();
-builder.Services.AddScoped<ProductRepository>();
-builder.Services.AddScoped<PropertyValueRepository>();
-builder.Services.AddScoped<RequiredPropertyRepository>();
-builder.Services.AddScoped<SellerRepository>();
-builder.Services.AddScoped<UserRepository>();
-builder.Services.AddScoped<CustomPropertyRepository>();
-// Logic services
-builder.Services.AddTransient<CategoryService>();
-builder.Services.AddTransient<OrderService>();
-builder.Services.AddTransient<BanService>();
-builder.Services.AddTransient<RequiredPropertiesService>();
-builder.Services.AddTransient<RequiredPropertyValueService>();
-builder.Services.AddTransient<ProductService>();
-builder.Services.AddTransient<SellerService>();
-builder.Services.AddTransient<ProductImageService>();
-builder.Services.AddTransient<CatalogService>();
-builder.Services.AddTransient<ImageService>();
-builder.Services.AddTransient<CustomPropertyService>();
+BllConfiguration.ConfigureServices(builder.Services);
 
 var app = builder.Build();
 

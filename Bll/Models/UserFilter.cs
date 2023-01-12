@@ -1,6 +1,6 @@
-﻿namespace Dal.Models
+﻿namespace Bll.Models
 {
-    public class UserFilterViewModel
+    public class UserFilter
     {
         public string Id { get; set; } = "";
         public string Name { get; set; } = "";
