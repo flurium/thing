@@ -4,6 +4,11 @@ namespace Dal.Repository.Interfaces
 {
     public interface IRequiredPropertyRepository : IRepository<RequiredProperty>
     {
-        Task Delete(int id);
+		Task<RequiredProperty?> CreateAndReturnAsync(RequiredProperty entity);
+		
+
+	    Task Update(int id, string name);
+
+		Task Delete(int id);
     }
 }
