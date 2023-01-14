@@ -1,4 +1,5 @@
 ﻿using Domain.Models;
+using System.Linq.Expressions;
 
 namespace Dal.Repository.Interfaces
 {
@@ -7,5 +8,6 @@ namespace Dal.Repository.Interfaces
         Task Delete(int Id);
         Task Update(int id, string name);
         Task<Category> GetByIdAsync(int id);
+        Task<IReadOnlyCollection<Category>> FindByConditionWithPropertiesAsync(Expression<Func<Category, bool>> conditon);
 	}
 }
