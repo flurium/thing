@@ -1,16 +1,18 @@
 ﻿using System.Linq.Expressions;
 using Dal.Models;
 using Dal.Repository;
+using Dal.UnitOfWork;
+using Domain.Models;
 
 namespace Dal.Services
 {
     public class RequiredPropertiesService
     {
-        private readonly RequiredPropertyRepository _propertyRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public RequiredPropertiesService(RequiredPropertyRepository propertyRepository)
+        public RequiredPropertiesService(IUnitOfWork unitOfWork)
         {
-            _propertyRepository = propertyRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<bool> Create(int categoryId, string propertyName)
@@ -20,7 +22,7 @@ namespace Dal.Services
                 propertyName = propertyName.Trim();
                 if (propertyName == "") return false;
 
-                var prop = await _propertyRepository.CreateAndReturnAsync(new RequiredProperty { Name = propertyName, CategoryId = categoryId });
+                var prop = await _unitOfWork.RequiredPropertyRepository.CreateAndReturnAsync(new RequiredProperty { Name = propertyName, CategoryId = categoryId });
                 if (prop == null) return false;
 
                 return true;
@@ -35,7 +37,7 @@ namespace Dal.Services
             {
                 name = name.Trim();
                 if (name == "") return false;
-                await _propertyRepository.Update(id, name);
+                await _unitOfWork.RequiredPropertyRepository.Update(id, name);
                 return true;
             }
             catch (Exception) { return false; }
@@ -45,7 +47,7 @@ namespace Dal.Services
         {
             try
             {
-                await _propertyRepository.Delete(id);
+                await _unitOfWork.RequiredPropertyRepository.Delete(id);
                 return true;
             }
             catch (Exception) { return false; }
@@ -53,7 +55,7 @@ namespace Dal.Services
 
         public async Task<IReadOnlyCollection<RequiredProperty>> FindByConditioAsync(Expression<Func<RequiredProperty, bool>> conditon)
         {
-            return await _propertyRepository.FindByConditionAsync(conditon);
+            return await _unitOfWork.RequiredPropertyRepository.FindByConditionAsync(conditon);
         }
     }
 }

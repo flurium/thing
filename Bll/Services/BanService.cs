@@ -1,4 +1,7 @@
-﻿using Domain.Models;
+﻿using Bll.Models;
+using Dal.Repository;
+using Dal.UnitOfWork;
+using Domain.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
@@ -8,25 +11,23 @@ namespace Dal.Services
 {
     public class BanService
     {
-        private readonly AnswerRepository _answerRepository;
-        private readonly ProductRepository _productRepository;
-        private readonly CommentRepository _commenttRepository;
+        //private readonly AnswerRepository _answerRepository;
+        //private readonly ProductRepository _productRepository;
+        //private readonly CommentRepository _commentRepository;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IEmailSender _emailSender;
 
-        public BanService(AnswerRepository answerRepository, UserManager<User> userManager, IEmailSender emailSender,
-            ProductRepository productRepository, CommentRepository commenttRepository, RoleManager<IdentityRole> roleManager)
+        public BanService(IUnitOfWork unitOfWork, UserManager<User> userManager, IEmailSender emailSender, RoleManager<IdentityRole> roleManager)
         {
-            _answerRepository = answerRepository;
+            _unitOfWork = unitOfWork;
             _userManager = userManager;
             _emailSender = emailSender;
-            _productRepository = productRepository;
-            _commenttRepository = commenttRepository;
             _roleManager = roleManager;
         }
 
-        public async Task<IEnumerable<User>> FilterUsers(UserFilterViewModel filter)
+        public async Task<IEnumerable<User>> FilterUsers(UserFilter filter)
         {
             List<Expression<Func<User, bool>>> predicates = new();
 
@@ -69,7 +70,7 @@ namespace Dal.Services
 
         public async Task BanProduct(int id)
         {
-            var product = await _productRepository.DeleteAndReturn(id);
+            var product = await _unitOfWork.ProductRepository.DeleteAndReturn(id);
             if (product != null)
             {
                 var user = await _userManager.FindByIdAsync(product.SellerId);
@@ -79,7 +80,7 @@ namespace Dal.Services
 
         public async Task BanComment(int id)
         {
-            var comment = await _commenttRepository.DeleteAndReturn(id);
+            var comment = await _unitOfWork.CommentRepository.DeleteAndReturn(id);
             if (comment != null)
             {
                 var user = await _userManager.FindByIdAsync(comment.UserId);
@@ -90,7 +91,7 @@ namespace Dal.Services
         public async Task BanAnswer(int id)
         {
             // sending email doesn't mean
-            await _answerRepository.Delete(id);
+            await _unitOfWork.AnswerRepository.Delete(id);
         }
     }
 }

@@ -1,22 +1,24 @@
 ﻿using Dal.Models;
 using Dal.Repository;
+using Dal.UnitOfWork;
+using Domain.Models;
 
 namespace Dal.Services
 {
     public class CustomPropertyService
     {
-        private readonly CustomPropertyRepository _customPropertyRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public CustomPropertyService(CustomPropertyRepository customPropertyRepository)
+        public CustomPropertyService(IUnitOfWork unitOfWork)
         {
-            _customPropertyRepository = customPropertyRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task CreateAsync(CustomProperty property)
         {
             if (property != null)
             {
-                await _customPropertyRepository.CreateAsync(property);
+                await _unitOfWork.CustomPropertyRepository.CreateAsync(property);
             }
         }
     }

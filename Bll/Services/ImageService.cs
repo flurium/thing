@@ -1,29 +1,29 @@
 ﻿using Dal.Models;
 using Dal.Repository;
+using Dal.UnitOfWork;
+using Domain.Models;
 
 namespace Dal.Services
 {
     public class ImageService
     {
-        private readonly ProductImageRepository _productImageRepository;
-        private readonly CommentImageRepository _commentImageRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public ImageService(ProductImageRepository productImageRepository, CommentImageRepository commentImageRepository)
+        public ImageService(IUnitOfWork unitOfWork)
         {
-            _productImageRepository = productImageRepository;
-            _commentImageRepository = commentImageRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public virtual async Task AddProductImageAsync(ProductImage productImage)
         {
-            await _productImageRepository.CreateAsync(productImage);
+            await _unitOfWork.ProductImageRepository.CreateAsync(productImage);
         }
 
-        public virtual async Task<IReadOnlyCollection<CommentImage>> GetAllCommentImagesAsync() => await _commentImageRepository.GetAllAsync();
+        public virtual async Task<IReadOnlyCollection<CommentImage>> GetAllCommentImagesAsync() => await _unitOfWork.CommentImageRepository.GetAllAsync();
 
         public virtual async Task AddCommentImageAsync(CommentImage commentImage)
         {
-            await _commentImageRepository.CreateAsync(commentImage);
+            await _unitOfWork.CommentImageRepository.CreateAsync(commentImage);
         }
     }
 }

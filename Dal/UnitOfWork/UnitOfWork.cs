@@ -12,7 +12,7 @@ namespace Dal.UnitOfWork
         public UnitOfWork(IAnswerRepository answerRepository, ICategoryRepository categoryRepository,
             ICommentImageRepository commentImageRepository, ICommentRepository commentRepository,
             ICustomPropertyRepository customPropertyRepository, IFavoriteRepository favoriteRepository,
-            IOrderRepositody orderRepositody, IProductImageRepository productImageRepository,
+            IOrderRepository orderRepository, IProductImageRepository productImageRepository,
             IProductRepository productRepository, IPropertyValueRepository propertyValueRepository,
             IRequiredPropertyRepository requiredPropertyRepository, ISellerRepository sellerRepository,
             IUserRepository userRepository)
@@ -23,7 +23,7 @@ namespace Dal.UnitOfWork
             CommentRepository = commentRepository;
             CustomPropertyRepository = customPropertyRepository;
             FavoriteRepository = favoriteRepository;
-            OrderRepositody = orderRepositody;
+            OrderRepository = orderRepository;
             ProductImageRepository = productImageRepository;
             ProductRepository = productRepository;
             RequiredPropertyRepository = requiredPropertyRepository;
@@ -38,7 +38,7 @@ namespace Dal.UnitOfWork
         public ICommentRepository CommentRepository { get; }
         public ICustomPropertyRepository CustomPropertyRepository { get; }
         public IFavoriteRepository FavoriteRepository { get; }
-        public IOrderRepositody OrderRepositody { get; }
+        public IOrderRepository OrderRepository { get; }
         public IProductImageRepository ProductImageRepository { get; }
         public IProductRepository ProductRepository { get; }
         public IPropertyValueRepository PropertyValueRepository { get; }

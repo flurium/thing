@@ -1,29 +1,31 @@
 ﻿using System.Linq.Expressions;
 using Dal.Models;
 using Dal.Repository;
+using Dal.UnitOfWork;
+using Domain.Models;
 
 namespace Dal.Services
 {
     public class RequiredPropertyValueService
     {
-        private readonly PropertyValueRepository _propertyValueRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public RequiredPropertyValueService(PropertyValueRepository propertyRepository)
+        public RequiredPropertyValueService(IUnitOfWork unitOfWork)
         {
-            _propertyValueRepository = propertyRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task CreateAsync(RequiredPropertyValue property)
         {
             if (property != null)
             {
-                await _propertyValueRepository.CreateAsync(property);
+                await _unitOfWork.PropertyValueRepository.CreateAsync(property);
             }
         }
 
         public async Task<IReadOnlyCollection<RequiredPropertyValue>> FindByConditionAsync(Expression<Func<RequiredPropertyValue, bool>> conditon)
         {
-            return await _propertyValueRepository.FindByConditionAsync(conditon);
+            return await _unitOfWork.PropertyValueRepository.FindByConditionAsync(conditon);
         }
     }
 }

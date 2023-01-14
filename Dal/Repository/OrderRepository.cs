@@ -6,7 +6,7 @@ using Dal.Repository.Interfaces;
 
 namespace Dal.Repository
 {
-    public class OrderRepository : BaseRepository<Order>, IOrderRepositody
+    public class OrderRepository : BaseRepository<Order>, IOrderRepository
     {
         public OrderRepository(ThingDbContext context) : base(context)
         {
