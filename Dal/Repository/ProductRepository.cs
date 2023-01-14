@@ -21,7 +21,7 @@ namespace Dal.Repository
             return res;
         }
 
-        public async Task<Product> FirstOfDefult(Expression<Func<Product, bool>> conditon)
+        public async Task<Product> FirstOrDefault(Expression<Func<Product, bool>> conditon)
         {
             return Entities.FirstOrDefaultAsync(conditon).Result;
         }

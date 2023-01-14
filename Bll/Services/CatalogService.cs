@@ -1,67 +1,58 @@
 ﻿using Dal.Models;
 using Dal.Repository;
+using Dal.UnitOfWork;
+using Domain.Models;
 
 namespace Dal.Services
 {
     public class CatalogService
     {
-        private readonly ProductRepository _productRepository;
-        private readonly CategoryRepository _categoryRepository;
-        private readonly CommentRepository _commentRepository;
-        private readonly AnswerRepository _answerRepository;
-        private readonly FavoriteRepository _favoriteRepository;
-        private readonly OrderRepository _orderRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public CatalogService(ProductRepository productRepository, CategoryRepository categoryRepository, CommentRepository commentRepository,
-            AnswerRepository answerRepository, FavoriteRepository favoriteRepository, OrderRepository orderRepository)
+        public CatalogService(IUnitOfWork unitOfWork)
         {
-            _productRepository = productRepository;
-            _categoryRepository = categoryRepository;
-            _commentRepository = commentRepository;
-            _answerRepository = answerRepository;
-            _favoriteRepository = favoriteRepository;
-            _orderRepository = orderRepository;
+            _unitOfWork = unitOfWork;
         }
 
-        public virtual async Task<IReadOnlyCollection<Category>> GetAllCategoriesAsync() => await _categoryRepository.GetAllAsync();
+        public virtual async Task<IReadOnlyCollection<Category>> GetAllCategoriesAsync() => await _unitOfWork.CategoryRepository.GetAllAsync();
 
         public virtual async Task AddCommentAsync(Comment comment)
         {
-            await _commentRepository.CreateAsync(comment);
+            await _unitOfWork.CommentRepository.CreateAsync(comment);
         }
 
         public virtual async Task AddFavoriteAsync(Favorite favorit)
         {
-            await _favoriteRepository.CreateAsync(favorit);
+            await _unitOfWork.FavoriteRepository.CreateAsync(favorit);
         }
 
-        public virtual async Task<bool> IsFavoriteExistsAsync(Favorite favorite) => await _favoriteRepository.IsFavoriteExistsAsync(favorite);
+        public virtual async Task<bool> IsFavoriteExistsAsync(Favorite favorite) => await _unitOfWork.FavoriteRepository.IsFavoriteExistsAsync(favorite);
 
         public async Task<IReadOnlyCollection<Comment>> GetCommentsWithAnswersAsync(int productId)
         {
-            return await _commentRepository.FindWithAnswersImageUserAsync(c => c.ProductId == productId);
+            return await _unitOfWork.CommentRepository.FindWithAnswersImageUserAsync(c => c.ProductId == productId);
         }
 
         public async Task<IReadOnlyCollection<Product>> GetProductsForCategoryAsync(int categoryId)
         {
-            return await _productRepository.FindWithImages(p => p.CategoryId == categoryId);
+            return await _unitOfWork.ProductRepository.FindWithImages(p => p.CategoryId == categoryId);
         }
 
         public async Task<Product?> GetProductDetailsAsync(int productId)
         {
-            return await _productRepository.FindWithImagesProps(productId);
+            return await _unitOfWork.ProductRepository.FindWithImagesProps(productId);
         }
 
         public virtual async Task AddAnswerAsync(Answer answer)
         {
-            await _answerRepository.CreateAsync(answer);
+            await _unitOfWork.AnswerRepository.CreateAsync(answer);
         }
 
-        public virtual async Task<bool> IsOrderExistsAsync(Order Order) => await _orderRepository.IsOrderExistsAsync(Order);
+        public virtual async Task<bool> IsOrderExistsAsync(Order Order) => await _unitOfWork.OrderRepository.IsOrderExistsAsync(Order);
 
         public virtual async Task AddOrderAsync(Order Order)
         {
-            await _orderRepository.CreateAsync(Order);
+            await _unitOfWork.OrderRepository.CreateAsync(Order);
         }
     }
 }

@@ -15,7 +15,7 @@ namespace Dal.UnitOfWork
         public ICommentRepository CommentRepository { get; }
         public ICustomPropertyRepository CustomPropertyRepository { get; }
         public IFavoriteRepository FavoriteRepository { get; }
-        public IOrderRepositody OrderRepositody { get; }
+        public IOrderRepository OrderRepository { get; }
         public IProductImageRepository ProductImageRepository { get; }
         public IProductRepository ProductRepository { get; }
         public IPropertyValueRepository PropertyValueRepository { get; }

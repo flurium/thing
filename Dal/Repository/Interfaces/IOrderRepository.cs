@@ -2,7 +2,7 @@
 
 namespace Dal.Repository.Interfaces
 {
-    public interface IOrderRepositody : IRepository<Order>
+    public interface IOrderRepository : IRepository<Order>
     {
         Task DeleteAsync(string userId, int productId);
     }

@@ -1,35 +1,38 @@
 ﻿using System.Linq.Expressions;
+using Bll.Models;
 using Dal.Models;
 using Dal.Repository;
+using Dal.UnitOfWork;
+using Domain.Models;
 
 namespace Dal.Services
 {
     public class ProductService
     {
-        private readonly ProductRepository _productRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public ProductService(ProductRepository productRepository)
+        public ProductService(IUnitOfWork unitOfWork)
         {
-            _productRepository = productRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<Product> CreateAsync(Product product)
         {
             if (product != null)
             {
-                return await _productRepository.CreateAsync(product);
+                return await _unitOfWork.ProductRepository.CreateAsync(product);
             }
             return null;
         }
 
         public async Task Delete(int id)
         {
-            await _productRepository.Delete(id);
+            await _unitOfWork.ProductRepository.Delete(id);
         }
 
         public async Task<IReadOnlyCollection<Product>> FindByConditionAsync(Expression<Func<Product, bool>> conditon)
         {
-            return await _productRepository.FindByConditionAsync(conditon);
+            return await _unitOfWork.ProductRepository.FindByConditionAsync(conditon);
         }
 
         public async Task<IReadOnlyCollection<Product>> Filter(BanProductFilter filter)
@@ -42,17 +45,17 @@ namespace Dal.Services
             if (filter.SellerEmail != "") predicates.Add(p => p.Seller.User.Email.StartsWith(filter.SellerEmail));
             if (filter.SellerName != "") predicates.Add(p => p.Seller.User.UserName.StartsWith(filter.SellerName));
 
-            return await _productRepository.FindByConditionsAsync(predicates);
+            return await _unitOfWork.ProductRepository.FindByConditionsAsync(predicates);
         }
 
         public async Task<Product> FirstOfDefult(Expression<Func<Product, bool>> conditon)
         {
-            return await _productRepository.FirstOfDefult(conditon);
+            return await _unitOfWork.ProductRepository.FirstOrDefault(conditon);
         }
 
         public async Task Edit(Product product)
         {
-            await _productRepository.Edit(product);
+            await _unitOfWork.ProductRepository.Edit(product);
         }
     }
 }

@@ -1,54 +1,56 @@
 ﻿using System.Linq.Expressions;
 using Dal.Models;
 using Dal.Repository;
+using Dal.UnitOfWork;
+using Domain.Models;
 
 namespace Dal.Services
 {
     public class OrderService
     {
-        private readonly OrderRepository _orderRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public OrderService(OrderRepository orderRepository)
+        public OrderService(IUnitOfWork unitOfWork)
         {
-            _orderRepository = orderRepository;
+            _unitOfWork = unitOfWork;
         }
 
         public async Task CreateAsync(Order order)
         {
             if (order != null)
             {
-                await _orderRepository.CreateAsync(order);
+                await _unitOfWork.OrderRepository.CreateAsync(order);
             }
         }
 
         public async Task DeleteAsync(string uId, int pId)
         {
-            await _orderRepository.DeleteAsync(uId, pId);
+            await _unitOfWork.OrderRepository.DeleteAsync(uId, pId);
         }
 
         public async Task<IReadOnlyCollection<Order>> FindIncludeProductsAsync(Expression<Func<Order, bool>> conditon)
         {
-            return await _orderRepository.FindIncludeProductsAsync(conditon);
+            return await _unitOfWork.OrderRepository.FindIncludeProductsAsync(conditon);
         }
 
         public async Task<IReadOnlyCollection<Order>> FindByConditionAsync(Expression<Func<Order, bool>> conditon)
         {
-            return await _orderRepository.FindByConditionAsync(conditon);
+            return await _unitOfWork.OrderRepository.FindByConditionAsync(conditon);
         }
 
         public async Task Edit(Order order)
         {
-            await _orderRepository.Edit(order);
+            await _unitOfWork.OrderRepository.Edit(order);
         }
 
         public async Task<Order?> Get(string uId, int pId)
         {
-            return await _orderRepository.GetByIdAsync(uId, pId);
+            return await _unitOfWork.OrderRepository.GetByIdAsync(uId, pId);
         }
 
         public async Task Increase(string uId, int pId)
         {
-            await _orderRepository.Increase(uId, pId);
+            await _unitOfWork.OrderRepository.Increase(uId, pId);
         }
     }
 }

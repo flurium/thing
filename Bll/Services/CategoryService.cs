@@ -1,25 +1,27 @@
 ﻿using Dal.Models;
 using Dal.Repository;
+using Dal.UnitOfWork;
+using Domain.Models;
 
 namespace Dal.Services
 {
     public class CategoryService
     {
-        private readonly CategoryRepository _categoryRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public CategoryService(CategoryRepository categoryRepository)
+        public CategoryService(IUnitOfWork unitOfWork)
         {
-            _categoryRepository = categoryRepository;
+            _unitOfWork = unitOfWork;
         }
 
-        public async Task<IReadOnlyCollection<Category>> List() => await _categoryRepository.GetAllAsync();
+        public async Task<IReadOnlyCollection<Category>> List() => await _unitOfWork.CategoryRepository.GetAllAsync();
 
         public async Task<bool> Create(Category category)
         {
             try
             {
                 category.Name = category.Name.Trim();
-                await _categoryRepository.CreateAsync(category);
+                await _unitOfWork.CategoryRepository.CreateAsync(category);
                 return true;
             }
             catch (Exception) { return false; }
@@ -31,9 +33,9 @@ namespace Dal.Services
             try
             {
                 name = name.Trim();
-                var sameName = await _categoryRepository.FindByConditionAsync(c => c.Name.ToLower() == name.ToLower());
+                var sameName = await _unitOfWork.CategoryRepository.FindByConditionAsync(c => c.Name.ToLower() == name.ToLower());
                 if (sameName != null && sameName.Count != 0) return false;
-                await _categoryRepository.Update(id, name);
+                await _unitOfWork.CategoryRepository.Update(id, name);
                 return true;
             }
             catch (Exception) { return false; }
@@ -43,7 +45,7 @@ namespace Dal.Services
         {
             try
             {
-                await _categoryRepository.Delete(id);
+                await _unitOfWork.CategoryRepository.Delete(id);
                 return true;
             }
             catch (Exception) { return false; }
@@ -51,7 +53,7 @@ namespace Dal.Services
 
         public async Task<Category?> PropertiesFor(int id)
         {
-            var category = (await _categoryRepository.FindByConditionWithPropertiesAsync(c => c.Id == id)).FirstOrDefault();
+            var category = (await _unitOfWork.CategoryRepository.FindByConditionWithPropertiesAsync(c => c.Id == id)).FirstOrDefault();
             if (category == null) return null;
             return category;
         }

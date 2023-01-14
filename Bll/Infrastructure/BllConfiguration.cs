@@ -17,7 +17,7 @@ namespace Bll.Infrastructure
             services.AddScoped<ICommentImageRepository, CommentImageRepository>();
             services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddScoped<IFavoriteRepository, FavoriteRepository>();
-            services.AddScoped<IOrderRepositody, OrderRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IProductImageRepository, ProductImageRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IPropertyValueRepository, PropertyValueRepository>();
