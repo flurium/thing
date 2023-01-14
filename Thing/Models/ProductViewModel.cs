@@ -1,4 +1,6 @@
-﻿namespace Dal.Models
+﻿using Domain.Models;
+
+namespace Dal.Models
 {
     public class ProductViewModel
     {

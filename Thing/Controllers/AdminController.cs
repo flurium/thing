@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Dal.Models;
 using Dal.Services;
+using Bll.Models;
 
 namespace Dal.Controllers
 {
@@ -50,7 +51,7 @@ namespace Dal.Controllers
 
         public async Task<IActionResult> Users(UserViewModel filter)
         {
-            var users = await _banService.FilterUsers(new UserFilterViewModel
+            var users = await _banService.FilterUsers(new UserFilter
             {
                 Email = filter.Email ?? "",
                 Id = filter.Id ?? "",
