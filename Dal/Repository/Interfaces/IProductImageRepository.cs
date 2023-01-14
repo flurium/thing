@@ -1,4 +1,5 @@
 ﻿using Domain.Models;
+using System.Linq.Expressions;
 
 namespace Dal.Repository.Interfaces
 {
@@ -6,6 +7,8 @@ namespace Dal.Repository.Interfaces
     {
         Task Delete(int id);
 
-        Task<ProductImage> GetImageByProductIdAsync(int id);
+        Task<IReadOnlyCollection<ProductImage>> FindByConditionAsync(Expression<Func<ProductImage, bool>> conditon);
+
+		Task<ProductImage> GetImageByProductIdAsync(int id);
     }
 }
