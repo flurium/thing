@@ -8,7 +8,7 @@ namespace Dal.Repository.Interfaces
     {
 		Task<Product> CreateAsync(Product entity);
 
-		Task<Product> FirstOfDefult(Expression<Func<Product, bool>> conditon);
+		Task<Product> FirstOrDefault(Expression<Func<Product, bool>> conditon);
 
 		Task Delete(int id);
 
