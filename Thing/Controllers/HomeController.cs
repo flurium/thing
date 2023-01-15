@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Dal.Models;
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using Thing.Models;
 
-namespace Thing.Controllers
+namespace Dal.Controllers
 {
     public class HomeController : Controller
     {

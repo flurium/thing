@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Dal.Services;
+using Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using Thing.Models;
-using Thing.Services;
 
-namespace Thing.Controllers
+namespace Dal.Controllers
 {
     [Authorize(Roles = Roles.Seller)]
     public class SellerController : Controller

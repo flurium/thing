@@ -1,4 +1,4 @@
-namespace Thing.Models
+namespace Dal.Models
 {
     public class ErrorViewModel
     {
