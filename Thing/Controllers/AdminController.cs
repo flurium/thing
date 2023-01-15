@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Bll.Models;
+using Dal.Models;
+using Dal.Services;
+using Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Thing.Models;
-using Thing.Models.ViewModels;
-using Thing.Services;
 
-namespace Thing.Controllers
+namespace Dal.Controllers
 {
     [Authorize(Roles = Roles.Admin)]
     public class AdminController : Controller
@@ -50,7 +51,7 @@ namespace Thing.Controllers
 
         public async Task<IActionResult> Users(UserViewModel filter)
         {
-            var users = await _banService.FilterUsers(new UserFilterViewModel
+            var users = await _banService.FilterUsers(new UserFilter
             {
                 Email = filter.Email ?? "",
                 Id = filter.Id ?? "",

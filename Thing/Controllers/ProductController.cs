@@ -1,12 +1,12 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Dal.Filters;
+using Dal.Models;
+using Dal.Services;
+using Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using Thing.Models;
-using Thing.Models.ViewModels;
-using Thing.Services;
-using Thing.Filters;
 
-namespace Thing.Controllers
+namespace Dal.Controllers
 {
     [Authorize(Roles = Roles.Seller)]
     [NotBannedFilter]
