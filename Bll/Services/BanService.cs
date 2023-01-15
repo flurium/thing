@@ -1,5 +1,4 @@
 ﻿using Bll.Models;
-using Dal.Repository;
 using Dal.UnitOfWork;
 using Domain.Models;
 using Microsoft.AspNetCore.Identity;
@@ -11,9 +10,6 @@ namespace Dal.Services
 {
     public class BanService
     {
-        //private readonly AnswerRepository _answerRepository;
-        //private readonly ProductRepository _productRepository;
-        //private readonly CommentRepository _commentRepository;
         private readonly IUnitOfWork _unitOfWork;
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;

@@ -1,9 +1,4 @@
 ﻿using Dal.Repository.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Dal.UnitOfWork
 {
@@ -14,8 +9,7 @@ namespace Dal.UnitOfWork
             ICustomPropertyRepository customPropertyRepository, IFavoriteRepository favoriteRepository,
             IOrderRepository orderRepository, IProductImageRepository productImageRepository,
             IProductRepository productRepository, IPropertyValueRepository propertyValueRepository,
-            IRequiredPropertyRepository requiredPropertyRepository, ISellerRepository sellerRepository,
-            IUserRepository userRepository)
+            IRequiredPropertyRepository requiredPropertyRepository, ISellerRepository sellerRepository)
         {
             AnswerRepository = answerRepository;
             CategoryRepository = categoryRepository;
@@ -29,7 +23,6 @@ namespace Dal.UnitOfWork
             RequiredPropertyRepository = requiredPropertyRepository;
             PropertyValueRepository = propertyValueRepository;
             SellerRepository = sellerRepository;
-            UserRepository = userRepository;
         }
 
         public IAnswerRepository AnswerRepository { get; }
@@ -44,6 +37,5 @@ namespace Dal.UnitOfWork
         public IPropertyValueRepository PropertyValueRepository { get; }
         public IRequiredPropertyRepository RequiredPropertyRepository { get; }
         public ISellerRepository SellerRepository { get; }
-        public IUserRepository UserRepository { get; }
     }
 }

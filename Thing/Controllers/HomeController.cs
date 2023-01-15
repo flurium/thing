@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Dal.Models;
+using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using Dal.Models;
 
 namespace Dal.Controllers
 {

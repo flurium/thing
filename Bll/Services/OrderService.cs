@@ -1,8 +1,6 @@
-﻿using System.Linq.Expressions;
-using Dal.Models;
-using Dal.Repository;
-using Dal.UnitOfWork;
+﻿using Dal.UnitOfWork;
 using Domain.Models;
+using System.Linq.Expressions;
 
 namespace Dal.Services
 {
@@ -31,16 +29,6 @@ namespace Dal.Services
         public async Task<IReadOnlyCollection<Order>> FindIncludeProductsAsync(Expression<Func<Order, bool>> conditon)
         {
             return await _unitOfWork.OrderRepository.FindIncludeProductsAsync(conditon);
-        }
-
-        public async Task<IReadOnlyCollection<Order>> FindByConditionAsync(Expression<Func<Order, bool>> conditon)
-        {
-            return await _unitOfWork.OrderRepository.FindByConditionAsync(conditon);
-        }
-
-        public async Task Edit(Order order)
-        {
-            await _unitOfWork.OrderRepository.Edit(order);
         }
 
         public async Task<Order?> Get(string uId, int pId)

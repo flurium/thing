@@ -1,9 +1,9 @@
-﻿using Domain.Models;
+﻿using Dal.Models;
+using Dal.Services;
+using Domain.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
-using Dal.Models;
-using Dal.Services;
 
 namespace Dal.Controllers
 {

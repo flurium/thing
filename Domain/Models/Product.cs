@@ -14,11 +14,11 @@
         public int CategoryId { get; set; }
         public Category Category { get; set; }
 
-        public ICollection<Order> Orders { get; set; }
-        public ICollection<Comment> Comments { get; set; }
-        public ICollection<Favorite> Favorites { get; set; }
-        public ICollection<ProductImage> Images { get; set; }
-        public ICollection<RequiredPropertyValue> RequiredPropertyValues { get; set; }
-        public ICollection<CustomProperty> CustomProperties { get; set; }
+        public IReadOnlyCollection<Order> Orders { get; set; }
+        public IReadOnlyCollection<Comment> Comments { get; set; }
+        public IReadOnlyCollection<Favorite> Favorites { get; set; }
+        public IReadOnlyCollection<ProductImage> Images { get; set; }
+        public IReadOnlyCollection<RequiredPropertyValue> RequiredPropertyValues { get; set; }
+        public IReadOnlyCollection<CustomProperty> CustomProperties { get; set; }
     }
 }

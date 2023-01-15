@@ -1,8 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
-using Dal.Context;
-using Domain.Models;
+﻿using Dal.Context;
 using Dal.Repository.Interfaces;
+using Domain.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Dal.Repository
 {
@@ -17,10 +16,5 @@ namespace Dal.Repository
             var img = await Entities.FirstOrDefaultAsync(x => x.Id == id);
             if (img != null) Entities.Remove(img);
         }
-
-        public async Task<ProductImage> GetImageByProductIdAsync(int Id) => await Entities.FirstOrDefaultAsync(x => x.ProductId == Id);
-
-        public async Task<IReadOnlyCollection<ProductImage>> FindByConditionAsync(Expression<Func<ProductImage, bool>> conditon)
-           => await Entities.Where(conditon).ToListAsync().ConfigureAwait(false);
     }
 }

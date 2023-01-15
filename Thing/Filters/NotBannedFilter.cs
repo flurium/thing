@@ -2,8 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-
-
 namespace Dal.Filters
 {
     public class NotBannedFilter : AuthorizeAttribute, IAuthorizationFilter

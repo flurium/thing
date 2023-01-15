@@ -1,8 +1,6 @@
-﻿using System.Linq.Expressions;
-using Dal.Models;
-using Dal.Repository;
-using Dal.UnitOfWork;
+﻿using Dal.UnitOfWork;
 using Domain.Models;
+using System.Linq.Expressions;
 
 namespace Dal.Services
 {

@@ -1,10 +1,10 @@
-﻿using Domain.Models;
+﻿using Bll.Models;
+using Dal.Models;
+using Dal.Services;
+using Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Dal.Models;
-using Dal.Services;
-using Bll.Models;
 
 namespace Dal.Controllers
 {

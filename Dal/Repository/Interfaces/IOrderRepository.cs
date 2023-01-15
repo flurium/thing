@@ -7,15 +7,12 @@ namespace Dal.Repository.Interfaces
     {
         Task DeleteAsync(string userId, int productId);
 
-		Task Increase(string userId, int productId);
+        Task Increase(string userId, int productId);
 
-		Task<IReadOnlyCollection<Order>> FindIncludeProductsAsync(Expression<Func<Order, bool>> conditon);
+        Task<IReadOnlyCollection<Order>> FindIncludeProductsAsync(Expression<Func<Order, bool>> conditon);
 
-		Task Edit(Order order);
+        Task Edit(Order order);
 
-		Task<Order?> GetByIdAsync(string userId, int productId);
-
-		Task<bool> IsOrderExistsAsync(Order order);
-
-	}
+        Task<Order?> GetByIdAsync(string userId, int productId);
+    }
 }

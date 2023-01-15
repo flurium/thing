@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
-using Dal.Context;
-using Domain.Models;
+﻿using Dal.Context;
 using Dal.Repository.Interfaces;
+using Domain.Models;
+using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace Dal.Repository
 {
@@ -42,7 +42,5 @@ namespace Dal.Repository
                 await Edit(order);
             }
         }
-
-        public async Task<bool> IsOrderExistsAsync(Order order) => await Entities.AnyAsync(o => o.UserId == order.UserId && o.ProductId == order.ProductId).ConfigureAwait(false);
     }
 }

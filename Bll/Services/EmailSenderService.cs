@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity.UI.Services;
+﻿using Dal.Infrastructure;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Options;
 using SendGrid;
 using SendGrid.Helpers.Mail;
-using Dal.Infrastructure;
 
 namespace Dal.Services
 {

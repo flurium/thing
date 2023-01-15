@@ -1,13 +1,9 @@
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.EntityFrameworkCore;
+using Bll.Infrastructure;
 using Dal.Context;
 using Dal.Infrastructure;
-using Dal.Models;
-using Dal.Repository;
-using Dal.Services;
 using Domain.Models;
-using Bll.Infrastructure;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 

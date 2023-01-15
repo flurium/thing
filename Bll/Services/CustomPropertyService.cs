@@ -1,6 +1,4 @@
-﻿using Dal.Models;
-using Dal.Repository;
-using Dal.UnitOfWork;
+﻿using Dal.UnitOfWork;
 using Domain.Models;
 
 namespace Dal.Services

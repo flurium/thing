@@ -19,7 +19,7 @@
         public int ProductId { get; set; }
         public Product Product { get; set; }
 
-        public ICollection<Answer> Answers { get; set; }
-        public ICollection<CommentImage> CommentImages { get; set; }
+        public IReadOnlyCollection<Answer> Answers { get; set; }
+        public IReadOnlyCollection<CommentImage> CommentImages { get; set; }
     }
 }

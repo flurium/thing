@@ -1,9 +1,7 @@
-﻿using System.Linq.Expressions;
-using Bll.Models;
-using Dal.Models;
-using Dal.Repository;
+﻿using Bll.Models;
 using Dal.UnitOfWork;
 using Domain.Models;
+using System.Linq.Expressions;
 
 namespace Dal.Services
 {
@@ -16,11 +14,11 @@ namespace Dal.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<Product> CreateAsync(Product product)
+        public async Task<Product?> CreateAsync(Product product)
         {
             if (product != null)
             {
-                return await _unitOfWork.ProductRepository.CreateAsync(product);
+                return await _unitOfWork.ProductRepository.CreateAndReturnAsync(product);
             }
             return null;
         }
@@ -46,16 +44,6 @@ namespace Dal.Services
             if (filter.SellerName != "") predicates.Add(p => p.Seller.User.UserName.StartsWith(filter.SellerName));
 
             return await _unitOfWork.ProductRepository.FindByConditionsAsync(predicates);
-        }
-
-        public async Task<Product> FirstOfDefult(Expression<Func<Product, bool>> conditon)
-        {
-            return await _unitOfWork.ProductRepository.FirstOrDefault(conditon);
-        }
-
-        public async Task Edit(Product product)
-        {
-            await _unitOfWork.ProductRepository.Edit(product);
         }
     }
 }

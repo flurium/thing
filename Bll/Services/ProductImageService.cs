@@ -1,9 +1,6 @@
-﻿using System.Linq.Expressions;
-using Microsoft.AspNetCore.Hosting;
-using Dal.Models;
-using Dal.Repository;
+﻿using Dal.UnitOfWork;
 using Domain.Models;
-using Dal.UnitOfWork;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Dal.Services
 {
@@ -12,15 +9,11 @@ namespace Dal.Services
         private readonly IUnitOfWork _unitOfWork;
         private readonly IWebHostEnvironment _host;
 
-
         public ProductImageService(IUnitOfWork unitOfWork, IWebHostEnvironment appEnv)
         {
             _unitOfWork = unitOfWork;
             _host = appEnv;
         }
-
-        public async Task<IReadOnlyCollection<ProductImage>> FindByConditionAsync(Expression<Func<ProductImage, bool>> conditon)
-          =>  await _unitOfWork.ProductImageRepository.FindByConditionAsync(conditon);
 
         public async Task<IReadOnlyCollection<ProductImage>> List() => await _unitOfWork.ProductImageRepository.GetAllAsync();
 
@@ -30,11 +23,6 @@ namespace Dal.Services
             {
                 await _unitOfWork.ProductImageRepository.CreateAsync(productImage);
             }
-        }
-
-        public async Task Delete(int id)
-        {
-            await _unitOfWork.ProductImageRepository.Delete(id);
         }
 
         public async Task DeleteFromServer(int ProductId)
@@ -48,14 +36,11 @@ namespace Dal.Services
                     try
                     {
                         System.IO.File.Delete(fullPath);
-
                     }
                     catch (Exception e)
                     {
-
                     }
                 }
-
             }
         }
     }

@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
-using Dal.Context;
-using Domain.Models;
+﻿using Dal.Context;
 using Dal.Repository.Interfaces;
+using Domain.Models;
+using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace Dal.Repository
 {
@@ -12,18 +12,13 @@ namespace Dal.Repository
         {
         }
 
-        public async Task<Product> CreateAsync(Product entity)
+        public async Task<Product> CreateAndReturnAsync(Product entity)
         {
             Product res = new Product();
             await Entities.AddAsync(entity).ConfigureAwait(false);
             res = entity;
             await _db.SaveChangesAsync();
             return res;
-        }
-
-        public async Task<Product> FirstOrDefault(Expression<Func<Product, bool>> conditon)
-        {
-            return Entities.FirstOrDefaultAsync(conditon).Result;
         }
 
         public async Task Delete(int id)
@@ -49,17 +44,6 @@ namespace Dal.Repository
             }
             if (includeSeller) res = res.Include(x => x.Seller.User);
             return await res.ToListAsync().ConfigureAwait(false);
-        }
-
-        public async Task Edit(Product product)
-        {
-            Entities.Update(product);
-            await _db.SaveChangesAsync();
-        }
-
-        public async Task<Product?> GetByIdAsync(int id)
-        {
-            return await Entities.FirstOrDefaultAsync(p => p.Id == id);
         }
 
         public async Task<Product?> FindWithImagesProps(int id)

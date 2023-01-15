@@ -6,12 +6,12 @@ namespace Domain.Models
     {
         public Seller? Seller { get; set; }
 
-        public ICollection<Comment> Comments { get; set; }
+        public IReadOnlyCollection<Comment> Comments { get; set; }
 
-        public ICollection<Favorite> Favorites { get; set; }
+        public IReadOnlyCollection<Favorite> Favorites { get; set; }
 
-        public ICollection<Answer> Answers { get; set; }
+        public IReadOnlyCollection<Answer> Answers { get; set; }
 
-        public ICollection<Order> Orders { get; set; }
+        public IReadOnlyCollection<Order> Orders { get; set; }
     }
 }

@@ -1,6 +1,4 @@
-﻿using Dal.Models;
-using Dal.Repository;
-using Dal.UnitOfWork;
+﻿using Dal.UnitOfWork;
 using Domain.Models;
 
 namespace Dal.Services
@@ -13,13 +11,6 @@ namespace Dal.Services
         {
             _unitOfWork = unitOfWork;
         }
-
-        public virtual async Task AddProductImageAsync(ProductImage productImage)
-        {
-            await _unitOfWork.ProductImageRepository.CreateAsync(productImage);
-        }
-
-        public virtual async Task<IReadOnlyCollection<CommentImage>> GetAllCommentImagesAsync() => await _unitOfWork.CommentImageRepository.GetAllAsync();
 
         public virtual async Task AddCommentImageAsync(CommentImage commentImage)
         {

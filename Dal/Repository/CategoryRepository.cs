@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
-using Dal.Context;
-using Domain.Models;
+﻿using Dal.Context;
 using Dal.Repository.Interfaces;
+using Domain.Models;
+using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace Dal.Repository
 {
@@ -28,7 +28,5 @@ namespace Dal.Repository
             if (category != null) category.Name = name;
             await _db.SaveChangesAsync();
         }
-
-        public async Task<Category> GetByIdAsync(int id) => await Entities.FirstOrDefaultAsync(c => c.Id == id);
     }
 }

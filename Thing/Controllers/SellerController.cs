@@ -1,9 +1,8 @@
-﻿using Domain.Models;
+﻿using Dal.Services;
+using Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using Dal.Models;
-using Dal.Services;
 
 namespace Dal.Controllers
 {

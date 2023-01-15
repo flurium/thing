@@ -1,6 +1,4 @@
-﻿using Dal.Models;
-using Dal.Repository;
-using Dal.UnitOfWork;
+﻿using Dal.UnitOfWork;
 using Domain.Models;
 
 namespace Dal.Services
@@ -15,15 +13,5 @@ namespace Dal.Services
         }
 
         public async Task CreateAsync(Seller entity) => await _unitOfWork.SellerRepository.CreateAsync(entity);
-
-        public async Task Delete(string id)
-        {
-            await _unitOfWork.SellerRepository.Delete(id);
-        }
-
-        public async Task Edit(Seller seller)
-        {
-            await _unitOfWork.SellerRepository.Edit(seller);
-        }
     }
 }

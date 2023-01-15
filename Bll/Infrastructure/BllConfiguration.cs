@@ -23,7 +23,6 @@ namespace Bll.Infrastructure
             services.AddScoped<IPropertyValueRepository, PropertyValueRepository>();
             services.AddScoped<IRequiredPropertyRepository, RequiredPropertyRepository>();
             services.AddScoped<ISellerRepository, SellerRepository>();
-            services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ICustomPropertyRepository, CustomPropertyRepository>();
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();

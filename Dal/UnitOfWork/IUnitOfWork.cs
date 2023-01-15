@@ -1,9 +1,4 @@
 ﻿using Dal.Repository.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Dal.UnitOfWork
 {
@@ -21,6 +16,5 @@ namespace Dal.UnitOfWork
         public IPropertyValueRepository PropertyValueRepository { get; }
         public IRequiredPropertyRepository RequiredPropertyRepository { get; }
         public ISellerRepository SellerRepository { get; }
-        public IUserRepository UserRepository { get; }
     }
 }

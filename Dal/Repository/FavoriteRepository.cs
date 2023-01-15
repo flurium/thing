@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Dal.Context;
-using Domain.Models;
+﻿using Dal.Context;
 using Dal.Repository.Interfaces;
+using Domain.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Dal.Repository
 {
@@ -9,13 +9,6 @@ namespace Dal.Repository
     {
         public FavoriteRepository(ThingDbContext context) : base(context)
         {
-        }
-
-        public async Task Delete(string UserId, int ProductId)
-        {
-            var favorite = await Entities.FirstOrDefaultAsync(o => o.UserId == UserId && o.ProductId == ProductId).ConfigureAwait(false);
-            if (favorite != null) Entities.Remove(favorite);
-            _db.SaveChanges();
         }
 
         public async Task<bool> IsFavoriteExistsAsync(Favorite favorite) => await Entities.AnyAsync(f => f.UserId == favorite.UserId && f.ProductId == favorite.ProductId).ConfigureAwait(false);

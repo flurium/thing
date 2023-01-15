@@ -8,6 +8,6 @@
 
         public User User { get; set; }
 
-        public ICollection<Product> Products { get; set; }
+        public IReadOnlyCollection<Product> Products { get; set; }
     }
 }

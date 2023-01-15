@@ -1,6 +1,4 @@
-﻿using Dal.Models;
-using Dal.Repository;
-using Dal.UnitOfWork;
+﻿using Dal.UnitOfWork;
 using Domain.Models;
 
 namespace Dal.Services
@@ -46,13 +44,6 @@ namespace Dal.Services
         public virtual async Task AddAnswerAsync(Answer answer)
         {
             await _unitOfWork.AnswerRepository.CreateAsync(answer);
-        }
-
-        public virtual async Task<bool> IsOrderExistsAsync(Order Order) => await _unitOfWork.OrderRepository.IsOrderExistsAsync(Order);
-
-        public virtual async Task AddOrderAsync(Order Order)
-        {
-            await _unitOfWork.OrderRepository.CreateAsync(Order);
         }
     }
 }

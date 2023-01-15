@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Linq.Expressions;
-using Dal.Context;
-using Domain.Models;
+﻿using Dal.Context;
 using Dal.Repository.Interfaces;
+using Domain.Models;
+using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace Dal.Repository
 {
@@ -10,13 +10,6 @@ namespace Dal.Repository
     {
         public CommentRepository(ThingDbContext context) : base(context)
         {
-        }
-
-        public async Task Delete(int Id)
-        {
-            var comment = await Entities.FirstOrDefaultAsync(o => o.Id == Id).ConfigureAwait(false);
-            if (comment != null) Entities.Remove(comment);
-            await _db.SaveChangesAsync();
         }
 
         public virtual async Task<IReadOnlyCollection<Comment>> FindWithAnswersImageUserAsync(Expression<Func<Comment, bool>> conditon)

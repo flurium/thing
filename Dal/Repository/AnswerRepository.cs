@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Dal.Context;
-using Domain.Models;
+﻿using Dal.Context;
 using Dal.Repository.Interfaces;
+using Domain.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Dal.Repository
 {
@@ -16,16 +16,6 @@ namespace Dal.Repository
             var answer = await Entities.FirstOrDefaultAsync(o => o.Id == Id).ConfigureAwait(false);
             if (answer != null) Entities.Remove(answer);
             await _db.SaveChangesAsync();
-        }
-
-        public async Task Edit(int Id, string Content)
-        {
-            var answer = await Entities.FirstOrDefaultAsync(o => o.Id == Id).ConfigureAwait(false);
-            if (answer != null)
-            {
-                answer.Content = Content;
-                await _db.SaveChangesAsync();
-            }
         }
     }
 }

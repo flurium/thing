@@ -5,7 +5,7 @@ namespace Domain.Models
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public ICollection<Product> Products { get; set; }
-        public ICollection<RequiredProperty> RequiredProperties { get; set; }
+        public IReadOnlyCollection<Product> Products { get; set; }
+        public IReadOnlyCollection<RequiredProperty> RequiredProperties { get; set; }
     }
 }
