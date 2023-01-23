@@ -1,7 +1,7 @@
-﻿using Dal.UnitOfWork;
+﻿using Thing.UnitOfWork;
 using Domain.Models;
 
-namespace Dal.Services
+namespace Thing.Services
 {
     public class SellerService
     {

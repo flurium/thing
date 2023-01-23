@@ -1,6 +1,6 @@
 ﻿using Domain.Models;
 
-namespace Dal.Repository.Interfaces
+namespace Thing.Repository.Interfaces
 {
     public interface IRequiredPropertyRepository : IRepository<RequiredProperty>
     {

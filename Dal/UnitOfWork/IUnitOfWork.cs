@@ -1,6 +1,6 @@
-﻿using Dal.Repository.Interfaces;
+﻿using Thing.Repository.Interfaces;
 
-namespace Dal.UnitOfWork
+namespace Thing.UnitOfWork
 {
     public interface IUnitOfWork
     {

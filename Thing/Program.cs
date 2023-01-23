@@ -1,6 +1,6 @@
 using Bll.Infrastructure;
-using Dal.Context;
-using Dal.Infrastructure;
+using Thing.Context;
+using Thing.Infrastructure;
 using Domain.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

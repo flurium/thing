@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace Dal.Repository.Interfaces
+namespace Thing.Repository.Interfaces
 {
     public interface IRepository<TEntity>
     {

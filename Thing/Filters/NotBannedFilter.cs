@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace Dal.Filters
+namespace Thing.Filters
 {
     public class NotBannedFilter : AuthorizeAttribute, IAuthorizationFilter
     {

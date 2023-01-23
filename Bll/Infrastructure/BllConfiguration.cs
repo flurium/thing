@@ -1,7 +1,7 @@
-﻿using Dal.Repository;
-using Dal.Repository.Interfaces;
-using Dal.Services;
-using Dal.UnitOfWork;
+﻿using Thing.Repository;
+using Thing.Repository.Interfaces;
+using Thing.Services;
+using Thing.UnitOfWork;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.DependencyInjection;
 

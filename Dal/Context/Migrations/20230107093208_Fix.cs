@@ -3,7 +3,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace Dal.Migrations
+namespace Thing.Migrations
 {
     public partial class Fix : Migration
     {

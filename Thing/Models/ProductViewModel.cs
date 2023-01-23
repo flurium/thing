@@ -1,6 +1,6 @@
 ﻿using Domain.Models;
 
-namespace Dal.Models
+namespace Thing.Models
 {
     public class ProductViewModel
     {

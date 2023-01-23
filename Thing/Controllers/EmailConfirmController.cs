@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Dal.Controllers
+namespace Thing.Controllers
 {
     public class EmailConfirmController : Controller
     {

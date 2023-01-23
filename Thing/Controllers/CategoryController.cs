@@ -1,9 +1,9 @@
-﻿using Dal.Services;
+﻿using Thing.Services;
 using Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Dal.Controllers
+namespace Thing.Controllers
 {
     // add only admins filter
     [Authorize(Roles = Roles.Admin)]

@@ -1,10 +1,10 @@
-﻿using Dal.Context;
-using Dal.Repository.Interfaces;
+﻿using Thing.Context;
+using Thing.Repository.Interfaces;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace Dal.Repository
+namespace Thing.Repository
 {
     public class CategoryRepository : BaseRepository<Category>, ICategoryRepository
     {

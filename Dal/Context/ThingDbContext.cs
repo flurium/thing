@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace Dal.Context
+namespace Thing.Context
 {
     public class ThingDbContext : IdentityDbContext<User>
     {
