@@ -1,9 +1,9 @@
-﻿using Dal.Context;
-using Dal.Repository.Interfaces;
+﻿using Thing.Context;
+using Thing.Repository.Interfaces;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Dal.Repository
+namespace Thing.Repository
 {
     public class FavoriteRepository : BaseRepository<Favorite>, IFavoriteRepository
     {

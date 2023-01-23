@@ -1,4 +1,4 @@
-﻿namespace Dal.Models.ViewModels
+﻿namespace Thing.Models.ViewModels
 {
     public class RequiredPropertyViewModel
     {

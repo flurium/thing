@@ -1,8 +1,8 @@
-﻿using Dal.Context;
+﻿using Thing.Context;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace Dal.Repository.Interfaces
+namespace Thing.Repository.Interfaces
 {
     public abstract class BaseRepository<TEntity> : IRepository<TEntity> where TEntity : class
     {

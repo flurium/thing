@@ -1,10 +1,10 @@
-﻿using Dal.Infrastructure;
+﻿using Thing.Infrastructure;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Extensions.Options;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 
-namespace Dal.Services
+namespace Thing.Services
 {
     public class EmailSenderService : IEmailSender
     {

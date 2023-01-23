@@ -1,10 +1,10 @@
-﻿using Dal.Services;
+﻿using Thing.Services;
 using Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
-namespace Dal.Controllers
+namespace Thing.Controllers
 {
     public class CatalogController : Controller
     {

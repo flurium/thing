@@ -1,9 +1,9 @@
 ﻿using Bll.Models;
-using Dal.UnitOfWork;
+using Thing.UnitOfWork;
 using Domain.Models;
 using System.Linq.Expressions;
 
-namespace Dal.Services
+namespace Thing.Services
 {
     public class ProductService
     {

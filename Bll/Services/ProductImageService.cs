@@ -1,8 +1,8 @@
-﻿using Dal.UnitOfWork;
+﻿using Thing.UnitOfWork;
 using Domain.Models;
 using Microsoft.AspNetCore.Hosting;
 
-namespace Dal.Services
+namespace Thing.Services
 {
     public class ProductImageService
     {

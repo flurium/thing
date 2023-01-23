@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using Dal.Context;
+using Thing.Context;
 
 #nullable disable
 
-namespace Dal.Migrations
+namespace Thing.Migrations
 {
     [DbContext(typeof(ThingDbContext))]
     partial class ThingDbContextModelSnapshot : ModelSnapshot

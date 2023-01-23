@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace Dal.Migrations
+namespace Thing.Migrations
 {
     public partial class RemoveTypes : Migration
     {

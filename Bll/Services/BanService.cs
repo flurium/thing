@@ -1,12 +1,12 @@
 ﻿using Bll.Models;
-using Dal.UnitOfWork;
+using Thing.UnitOfWork;
 using Domain.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace Dal.Services
+namespace Thing.Services
 {
     public class BanService
     {

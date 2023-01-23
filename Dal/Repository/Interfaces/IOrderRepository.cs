@@ -1,7 +1,7 @@
 ﻿using Domain.Models;
 using System.Linq.Expressions;
 
-namespace Dal.Repository.Interfaces
+namespace Thing.Repository.Interfaces
 {
     public interface IOrderRepository : IRepository<Order>
     {

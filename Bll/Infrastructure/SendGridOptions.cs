@@ -1,4 +1,4 @@
-﻿namespace Dal.Infrastructure
+﻿namespace Thing.Infrastructure
 {
     public class SendGridOptions
     {
