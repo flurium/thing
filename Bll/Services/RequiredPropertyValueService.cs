@@ -1,23 +1,23 @@
-﻿using Thing.UnitOfWork;
+﻿using Dal.UnitOfWork;
 using Domain.Models;
 
-namespace Thing.Services
+namespace Bll.Services
 {
-    public class RequiredPropertyValueService
+  public class RequiredPropertyValueService
+  {
+    private readonly IUnitOfWork _unitOfWork;
+
+    public RequiredPropertyValueService(IUnitOfWork unitOfWork)
     {
-        private readonly IUnitOfWork _unitOfWork;
-
-        public RequiredPropertyValueService(IUnitOfWork unitOfWork)
-        {
-            _unitOfWork = unitOfWork;
-        }
-
-        public async Task CreateAsync(RequiredPropertyValue property)
-        {
-            if (property != null)
-            {
-                await _unitOfWork.PropertyValueRepository.CreateAsync(property);
-            }
-        }
+      _unitOfWork = unitOfWork;
     }
+
+    public async Task CreateAsync(RequiredPropertyValue property)
+    {
+      if (property != null)
+      {
+        await _unitOfWork.PropertyValueRepository.CreateAsync(property);
+      }
+    }
+  }
 }

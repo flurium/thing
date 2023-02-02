@@ -1,13 +1,13 @@
 ﻿using System.Linq.Expressions;
 
-namespace Thing.Repository.Interfaces
+namespace Dal.Repository.Interfaces
 {
-    public interface IRepository<TEntity>
-    {
-        Task<IReadOnlyCollection<TEntity>> GetAllAsync();
+  public interface IRepository<TEntity>
+  {
+    Task<IReadOnlyCollection<TEntity>> GetAllAsync();
 
-        Task<IReadOnlyCollection<TEntity>> FindByConditionAsync(Expression<Func<TEntity, bool>> conditon);
+    Task<IReadOnlyCollection<TEntity>> FindByConditionAsync(Expression<Func<TEntity, bool>> conditon);
 
-        Task CreateAsync(TEntity entity);
-    }
+    Task CreateAsync(TEntity entity);
+  }
 }

@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using Thing.Context;
+using Dal.Context;
 
 #nullable disable
 
-namespace Thing.Migrations
+namespace Dal.Migrations
 {
     [DbContext(typeof(ThingDbContext))]
     [Migration("20230108084031_OptionalProsAndCons")]

@@ -1,9 +1,9 @@
 ﻿using Domain.Models;
 
-namespace Thing.Repository.Interfaces
+namespace Dal.Repository.Interfaces
 {
-    public interface IFavoriteRepository : IRepository<Favorite>
-    {
-        Task<bool> IsFavoriteExistsAsync(Favorite favorite);
-    }
+  public interface IFavoriteRepository : IRepository<Favorite>
+  {
+    Task<bool> IsFavoriteExistsAsync(Favorite favorite);
+  }
 }

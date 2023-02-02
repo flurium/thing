@@ -1,13 +1,13 @@
 ﻿using Domain.Models;
 
-namespace Thing.Repository.Interfaces
+namespace Dal.Repository.Interfaces
 {
-    public interface ISellerRepository : IRepository<Seller>
-    {
-        public Task Edit(string id, bool isBanned);
+  public interface ISellerRepository : IRepository<Seller>
+  {
+    public Task Edit(string id, bool isBanned);
 
-        public Task Edit(Seller seller);
+    public Task Edit(Seller seller);
 
-        public Task Delete(string id);
-    }
+    public Task Delete(string id);
+  }
 }

@@ -1,13 +1,13 @@
 ﻿using Domain.Models;
 
-namespace Thing.Repository.Interfaces
+namespace Dal.Repository.Interfaces
 {
-    public interface IRequiredPropertyRepository : IRepository<RequiredProperty>
-    {
-        Task<RequiredProperty?> CreateAndReturnAsync(RequiredProperty entity);
+  public interface IRequiredPropertyRepository : IRepository<RequiredProperty>
+  {
+    Task<RequiredProperty?> CreateAndReturnAsync(RequiredProperty entity);
 
-        Task Update(int id, string name);
+    Task Update(int id, string name);
 
-        Task Delete(int id);
-    }
+    Task Delete(int id);
+  }
 }

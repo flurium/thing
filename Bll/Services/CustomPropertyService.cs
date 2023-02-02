@@ -1,23 +1,23 @@
-﻿using Thing.UnitOfWork;
+﻿using Dal.UnitOfWork;
 using Domain.Models;
 
-namespace Thing.Services
+namespace Bll.Services
 {
-    public class CustomPropertyService
+  public class CustomPropertyService
+  {
+    private readonly IUnitOfWork _unitOfWork;
+
+    public CustomPropertyService(IUnitOfWork unitOfWork)
     {
-        private readonly IUnitOfWork _unitOfWork;
-
-        public CustomPropertyService(IUnitOfWork unitOfWork)
-        {
-            _unitOfWork = unitOfWork;
-        }
-
-        public async Task CreateAsync(CustomProperty property)
-        {
-            if (property != null)
-            {
-                await _unitOfWork.CustomPropertyRepository.CreateAsync(property);
-            }
-        }
+      _unitOfWork = unitOfWork;
     }
+
+    public async Task CreateAsync(CustomProperty property)
+    {
+      if (property != null)
+      {
+        await _unitOfWork.CustomPropertyRepository.CreateAsync(property);
+      }
+    }
+  }
 }

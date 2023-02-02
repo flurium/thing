@@ -1,21 +1,21 @@
-﻿using Thing.Context;
-using Thing.Repository.Interfaces;
+﻿using Dal.Context;
+using Dal.Repository.Interfaces;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Thing.Repository
+namespace Dal.Repository
 {
-    public class AnswerRepository : BaseRepository<Answer>, IAnswerRepository
+  public class AnswerRepository : BaseRepository<Answer>, IAnswerRepository
+  {
+    public AnswerRepository(ThingDbContext context) : base(context)
     {
-        public AnswerRepository(ThingDbContext context) : base(context)
-        {
-        }
-
-        public async Task Delete(int Id)
-        {
-            var answer = await Entities.FirstOrDefaultAsync(o => o.Id == Id).ConfigureAwait(false);
-            if (answer != null) Entities.Remove(answer);
-            await _db.SaveChangesAsync();
-        }
     }
+
+    public async Task Delete(int Id)
+    {
+      var answer = await Entities.FirstOrDefaultAsync(o => o.Id == Id).ConfigureAwait(false);
+      if (answer != null) Entities.Remove(answer);
+      await _db.SaveChangesAsync();
+    }
+  }
 }

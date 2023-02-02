@@ -1,9 +1,9 @@
 ﻿using Domain.Models;
 
-namespace Thing.Repository.Interfaces
+namespace Dal.Repository.Interfaces
 {
-    public interface IProductImageRepository : IRepository<ProductImage>
-    {
-        Task Delete(int id);
-    }
+  public interface IProductImageRepository : IRepository<ProductImage>
+  {
+    Task Delete(int id);
+  }
 }

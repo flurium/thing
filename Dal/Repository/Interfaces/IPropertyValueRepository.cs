@@ -1,9 +1,9 @@
 ﻿using Domain.Models;
 
-namespace Thing.Repository.Interfaces
+namespace Dal.Repository.Interfaces
 {
-    public interface IPropertyValueRepository : IRepository<RequiredPropertyValue>
-    {
-        Task Delete(int Id);
-    }
+  public interface IPropertyValueRepository : IRepository<RequiredPropertyValue>
+  {
+    Task Delete(int Id);
+  }
 }

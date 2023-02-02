@@ -1,14 +1,14 @@
 ﻿using Domain.Models;
 using System.Linq.Expressions;
 
-namespace Thing.Repository.Interfaces
+namespace Dal.Repository.Interfaces
 {
-    public interface ICategoryRepository : IRepository<Category>
-    {
-        Task Delete(int Id);
+  public interface ICategoryRepository : IRepository<Category>
+  {
+    Task Delete(int Id);
 
-        Task Update(int id, string name);
+    Task Update(int id, string name);
 
-        Task<IReadOnlyCollection<Category>> FindByConditionWithPropertiesAsync(Expression<Func<Category, bool>> conditon);
-    }
+    Task<IReadOnlyCollection<Category>> FindByConditionWithPropertiesAsync(Expression<Func<Category, bool>> conditon);
+  }
 }

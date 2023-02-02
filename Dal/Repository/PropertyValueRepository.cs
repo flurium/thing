@@ -1,20 +1,20 @@
-﻿using Thing.Context;
-using Thing.Repository.Interfaces;
+﻿using Dal.Context;
+using Dal.Repository.Interfaces;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Thing.Repository
+namespace Dal.Repository
 {
-    public class PropertyValueRepository : BaseRepository<RequiredPropertyValue>, IPropertyValueRepository
+  public class PropertyValueRepository : BaseRepository<RequiredPropertyValue>, IPropertyValueRepository
+  {
+    public PropertyValueRepository(ThingDbContext context) : base(context)
     {
-        public PropertyValueRepository(ThingDbContext context) : base(context)
-        {
-        }
-
-        public async Task Delete(int id)
-        {
-            var propertyValue = await Entities.FirstOrDefaultAsync(x => x.Id == id);
-            if (propertyValue != null) Entities.Remove(propertyValue);
-        }
     }
+
+    public async Task Delete(int id)
+    {
+      var propertyValue = await Entities.FirstOrDefaultAsync(x => x.Id == id);
+      if (propertyValue != null) Entities.Remove(propertyValue);
+    }
+  }
 }
