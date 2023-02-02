@@ -4,11 +4,11 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Thing.Filters
 {
-    public class NotBannedFilter : AuthorizeAttribute, IAuthorizationFilter
+  public class NotBannedFilter : AuthorizeAttribute, IAuthorizationFilter
+  {
+    public void OnAuthorization(AuthorizationFilterContext context)
     {
-        public void OnAuthorization(AuthorizationFilterContext context)
-        {
-            if (context.HttpContext.User.IsInRole(Domain.Models.Roles.Banned)) context.Result = new ViewResult { ViewName = "Banned" };
-        }
+      if (context.HttpContext.User.IsInRole(Domain.Models.Roles.Banned)) context.Result = new ViewResult { ViewName = "Banned" };
     }
+  }
 }

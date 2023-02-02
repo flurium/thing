@@ -1,10 +1,10 @@
-﻿using Thing.Filters;
-using Thing.Models;
+﻿using Bll.Services;
 using Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using Bll.Services;
+using Thing.Filters;
+using Thing.Models;
 
 namespace Thing.Controllers
 {

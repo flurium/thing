@@ -1,9 +1,9 @@
-﻿using Thing.Models;
+﻿using Bll.Services;
 using Domain.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
-using Bll.Services;
+using Thing.Models;
 
 namespace Thing.Controllers
 {

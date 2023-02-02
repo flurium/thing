@@ -1,10 +1,10 @@
-﻿using Thing.Models;
+﻿using Bll.Models;
+using Bll.Services;
 using Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Bll.Services;
-using Bll.Models;
+using Thing.Models;
 
 namespace Thing.Controllers
 {
