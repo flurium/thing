@@ -2,9 +2,13 @@
 
 ## Sales platform: Thing
 
+Date: Dec 28, 2022 - Jan 23, 2023
+
+GitHub repo: [flurium/thing](https://github.com/flurium/thing)
+
 Website: [thing-wtcg.onrender.com](https://thing-wtcg.onrender.com)
 
-Used technologies:
+### Technologies:
 - ASP.NET Core MVC
 - PostgreSQL
 - Bootstrap
@@ -12,7 +16,7 @@ Used technologies:
 - Identity Framework
 - Docker
 
-Infrastructure: 
+### Infrastructure: 
 - Render for deployment
 - Supabase for database
 - SendGrid for sending emails
